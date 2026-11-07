@@ -1,6 +1,6 @@
 # Clase 1 – Materia, medición y densidad
 
-Guía para el docente · Ciencias Naturales – Química, 1.er año · Ing. Agr. Silvina Carla Prieto e Ing. Diego Hugo Barrera
+Guía para el docente · Ciencias Naturales – Química, 1.er año · Ing. Agr. Silvina Carla Prieto
 
 ## Resumen
 

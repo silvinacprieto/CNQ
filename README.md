@@ -35,6 +35,6 @@ Cada clase nueva se agrega como una carpeta `clases/NN-nombre-corto/` con la mis
 
 Descargar el repositorio (*Code → Download ZIP*), descomprimirlo y abrir `index.html` con el navegador. Sin conexión, las páginas funcionan igual; solo cambia la tipografía.
 
-## Autores
+## Autora
 
-Ing. Agr. Silvina Carla Prieto · Ing. Diego Hugo Barrera
+Ing. Agr. Silvina Carla Prieto
