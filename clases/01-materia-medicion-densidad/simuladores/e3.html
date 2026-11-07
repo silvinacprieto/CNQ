@@ -20,6 +20,10 @@
 .etapa li.a { font-weight: 600; }
 .etapa li.a::before { content: "▶ "; }
 .etapa .cuenta { font-family: var(--font-mono); font-weight: 400; }
+.etapa li.eq .renglones { font-family: var(--font-mono); font-size: 18px; display: grid; gap: 4px; padding: 8px 14px; background: var(--bg); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; width: fit-content; }
+.etapa li.esq .esquema { max-width: 460px; background: #fafaf7; border: 1px dashed var(--line); border-radius: 8px; padding: 6px; }
+.etapa li.esq svg { display: block; width: 100%; height: auto; }
+.etapa li.esq svg text { font-family: var(--font-mono); }
 .e1 .cab { background: #1f6fa8; } .e2 .cab { background: #217a4b; } .e3 .cab { background: #a65a1c; } .e4 .cab { background: #6a2fb5; }
 .franjas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; font-size: 13px; text-align: center; }
 .franjas div { padding: 6px 4px; border-radius: 6px; color: #fff; }
@@ -437,7 +441,9 @@ function calcularSuelo() {
 calcularSuelo();
 
 /* ---------- 6 · Problemas con la Guía para resolver problemas ---------- */
-// Los números de cada grupo están elegidos para que los resultados sean verificables.
+// Criterios de la docente: el despeje se escribe renglón por renglón, uno abajo del otro;
+// primero se opera con las ecuaciones y recién al final se reemplazan los datos.
+// Cada problema lleva un esquema con los datos, como se pide en clase.
 const G = {
   bulon: [39.35, 47.22, 55.09, 62.96, 70.83, 78.70],   // g de hierro → 5 a 10 cm³
   piedraSube: [18, 20, 22, 24, 26, 30],                // mL que sube el agua
@@ -449,72 +455,168 @@ const G = {
 let grupo = 1;
 grupoChips($("#chipsGrupo"), [1, 2, 3, 4, 5, 6].map(g => ({ texto: `Grupo ${g}`, valor: g })), grupo, v => { grupo = v; armarProblemas(); });
 const P = t => ({ t: "p", x: t }), A = t => ({ t: "a", x: t });
+const EQ = (...renglones) => ({ t: "eq", x: renglones });      // despeje: un renglón debajo del otro
+const ESQ = svg => ({ t: "esq", x: svg });
+
+/* Esquemas (dibujos simples con los datos del problema) */
+const T = (x, y, txt, op = "") => `<text x="${x}" y="${y}" font-size="14" fill="#1d2320" ${op}>${txt}</text>`;
+const TI = (x, y, txt) => T(x, y, txt, 'fill="#c0392b" font-weight="600"');
+function esqProbetas(vi, vf, objeto, masaTxt, incog) {
+  const vaso = (x, nivel, conObj) => {
+    const top = 30, bot = 190, w = 54, y = bot - (bot - top) * nivel / 100;
+    let s = `<rect x="${x}" y="${y}" width="${w}" height="${bot - y}" fill="#6fb7e0" opacity=".75"/>`;
+    if (conObj) s += objeto === "piedra"
+      ? `<path d="M${x + 12} ${bot - 4} q4 -22 18 -20 q16 0 14 20 z" fill="#9a8f86" stroke="#333"/>`
+      : objeto === "bulon"
+      ? `<rect x="${x + 20}" y="${bot - 46}" width="14" height="42" fill="#6f7478" stroke="#333"/><rect x="${x + 14}" y="${bot - 52}" width="26" height="8" fill="#6f7478" stroke="#333"/>`
+      : `<rect x="${x + 14}" y="${bot - 30}" width="26" height="26" fill="#a3aab0" stroke="#333"/>`;
+    s += `<path d="M${x} ${top - 6} V${bot} H${x + w} V${top - 6}" fill="none" stroke="#555" stroke-width="2.5"/>`;
+    s += `<line x1="${x + w}" x2="${x + w + 12}" y1="${y}" y2="${y}" stroke="#c98a12" stroke-dasharray="3 2"/>`;
+    return s;
+  };
+  let s = vaso(50, vi, false) + vaso(270, vf, true);
+  s += T(20, 214, `V<tspan font-size="10" dy="3">inicial</tspan><tspan dy="-3"> = ${fmtLibre(vi, 1)} mL</tspan>`);
+  s += T(240, 214, `V<tspan font-size="10" dy="3">final</tspan><tspan dy="-3"> = ${fmtLibre(vf, 1)} mL</tspan>`);
+  s += `<path d="M135 110 h110" stroke="#555" stroke-width="2" marker-end="url(#fle)"/>`;
+  s += T(240, 238, masaTxt) + TI(20, 238, incog);
+  return `<svg viewBox="0 0 420 250" role="img" aria-label="Esquema del problema"><defs><marker id="fle" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#555"/></marker></defs>${s}</svg>`;
+}
+function esqBulon(m) {
+  let s = `<rect x="70" y="40" width="40" height="130" fill="#6f7478" stroke="#333" stroke-width="1.5"/>`;
+  for (let y = 70; y < 170; y += 10) s += `<line x1="70" x2="110" y1="${y}" y2="${y + 6}" stroke="#4a4f53"/>`;
+  s += `<polygon points="50,20 130,20 140,40 40,40" fill="#6f7478" stroke="#333" stroke-width="1.5"/>`;
+  s += T(170, 70, `m = ${fmt(m, 2)} g`) + T(170, 100, "d = 7,87 g/cm³") + TI(170, 130, "V = ?");
+  return `<svg viewBox="0 0 420 190" role="img" aria-label="Esquema del bulón">${s}</svg>`;
+}
+function esqTanque(L) {
+  let s = `<rect x="40" y="50" width="200" height="110" rx="40" fill="#6fb7e0" opacity=".8" stroke="#333" stroke-width="2"/>`;
+  s += `<rect x="120" y="36" width="40" height="16" fill="#ddd" stroke="#333"/>`;
+  s += `<circle cx="80" cy="175" r="14" fill="#555"/><circle cx="200" cy="175" r="14" fill="#555"/>`;
+  s += T(260, 70, `V = ${L.toLocaleString("es-AR")} L`) + T(260, 98, "d agua = 1 g/mL") + T(260, 126, "d gasoil = 0,84 g/mL") + TI(260, 154, "m = ? (kg)");
+  return `<svg viewBox="0 0 440 200" role="img" aria-label="Esquema del tanque">${s}</svg>`;
+}
+function esqCubo(a) {
+  const L = 110, x0 = 50, y0 = 60, dx = 45, dy = -32;
+  let s = `<polygon points="${x0},${y0} ${x0 + dx},${y0 + dy} ${x0 + L + dx},${y0 + dy} ${x0 + L},${y0}" fill="#d3d9dd" stroke="#333" stroke-width="1.5"/>`;
+  s += `<polygon points="${x0 + L},${y0} ${x0 + L + dx},${y0 + dy} ${x0 + L + dx},${y0 + L + dy} ${x0 + L},${y0 + L}" fill="#a9b2b8" stroke="#333" stroke-width="1.5"/>`;
+  s += `<rect x="${x0}" y="${y0}" width="${L}" height="${L}" fill="#b8c0c6" stroke="#333" stroke-width="1.5"/>`;
+  s += T(x0 + L / 2 - 30, y0 + L + 22, `a = ${fmtLibre(a, 1)} cm`);
+  s += T(250, 70, `a = ${fmtLibre(a, 1)} cm`) + T(250, 98, "d = 2,70 g/cm³") + TI(250, 126, "m = ?");
+  return `<svg viewBox="0 0 430 200" role="img" aria-label="Esquema del cubo">${s}</svg>`;
+}
+function esqSuelo(m) {
+  const cx = 100, y0 = 40, D = 110, H = 110, e = 18;
+  let s = `<path d="M${cx - D / 2} ${y0} V${y0 + H} A${D / 2} ${e} 0 0 0 ${cx + D / 2} ${y0 + H} V${y0}" fill="#8b6b4a" stroke="#333" stroke-width="1.5"/>`;
+  s += `<ellipse cx="${cx}" cy="${y0}" rx="${D / 2}" ry="${e}" fill="#a07e5a" stroke="#333" stroke-width="1.5"/>`;
+  s += `<line x1="${cx - D / 2}" x2="${cx + D / 2}" y1="${y0}" y2="${y0}" stroke="#fff" stroke-width="2"/>`;
+  s += T(cx - 34, y0 - e - 6, "D = 5 cm") + T(cx + D / 2 + 8, y0 + H / 2, "h = 5 cm");
+  s += T(250, 70, `m = ${m} g`) + T(250, 98, "D = 5 cm · h = 5 cm") + TI(250, 126, "d ap = ?");
+  return `<svg viewBox="0 0 460 190" role="img" aria-label="Esquema del cilindro de suelo">${s}</svg>`;
+}
+function esqCorona(vr) {
+  let s = `<rect x="40" y="40" width="130" height="120" fill="#6fb7e0" opacity=".75"/>`;
+  s += `<path d="M75 150 L75 120 L90 135 L105 110 L120 135 L135 120 L135 150 Z" fill="#e6cd7a" stroke="#8a6d16" stroke-width="1.5"/>`;
+  s += `<path d="M40 34 V160 H170 V34" fill="none" stroke="#555" stroke-width="2.5"/><path d="M170 38 q12 4 12 34" fill="none" stroke="#6fb7e0" stroke-width="4"/>`;
+  s += `<rect x="172" y="110" width="26" height="60" fill="none" stroke="#555" stroke-width="2"/><rect x="172" y="135" width="26" height="35" fill="#6fb7e0" opacity=".75"/>`;
+  s += T(220, 70, "m = 1000 g") + T(220, 98, `V derramado = ${fmt(vr, 1)} mL`) + T(220, 126, "d oro = 19,3 g/mL") + TI(220, 154, "d corona = ?");
+  return `<svg viewBox="0 0 460 185" role="img" aria-label="Esquema de la corona">${s}</svg>`;
+}
+
 function armarProblemas() {
   const i = grupo - 1, lista = [];
   lista.push({ t: "Ejemplo resuelto: el objeto de zinc (igual para todos)",
     e: "Un objeto de zinc tiene una masa de 68,60 g. Al sumergirlo en una probeta, el agua sube de 35,5 mL a 45,0 mL. ¿Cuál es su densidad?",
     pasos: [
       [P("¿Qué me pide el problema? La densidad del objeto."), A("Busco: d (en g/mL)")],
-      [P("¿Qué datos me da? ¿Tengo todos? Falta el volumen: es un dato intermedio."), A("m = 68,60 g · V<sub>inicial</sub> = 35,5 mL · V<sub>final</sub> = 45,0 mL")],
-      [P("¿Qué relación hay? d = m / V. Primero calculo el volumen desplazado."), A("Dato intermedio: V = V<sub>final</sub> − V<sub>inicial</sub> = 45,0 mL − 35,5 mL = 9,5 mL"), P("¿Hay que despejar? No: d ya está sola. ¿Convertir unidades? No."), A("d = m / V = 68,60 g / 9,5 mL = 7,22 g/mL")],
+      [A("Hago un esquema con los datos."), ESQ(esqProbetas(35.5, 45, "zinc", "m = 68,60 g", "d = ?")),
+       P("¿Tengo todos los datos? Falta el volumen: es un dato intermedio."), A("m = 68,60 g · V<sub>inicial</sub> = 35,5 mL · V<sub>final</sub> = 45,0 mL")],
+      [P("¿Qué relación hay? d = m / V, y el volumen es el desplazado."), A("Calculo el dato intermedio y lo agrego a los datos:"),
+       EQ("V = V<sub>final</sub> − V<sub>inicial</sub>", "V = 45,0 mL − 35,5 mL", "V = 9,5 mL"),
+       P("¿Hay que despejar? No: d ya está sola. ¿Convertir unidades? No."), A("Reemplazo los datos y opero con números y unidades:"),
+       EQ("d = m / V", "d = 68,60 g / 9,5 mL", "d = 7,22 g/mL")],
       [P("¿La unidad tiene sentido? g/mL es una densidad. ¿Es razonable? Es mayor que la del agua: el zinc se hunde."), A("Respuesta: la densidad del objeto es 7,22 g/mL (el zinc tiene 7,14 g/mL).")]
     ] });
   { const m = G.bulon[i], V = m / MATERIALES.hierro.d;
     lista.push({ t: "1. El bulón", e: `Un bulón de hierro tiene una masa de ${fmt(m, 2)} g. ¿Qué volumen ocupa? Densidad del hierro: 7,87 g/cm³.`,
       pasos: [
         [P("¿Qué me pide? El volumen del bulón."), A("Busco: V (en cm³)")],
-        [P("¿Qué datos me da? ¿Están en unidades que combinan? Sí: g y g/cm³."), A(`m = ${fmt(m, 2)} g · d = 7,87 g/cm³`)],
-        [P("¿Qué relación hay? d = m / V."), A("Despejo V: d · V = m → V = m / d"), A(`V = ${fmt(m, 2)} g / 7,87 g/cm³ = ${fmt(V, 2)} cm³ (g se cancela con g y queda cm³)`)],
-        [P("¿Es razonable? Un bulón es chico: unos pocos cm³ tiene sentido."), A(`Respuesta: el bulón ocupa ${fmt(V, 2)} cm³. En la probeta, el agua subiría ${fmt(V, 0)} mL.`)]
+        [A("Hago un esquema con los datos."), ESQ(esqBulon(m)),
+         P("¿Las unidades combinan? Sí: g y g/cm³."), A(`m = ${fmt(m, 2)} g · d = 7,87 g/cm³`)],
+        [P("¿Qué relación hay? d = m / V. Busco V: tengo que despejarla."), A("Despejo, un renglón debajo del otro:"),
+         EQ("d = m / V", "d · V = m", "V = m / d"),
+         A("Recién ahora reemplazo los datos:"),
+         EQ(`V = ${fmt(m, 2)} g / 7,87 g/cm³`, `V = ${fmt(V, 2)} cm³`)],
+        [P("¿La unidad tiene sentido? g se cancela con g y queda cm³: es un volumen. ¿Es razonable? Un bulón es chico."), A(`Respuesta: el bulón ocupa ${fmt(V, 2)} cm³. En la probeta, el agua subiría ${fmt(V, 0)} mL.`)]
       ] }); }
   { const dV = G.piedraSube[i], m = Math.round(2.70 * dV * 10) / 10, d = m / dV;
     lista.push({ t: "2. La piedra", e: `En una probeta con 50 mL de agua se sumerge una piedra de ${fmt(m, 1)} g. El agua sube hasta ${50 + dV} mL. ¿Cuál es la densidad de la piedra? ¿Flota en agua?`,
       pasos: [
         [P("¿Qué me pide? La densidad de la piedra y si flota."), A("Busco: d (en g/mL)")],
-        [P("¿Tengo todos los datos? Falta el volumen: es un dato intermedio."), A(`m = ${fmt(m, 1)} g · V<sub>inicial</sub> = 50 mL · V<sub>final</sub> = ${50 + dV} mL`)],
-        [A(`Dato intermedio: V = ${50 + dV} mL − 50 mL = ${dV} mL`), P("¿Hay que despejar? No: d ya está sola."), A(`d = m / V = ${fmt(m, 1)} g / ${dV} mL = ${fmt(d, 2)} g/mL`)],
+        [A("Hago un esquema con los datos."), ESQ(esqProbetas(50, 50 + dV, "piedra", `m = ${fmt(m, 1)} g`, "d = ?")),
+         P("¿Tengo todos los datos? Falta el volumen: es un dato intermedio."), A(`m = ${fmt(m, 1)} g · V<sub>inicial</sub> = 50 mL · V<sub>final</sub> = ${50 + dV} mL`)],
+        [A("Calculo el dato intermedio y lo agrego a los datos:"),
+         EQ("V = V<sub>final</sub> − V<sub>inicial</sub>", `V = ${50 + dV} mL − 50 mL`, `V = ${dV} mL`),
+         P("¿Hay que despejar? No: d ya está sola."), A("Reemplazo los datos:"),
+         EQ("d = m / V", `d = ${fmt(m, 1)} g / ${dV} mL`, `d = ${fmt(d, 2)} g/mL`)],
         [P(`¿Es razonable? ${fmt(d, 2)} g/mL es mayor que 1 g/mL del agua: se hunde, como cualquier piedra.`), A(`Respuesta: d = ${fmt(d, 2)} g/mL; la piedra se hunde. Coincide con la densidad del granito.`)]
       ] }); }
   { const L = G.tanque[i], mL = L * 1000;
     lista.push({ t: "3. El tanque", e: `Un tanque tiene ${L.toLocaleString("es-AR")} L de agua (d = 1 g/mL). ¿Qué masa de agua carga, en kg? ¿Y si se llena con gasoil (d = 0,84 g/mL)?`,
       pasos: [
         [P("¿Qué me pide? La masa del agua y la del gasoil, en kg."), A("Busco: m (en kg)")],
-        [P("¿Las unidades combinan? No: el volumen está en L y la densidad en g/mL. Hay que convertir."), A(`V = ${L.toLocaleString("es-AR")} L · d<sub>agua</sub> = 1 g/mL · d<sub>gasoil</sub> = 0,84 g/mL`)],
-        [A(`Convierto con la tabla de saltos: ${L.toLocaleString("es-AR")} L → mL son 3 saltos, la coma corre 3 lugares: V = ${mL.toLocaleString("es-AR")} mL`),
-         A("Despejo m: d = m / V → d · V = m"),
-         A(`agua: m = 1 g/mL · ${mL.toLocaleString("es-AR")} mL = ${mL.toLocaleString("es-AR")} g → con la tabla, g → kg: ${L.toLocaleString("es-AR")} kg`),
-         A(`gasoil: m = 0,84 g/mL · ${mL.toLocaleString("es-AR")} mL = ${(mL * 0.84).toLocaleString("es-AR")} g = ${fmtLibre(L * 0.84, 1)} kg`)],
+        [A("Hago un esquema con los datos."), ESQ(esqTanque(L)),
+         P("¿Las unidades combinan? No: el volumen está en L y la densidad en g/mL. Hay que convertir."), A(`V = ${L.toLocaleString("es-AR")} L · d<sub>agua</sub> = 1 g/mL · d<sub>gasoil</sub> = 0,84 g/mL`)],
+        [P("¿Qué relación hay? d = m / V. Busco m: tengo que despejarla."), A("Despejo, un renglón debajo del otro:"),
+         EQ("d = m / V", "d · V = m", "m = d · V"),
+         A(`Convierto con la tabla de saltos: L → mL son 3 saltos, la coma corre 3 lugares. V = ${mL.toLocaleString("es-AR")} mL`),
+         A("Recién ahora reemplazo los datos:"),
+         EQ(`agua: m = 1 g/mL · ${mL.toLocaleString("es-AR")} mL`, `m = ${mL.toLocaleString("es-AR")} g = ${L.toLocaleString("es-AR")} kg`),
+         EQ(`gasoil: m = 0,84 g/mL · ${mL.toLocaleString("es-AR")} mL`, `m = ${(mL * 0.84).toLocaleString("es-AR")} g = ${fmtLibre(L * 0.84, 1)} kg`)],
         [P("¿Es razonable? El gasoil es menos denso: el mismo tanque tiene menos masa lleno de gasoil."), A(`Respuesta: ${L.toLocaleString("es-AR")} kg de agua o ${fmtLibre(L * 0.84, 1)} kg de gasoil.`)]
       ] }); }
   { const a = G.cuboArista[i], Ab = a * a, V = Ab * a, m = 2.70 * V;
     lista.push({ t: "4. El cubo de aluminio", e: `Un cubo de aluminio tiene ${fmtLibre(a, 1)} cm de arista. ¿Cuál es su masa? Densidad del aluminio: 2,70 g/cm³.`,
       pasos: [
         [P("¿Qué me pide? La masa del cubo."), A("Busco: m (en g)")],
-        [P("¿Tengo todos los datos? Falta el volumen: lo calculo con la arista."), A(`a = ${fmtLibre(a, 1)} cm · d = 2,70 g/cm³`)],
-        [A(`Dato intermedio: A<sub>b</sub> = a² = ${fmtLibre(Ab, 3)} cm² · V = A<sub>b</sub> · h = ${fmtLibre(Ab, 3)} cm² · ${fmtLibre(a, 1)} cm = ${fmtLibre(V, 3)} cm³`),
-         A("Despejo m: d · V = m"), A(`m = 2,70 g/cm³ · ${fmtLibre(V, 3)} cm³ = ${fmt(m, 2)} g`)],
+        [A("Hago un esquema con los datos."), ESQ(esqCubo(a)),
+         P("¿Tengo todos los datos? Falta el volumen: lo calculo con la arista."), A(`a = ${fmtLibre(a, 1)} cm · d = 2,70 g/cm³`)],
+        [A("Calculo el dato intermedio y lo agrego a los datos:"),
+         EQ("V = A<sub>b</sub> · h = a · a · a", `V = ${fmtLibre(a, 1)} cm · ${fmtLibre(a, 1)} cm · ${fmtLibre(a, 1)} cm`, `V = ${fmtLibre(V, 3)} cm³`),
+         P("¿Qué relación hay? d = m / V. Busco m: tengo que despejarla."), A("Despejo, un renglón debajo del otro:"),
+         EQ("d = m / V", "d · V = m", "m = d · V"),
+         A("Recién ahora reemplazo los datos:"),
+         EQ(`m = 2,70 g/cm³ · ${fmtLibre(V, 3)} cm³`, `m = ${fmt(m, 2)} g`)],
         [P("¿La unidad tiene sentido? cm³ se cancela y queda g: es una masa."), A(`Respuesta: el cubo tiene una masa de ${fmt(m, 2)} g.`)]
       ] }); }
-  { const m = G.sueloMasa[i], Ab = PI * 2.5 * 2.5, V = Ab * 5, d = m / V;
+  { const m = G.sueloMasa[i], V = PI * 2.5 * 2.5 * 5, d = m / V;
     const est = d < 1.1 ? "muy suelto" : d <= 1.4 ? "adecuado para las raíces" : d <= 1.6 ? "compactado" : "tan compactado que limita las raíces";
     lista.push({ t: "5. La muestra de suelo", e: `Con un cilindro de 5 cm de diámetro y 5 cm de altura se saca una muestra de suelo. Seca, tiene una masa de ${m} g. ¿Cuál es su densidad aparente? ¿Cómo está el suelo?`,
       pasos: [
         [P("¿Qué me pide? La densidad aparente y cómo está el suelo."), A("Busco: d<sub>ap</sub> (en g/cm³)")],
-        [P("¿Tengo todos los datos? Falta el volumen, y antes el radio."), A(`D = 5 cm · h = 5 cm · m = ${m} g`)],
-        [A("Datos intermedios: r = D ÷ 2 = 2,5 cm · A<sub>b</sub> = π · r² = 3,14 · 2,5 cm · 2,5 cm = 19,625 cm²"),
-         A(`V = A<sub>b</sub> · h = 19,625 cm² · 5 cm = ${fmtLibre(V, 3)} cm³`),
-         A(`d<sub>ap</sub> = m / V = ${m} g / ${fmtLibre(V, 3)} cm³ = ${fmt(d, 2)} g/cm³`)],
+        [A("Hago un esquema con los datos."), ESQ(esqSuelo(m)),
+         P("¿Tengo todos los datos? Falta el volumen, y antes el radio."), A(`D = 5 cm · h = 5 cm · m = ${m} g`)],
+        [A("Calculo los datos intermedios y los agrego a los datos:"),
+         EQ("r = D ÷ 2", "r = 5 cm ÷ 2", "r = 2,5 cm"),
+         EQ("V = A<sub>b</sub> · h = π · r² · h", "V = 3,14 · 2,5 cm · 2,5 cm · 5 cm", `V = ${fmtLibre(V, 3)} cm³`),
+         P("¿Hay que despejar? No: d<sub>ap</sub> ya está sola."), A("Reemplazo los datos:"),
+         EQ("d<sub>ap</sub> = m / V", `d<sub>ap</sub> = ${m} g / ${fmtLibre(V, 3)} cm³`, `d<sub>ap</sub> = ${fmt(d, 2)} g/cm³`)],
         [P("¿Es razonable? Todos los suelos están entre 1 y 2 g/cm³."), A(`Respuesta: d<sub>ap</sub> = ${fmt(d, 2)} g/cm³; según la tabla orientativa, el suelo está ${est}.`)]
       ] }); }
-  { const p = G.coronaPlata[i] / 100, m = 1000, V = m * (1 - p) / 19.3 + m * p / 10.5, Vr = Math.round(V * 10) / 10, d = m / Vr;
+  { const p = G.coronaPlata[i] / 100, V = 1000 * (1 - p) / 19.3 + 1000 * p / 10.5, Vr = Math.round(V * 10) / 10, d = 1000 / Vr;
     lista.push({ t: "6. La corona", e: `Una corona de 1000 g sumergida en un recipiente lleno hasta el tope derrama ${fmt(Vr, 1)} mL de agua. ¿Es de oro puro? Densidad del oro: 19,3 g/mL.`,
       pasos: [
         [P("¿Qué me pide? Saber si la corona es de oro puro."), A("Busco: d de la corona (en g/mL), para compararla con la del oro")],
-        [P("¿El agua derramada es un dato útil? Sí: es el volumen de la corona."), A(`m = 1000 g · V = ${fmt(Vr, 1)} mL · d<sub>oro</sub> = 19,3 g/mL`)],
-        [P("¿Hay que despejar? No: d ya está sola."), A(`d = m / V = 1000 g / ${fmt(Vr, 1)} mL = ${fmt(d, 1)} g/mL`)],
-        [P(`¿Es razonable? Está entre la plata (10,5) y el oro (19,3): tiene sentido para una mezcla.`), A(`Respuesta: la densidad es ${fmt(d, 1)} g/mL, menor que la del oro. La corona no es de oro puro.`)]
+        [A("Hago un esquema con los datos."), ESQ(esqCorona(Vr)),
+         P("¿El agua derramada es un dato útil? Sí: es el volumen de la corona."), A(`m = 1000 g · V = ${fmt(Vr, 1)} mL · d<sub>oro</sub> = 19,3 g/mL`)],
+        [P("¿Hay que despejar? No: d ya está sola."), A("Reemplazo los datos:"),
+         EQ("d = m / V", `d = 1000 g / ${fmt(Vr, 1)} mL`, `d = ${fmt(d, 1)} g/mL`)],
+        [P("¿Es razonable? Está entre la plata (10,5) y el oro (19,3): tiene sentido para una mezcla."), A(`Respuesta: la densidad es ${fmt(d, 1)} g/mL, menor que la del oro. La corona no es de oro puro.`)]
       ] }); }
   const NOMBRES = ["Comprender el problema", "Identificar los datos", "Elegir la estrategia y resolver", "Comprobar la respuesta"];
+  const item = it => it.t === "eq"
+    ? `<li class="eq"><div class="renglones">${it.x.map(r => `<div>${r}</div>`).join("")}</div></li>`
+    : it.t === "esq" ? `<li class="esq"><div class="esquema">${it.x}</div></li>`
+    : `<li class="${it.t}"><span class="${it.t === "a" ? "cuenta" : ""}">${it.x}</span></li>`;
   const caja = $("#listaProblemas"); caja.innerHTML = "";
   lista.forEach(pr => {
     const div = document.createElement("div");
@@ -526,7 +628,7 @@ function armarProblemas() {
     let n = 0;
     const mostrarHasta = hasta => {
       n = hasta;
-      etapas.innerHTML = pr.pasos.slice(0, n).map((items, k) => `<div class="etapa e${k + 1}"><div class="cab"><span class="n">${k + 1}</span>${NOMBRES[k]}</div><ul>${items.map(it => `<li class="${it.t}"><span class="${it.t === "a" ? "cuenta" : ""}">${it.x}</span></li>`).join("")}</ul></div>`).join("");
+      etapas.innerHTML = pr.pasos.slice(0, n).map((items, k) => `<div class="etapa e${k + 1}"><div class="cab"><span class="n">${k + 1}</span>${NOMBRES[k]}</div><ul>${items.map(item).join("")}</ul></div>`).join("");
       $("[data-sig]", div).disabled = n >= pr.pasos.length;
       $("[data-todo]", div).textContent = n >= pr.pasos.length ? "Ocultar la resolución" : "Mostrar la resolución";
     };

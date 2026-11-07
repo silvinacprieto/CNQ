@@ -218,7 +218,7 @@ Simulador: [e3.html](../simuladores/e3.html)
 4. **Las partículas (60–70 min).** Simulador 3. La densidad depende de dos cosas: cuántas partículas entran en el mismo lugar y cuánta masa tiene cada una. El agua y el plomo tienen casi la misma cantidad de partículas por cm³, pero cada partícula de plomo tiene unas 11 veces más masa. Se retoma la pelota del encuentro 1: cuando ya no crecía, entraban más partículas de aire en el mismo lugar.
 5. **¿Flota o se hunde? (70–85 min).** Hipótesis antes de cada prueba. En los vasos de precipitado: hielo en agua, en aceite y en alcohol; vela y corcho en agua; huevo en agua y después en agua con mucha sal; semillas en salmuera. Se comprueba con el simulador 4. Pregunta del documento de densidad: ¿qué densidad debería tener un líquido para que el plomo flote? (Más de 11,3 g/mL, como el mercurio.)
 6. **Densidad del suelo (85–100 min).** Cada grupo mide el diámetro y la altura del cilindro con el calibre, calcula el volumen, mide la masa de la muestra seca y calcula la densidad aparente. Compara las dos muestras (pisada y no pisada) con el simulador 5. Así se responde la pregunta que quedó del encuentro 2.
-7. **Problemas por grupo (100–118 min).** Simulador 6. Primero el ejemplo resuelto del zinc, que es el mismo del documento de densidad. Después cada grupo resuelve los problemas con sus números siguiendo la Guía para resolver problemas. Las etapas de la resolución se muestran de a una, para que el grupo compare antes de ver la siguiente. Para seguir practicando: TP N° 7.
+7. **Problemas por grupo (100–118 min).** Simulador 6. Primero el ejemplo resuelto del zinc, que es el mismo del documento de densidad. Después cada grupo resuelve los problemas con sus números siguiendo la Guía para resolver problemas: esquema con los datos, despeje renglón por renglón y reemplazo de los datos al final. Las etapas de la resolución se muestran de a una, para que el grupo compare antes de ver la siguiente. Para seguir practicando: TP N° 7.
 8. **Conclusión (118–120 min).** ¿Qué material era cada muestra? ¿Las hipótesis eran correctas?
 
 ### La corona en números
@@ -289,6 +289,11 @@ Los problemas del simulador siguen las cuatro etapas de la hoja de Herramientas 
 2. **Identificar los datos:** ¿en qué unidades están?, ¿hay que convertir?, ¿falta algún dato? ▶ Copiar cada dato como *nombre = valor unidad*.
 3. **Elegir la estrategia y resolver:** ▶ calcular el dato intermedio, despejar, convertir con la tablita, reemplazar y operar con números y unidades.
 4. **Comprobar la respuesta:** ¿la unidad tiene sentido?, ¿el valor es razonable? ▶ Escribir la respuesta con valor y unidad.
+
+Dos criterios que se trabajan en clase y que los problemas del simulador respetan:
+
+- **Esquema.** En la etapa 2, cada problema tiene un esquema con los datos y la incógnita marcada (la probeta antes y después, el bulón, el tanque, el cubo, el cilindro de suelo, la corona). Los alumnos dibujan el suyo en la carpeta antes de calcular.
+- **Despeje primero, datos al final.** El despeje se escribe renglón por renglón, uno debajo del otro (d = m / V → d · V = m → V = m / d). Se opera con las ecuaciones y recién en el último paso se reemplazan los datos con sus unidades. Si hace falta un dato intermedio, se calcula antes con su propia fórmula, se agrega a la lista de datos y después se sigue igual.
 
 ### Problemas por grupo: resultados
 

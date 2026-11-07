@@ -266,7 +266,20 @@ En papel milimetrado, dibuja la masa (eje vertical) en función del volumen (eje
 
 Resuelve cada problema con la **Guía para resolver problemas**: comprender el problema, identificar los datos (*nombre = valor unidad*), elegir la estrategia y resolver, comprobar la respuesta.
 
-1. El bulón · 2. La piedra · 3. El tanque · 4. El cubo de aluminio · 5. La muestra de suelo · 6. La corona
+- **Haz un esquema** con los datos y marca lo que buscas.
+- **Despeja renglón por renglón**, uno debajo del otro, hasta que la variable quede sola.
+- **Reemplaza los datos al final**, con sus unidades.
+
+Problemas: 1. El bulón · 2. La piedra · 3. El tanque · 4. El cubo de aluminio · 5. La muestra de suelo · 6. La corona
+
+Ejemplo de cómo se ve en la carpeta (problema 1):
+
+| Etapa | En la carpeta |
+| --- | --- |
+| 1. Comprender | Busco: V (en cm³) |
+| 2. Datos | *(esquema del bulón)* m = ____ g · d = 7,87 g/cm³ · V = ? |
+| 3. Resolver | d = m / V <br> d · V = m <br> V = m / d <br> V = ____ g / 7,87 g/cm³ <br> V = ____ cm³ |
+| 4. Comprobar | ¿La unidad es de volumen? ¿El valor es razonable? Respuesta: ____ |
 
 ### Preguntas de cierre
 
