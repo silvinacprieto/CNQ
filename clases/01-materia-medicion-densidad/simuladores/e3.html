@@ -10,43 +10,82 @@
 <link rel="stylesheet" href="estilo.css">
 <style>
 .balanza .pantalla { font-size: 52px; }
-.pasos { display: grid; gap: 10px; counter-reset: paso; }
-.paso { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
-.paso::before { counter-increment: paso; content: counter(paso); font-family: var(--font-mono); font-size: 22px; color: var(--accent); text-align: center; }
-.paso b { display: block; }
-.paso .cuenta { font-family: var(--font-mono); }
 .problema { border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; }
 .problema h3 { font-size: 20px; }
+.etapa { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+.etapa .cab { color: #fff; font-weight: 600; padding: 8px 12px; display: flex; gap: 10px; align-items: baseline; }
+.etapa .cab .n { font-family: var(--font-mono); font-size: 20px; }
+.etapa ul { margin: 0; padding: 10px 14px 10px 14px; list-style: none; display: grid; gap: 6px; background: var(--surface); }
+.etapa li.p::before { content: "◆ "; color: var(--muted); }
+.etapa li.a { font-weight: 600; }
+.etapa li.a::before { content: "▶ "; }
+.etapa .cuenta { font-family: var(--font-mono); font-weight: 400; }
+.e1 .cab { background: #1f6fa8; } .e2 .cab { background: #217a4b; } .e3 .cab { background: #a65a1c; } .e4 .cab { background: #6a2fb5; }
 .franjas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; font-size: 13px; text-align: center; }
 .franjas div { padding: 6px 4px; border-radius: 6px; color: #fff; }
 .aguja { position: relative; height: 18px; }
 .aguja span { position: absolute; top: 0; transform: translateX(-50%); font-size: 16px; }
+.cajas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 700px) { .cajas { grid-template-columns: 1fr; } }
+.caja-part { display: grid; gap: 10px; }
 </style>
 </head>
 <body>
 <header class="top">
   <div class="kicker">QUÍMICA · 1.ER AÑO · CLASE 1 · ENCUENTRO 3 DE 3</div>
   <h1>Densidad: ¿de qué está hecho?</h1>
-  <p class="lead">Masa y volumen dependen de cuánto material hay, pero su cociente no. Esa propiedad, la densidad, permite reconocer un material, saber si flota y evaluar si un suelo está compactado.</p>
+  <p class="lead">La masa y el volumen dependen de cuánto material hay, pero su cociente no. Esa propiedad intensiva, la densidad (d = m / V), permite resolver el problema de la corona, reconocer materiales, predecir si algo flota y evaluar si un suelo está compactado.</p>
 </header>
 
 <nav class="secciones" aria-label="Secciones">
   <div class="fila">
     <a class="volver" href="index.html">← Clase 1</a>
-    <a href="#laboratorio">1 · Balanza y probeta</a>
-    <a href="#flota">2 · ¿Flota o se hunde?</a>
-    <a href="#suelo">3 · Densidad del suelo</a>
-    <a href="#problemas">4 · Problemas por grupo</a>
+    <a href="#corona">1 · La corona</a>
+    <a href="#laboratorio">2 · Balanza y probeta</a>
+    <a href="#particulas">3 · Las partículas</a>
+    <a href="#flota">4 · ¿Flota o se hunde?</a>
+    <a href="#suelo">5 · Densidad del suelo</a>
+    <a href="#problemas">6 · Problemas por grupo</a>
     <button type="button" id="tema">Tema oscuro</button>
   </div>
 </nav>
 
 <main>
 
-<!-- 1 · Laboratorio -->
+<!-- 1 · Corona -->
+<section class="bloque" id="corona">
+  <div class="titulo"><span class="num">1</span><h2>El problema de la corona, resuelto</h2></div>
+  <p class="pregunta">El lingote y la corona tienen la misma masa. Cada uno se sumerge en un recipiente lleno hasta el tope y el agua que se derrama se recoge en una probeta. <strong>Hipótesis de Arquímedes:</strong> si la corona tiene plata, va a derramar más agua que el lingote. Mueve el porcentaje de plata y observa.</p>
+  <div class="grid2">
+    <div class="controles">
+      <div class="control">
+        <label for="corMasa">Masa de la corona y del lingote <output id="corMasaOut"></output></label>
+        <input type="range" id="corMasa" min="500" max="1500" step="50" value="1000">
+      </div>
+      <div class="control">
+        <label for="corPlata">Plata mezclada en la corona (en masa) <output id="corPlataOut"></output></label>
+        <input type="range" id="corPlata" min="0" max="50" step="5" value="30">
+      </div>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th></th><th class="n">Masa (g)</th><th class="n">Agua derramada (mL)</th><th class="n">d = m / V (g/mL)</th></tr></thead>
+          <tbody>
+            <tr><td>Lingote de oro puro</td><td class="n" id="corML"></td><td class="n" id="corVL"></td><td class="n" id="corDL"></td></tr>
+            <tr><td>Corona</td><td class="n" id="corMC"></td><td class="n" id="corVC"></td><td class="n" id="corDC"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="idea" id="corConclusion"></p>
+      <p class="nota">Para saber más: la historia de la bañera la contó el arquitecto romano Vitruvio unos 200 años después. Con una corona real la diferencia de agua es de pocos mililitros y cuesta medirla por derrame; Galileo propuso que Arquímedes usó una balanza sumergida en agua.</p>
+    </div>
+    <div class="dibujo" aria-hidden="true"><svg id="svgCorona" viewBox="0 0 440 330"></svg></div>
+  </div>
+</section>
+
+<!-- 2 · Laboratorio -->
 <section class="bloque" id="laboratorio">
-  <div class="titulo"><span class="num">1</span><h2>Medir masa y volumen, y graficar</h2></div>
-  <p class="pregunta">Elegí una muestra, cambiá su tamaño y registrá varias mediciones. Si los puntos de un material quedan en una recta que pasa por el cero, el cociente masa ÷ volumen es siempre el mismo: es su densidad.</p>
+  <div class="titulo"><span class="num">2</span><h2>Medir masa y volumen, y graficar</h2></div>
+  <p class="pregunta">Elige una muestra, cambia su tamaño y registra varias mediciones. Si los puntos de un material quedan en una recta que pasa por el cero, el cociente m ÷ V es siempre el mismo: es su densidad.</p>
   <div class="grid2">
     <div class="controles">
       <div class="chips" id="chipsMuestra" role="group" aria-label="Muestra"></div>
@@ -74,20 +113,41 @@
   </div>
   <div class="tabla-wrap">
     <table>
-      <thead><tr><th>Muestra</th><th class="n">Volumen (cm³)</th><th class="n">Masa (g)</th><th class="n">Masa ÷ volumen (g/cm³)</th></tr></thead>
+      <thead><tr><th>Muestra</th><th class="n">V (cm³)</th><th class="n">m (g)</th><th class="n">d = m / V (g/cm³)</th></tr></thead>
       <tbody id="tablaMed"><tr><td colspan="4" class="nota">Todavía no hay mediciones.</td></tr></tbody>
     </table>
   </div>
   <details>
-    <summary style="cursor:pointer;font-weight:600;min-height:40px">Tabla de densidades para comparar (g/cm³, a unos 20 °C)</summary>
+    <summary style="cursor:pointer;font-weight:600;min-height:40px">Tabla de densidades para comparar (g/cm³ = g/mL, a unos 20 °C)</summary>
     <div class="tabla-wrap"><table><tbody id="tablaRef"></tbody></table></div>
   </details>
+  <p class="idea"><strong>Para pensar:</strong> en la tabla, el aceite y el hielo tienen la misma densidad (0,92 g/cm³), y el aluminio y el granito también (2,70 g/cm³). ¿Alcanza la densidad para saber de qué está hecho algo, o hace falta mirar otra propiedad?</p>
 </section>
 
-<!-- 2 · Flota -->
+<!-- 3 · Partículas -->
+<section class="bloque" id="particulas">
+  <div class="titulo"><span class="num">3</span><h2>La densidad según el modelo cinético-corpuscular</h2></div>
+  <p class="pregunta">Las dos cajas tienen el mismo volumen. La densidad depende de dos cosas: <strong>cuántas partículas entran en ese lugar</strong> y <strong>cuánta masa tiene cada partícula</strong>. Compara dos materiales.</p>
+  <div class="cajas">
+    <div class="caja-part">
+      <div class="chips" id="chipsPartA" role="group" aria-label="Material de la caja izquierda"></div>
+      <div class="dibujo" aria-hidden="true"><svg id="svgPartA" viewBox="0 0 300 300"></svg></div>
+      <div class="lecturas" id="datosPartA"></div>
+    </div>
+    <div class="caja-part">
+      <div class="chips" id="chipsPartB" role="group" aria-label="Material de la caja derecha"></div>
+      <div class="dibujo" aria-hidden="true"><svg id="svgPartB" viewBox="0 0 300 300"></svg></div>
+      <div class="lecturas" id="datosPartB"></div>
+    </div>
+  </div>
+  <p class="idea" id="partComparacion"></p>
+  <p class="nota">La masa de cada partícula se indica comparada con la de un átomo de hidrógeno, que vale 1. El tono más oscuro indica partículas con más masa. El dibujo es plano y simplificado: en un sólido real las partículas están ordenadas en tres dimensiones.</p>
+</section>
+
+<!-- 4 · Flota -->
 <section class="bloque" id="flota">
-  <div class="titulo"><span class="num">2</span><h2>¿Flota o se hunde?</h2></div>
-  <p class="pregunta">Antes de tocar, predecí. Un objeto flota si es menos denso que el líquido. Cuando flota, la parte sumergida es igual a densidad del objeto ÷ densidad del líquido.</p>
+  <div class="titulo"><span class="num">4</span><h2>¿Flota o se hunde?</h2></div>
+  <p class="pregunta">Antes de tocar, escribe tu hipótesis. Un objeto flota si es menos denso que el líquido. Cuando flota, la parte sumergida es igual a d<sub>objeto</sub> ÷ d<sub>líquido</sub>.</p>
   <div class="grid2">
     <div class="controles">
       <div><div class="nota" style="margin-bottom:6px">Objeto</div><div class="chips" id="chipsObjF" role="group" aria-label="Objeto"></div></div>
@@ -96,18 +156,18 @@
     </div>
     <div class="dibujo" aria-hidden="true"><svg id="svgFlota" viewBox="0 0 400 320"></svg></div>
   </div>
-  <p class="idea"><strong>Para probar en el laboratorio:</strong> un huevo fresco se hunde en agua y flota si se le agrega bastante sal. Un cubito de hielo flota en agua y se hunde en alcohol.</p>
+  <p class="idea"><strong>En el laboratorio:</strong> un huevo fresco se hunde en agua y flota si se le agrega bastante sal. Un cubito de hielo flota en agua y se hunde en alcohol. <strong>En el campo:</strong> antes de sembrar, las semillas se ponen en salmuera; las vacías o dañadas flotan y se descartan.</p>
 </section>
 
-<!-- 3 · Suelo -->
+<!-- 5 · Suelo -->
 <section class="bloque" id="suelo">
-  <div class="titulo"><span class="num">3</span><h2>Densidad aparente del suelo</h2></div>
+  <div class="titulo"><span class="num">5</span><h2>Densidad aparente del suelo</h2></div>
   <p class="pregunta">En el campo se clava un cilindro de volumen conocido, se saca el suelo sin aplastarlo, se seca en estufa y se pesa. La densidad aparente indica qué tan compactado está: cuanto más alta, menos lugar queda para el aire, el agua y las raíces.</p>
   <div class="grid2">
     <div class="controles">
-      <div class="control"><label for="sDiam">Diámetro interno del cilindro <output id="sDiamOut"></output></label><input type="range" id="sDiam" min="4" max="8" step="0.1" value="5"></div>
-      <div class="control"><label for="sAlto">Altura del cilindro <output id="sAltoOut"></output></label><input type="range" id="sAlto" min="4" max="8" step="0.1" value="5"></div>
-      <div class="control"><label for="sMasa">Masa del suelo seco <output id="sMasaOut"></output></label><input type="range" id="sMasa" min="80" max="200" step="1" value="128"></div>
+      <div class="control"><label for="sDiam">Diámetro interno del cilindro (D) <output id="sDiamOut"></output></label><input type="range" id="sDiam" min="4" max="8" step="0.1" value="5"></div>
+      <div class="control"><label for="sAlto">Altura del cilindro (h) <output id="sAltoOut"></output></label><input type="range" id="sAlto" min="4" max="8" step="0.1" value="5"></div>
+      <div class="control"><label for="sMasa">Masa del suelo seco (m) <output id="sMasaOut"></output></label><input type="range" id="sMasa" min="80" max="200" step="1" value="128"></div>
       <div class="lecturas">
         <div class="lectura"><div class="k">Volumen del cilindro</div><div class="v" id="sVol"></div></div>
         <div class="lectura destacada"><div class="k">Densidad aparente</div><div class="v" id="sRho"></div></div>
@@ -131,42 +191,80 @@
   </div>
 </section>
 
-<!-- 4 · Problemas -->
+<!-- 6 · Problemas -->
 <section class="bloque" id="problemas">
-  <div class="titulo"><span class="num">4</span><h2>Problemas: cada grupo con sus números</h2></div>
-  <p class="pregunta">Mismo problema, distintos números para cada grupo. Se resuelve siempre con los mismos cinco pasos: <strong>datos con unidades, incógnita, plan, cálculo con unidades y verificación</strong>.</p>
+  <div class="titulo"><span class="num">6</span><h2>Problemas: cada grupo con sus números</h2></div>
+  <p class="pregunta">Mismo problema, distintos números para cada grupo. Se resuelve con la <strong>Guía para resolver problemas</strong>: comprender el problema, identificar los datos, elegir la estrategia y resolver, comprobar la respuesta. <strong>◆</strong> pregunta de análisis, <strong>▶</strong> acción para escribir en la carpeta.</p>
   <div class="chips" id="chipsGrupo" role="group" aria-label="Grupo"></div>
   <div id="listaProblemas" class="controles"></div>
 </section>
 
 </main>
-<footer>Clase 1 · Encuentro 3 · Ciencias Naturales – Química. Densidades de referencia a unos 20 °C.</footer>
+<footer>Clase 1 · Encuentro 3 · Ciencias Naturales – Química · Ing. Agr. Silvina C. Prieto. Densidades de referencia a unos 20 °C. π ≈ 3,14.</footer>
 
 <script src="comun.js"></script>
 <script>
 botonTema($("#tema"));
 
-/* ---------- 1 · Laboratorio ---------- */
+/* ---------- 1 · Corona ---------- */
+["corMasa", "corPlata"].forEach(id => $("#" + id).addEventListener("input", dibujarCorona));
+function dibujarCorona() {
+  const m = Number($("#corMasa").value), p = Number($("#corPlata").value) / 100;
+  const VL = m / MATERIALES.oro.d;
+  const VC = m * (1 - p) / MATERIALES.oro.d + m * p / MATERIALES.plata.d;
+  const dC = m / VC;
+  $("#corMasaOut").textContent = `${m} g`;
+  $("#corPlataOut").textContent = `${Math.round(p * 100)} %`;
+  $("#corML").textContent = fmt(m, 0); $("#corMC").textContent = fmt(m, 0);
+  $("#corVL").textContent = fmt(VL, 1); $("#corVC").textContent = fmt(VC, 1);
+  $("#corDL").textContent = fmt(m / VL, 1); $("#corDC").textContent = fmt(dC, 1);
+  $("#corConclusion").innerHTML = p === 0
+    ? `Con 0 % de plata, la corona derrama lo mismo que el lingote: <strong>es de oro puro</strong> y su densidad es la del oro, 19,3 g/mL.`
+    : `La corona derrama <strong>${fmt(VC - VL, 1)} mL más</strong> que el lingote. Misma masa, mayor volumen: su densidad (${fmt(dC, 1)} g/mL) es menor que la del oro (19,3 g/mL). <strong>La corona no es de oro puro.</strong>`;
+  // Dibujo: dos recipientes llenos al tope y dos probetas de 100 mL con el agua derramada
+  let s = "";
+  const recip = (x, label, color, forma) => {
+    let r = `<rect x="${x}" y="60" width="120" height="130" fill="#6fb7e0" opacity=".75"/>`;
+    r += forma === "lingote"
+      ? `<rect x="${x + 30}" y="150" width="60" height="28" fill="${color}" stroke="#8a6d16" stroke-width="1.5"/>`
+      : `<path d="M${x + 28} 178 L${x + 28} 146 L${x + 42} 160 L${x + 60} 136 L${x + 78} 160 L${x + 92} 146 L${x + 92} 178 Z" fill="${color}" stroke="#8a6d16" stroke-width="1.5"/>`;
+    r += `<path d="M${x} 55 V190 H${x + 120} V55" fill="none" stroke="#555" stroke-width="3"/>`;
+    r += `<path d="M${x + 120} 58 q10 4 10 30" fill="none" stroke="#6fb7e0" stroke-width="4"/>`;
+    r += `<text x="${x + 60}" y="40" text-anchor="middle" font-size="15" fill="#1d2320" font-weight="600">${label}</text>`;
+    return r;
+  };
+  const probeta = (x, V) => {
+    const top = 215, bot = 315, alto = bot - top, w = 28;
+    const y = bot - alto * V / 100;
+    let r = `<rect x="${x}" y="${y}" width="${w}" height="${bot - y}" fill="#6fb7e0" opacity=".75"/>`;
+    r += `<path d="M${x} ${top} V${bot} H${x + w} V${top}" fill="none" stroke="#555" stroke-width="2"/>`;
+    for (let k = 0; k <= 100; k += 10) { const yy = bot - alto * k / 100; r += `<line x1="${x + w}" x2="${x + w - (k % 50 === 0 ? 12 : 6)}" y1="${yy}" y2="${yy}" stroke="#333"/>`; if (k % 50 === 0) r += `<text x="${x + w + 4}" y="${yy + 4}" font-size="11" fill="#333">${k}</text>`; }
+    r += `<text x="${x + w + 40}" y="${y + 5}" font-size="14" fill="#1d2320">${fmt(V, 1)} mL</text>`;
+    return r;
+  };
+  s += recip(20, "Lingote de oro", "#e2b93b", "lingote");
+  s += recip(240, "Corona", p > 0 ? "#e6cd7a" : "#e2b93b", "corona");
+  s += probeta(56, VL) + probeta(276, Math.min(100, VC));
+  $("#svgCorona").innerHTML = s;
+}
+dibujarCorona();
+
+/* ---------- 2 · Laboratorio ---------- */
 const MUESTRAS = {
-  agua: { ...MATERIALES.agua },
-  aceite: { ...MATERIALES.aceite },
-  alcohol: { ...MATERIALES.alcohol },
-  aluminio: { ...MATERIALES.aluminio },
-  hierro: { ...MATERIALES.hierro },
-  pino: { ...MATERIALES.pino },
-  A: { nombre: "Muestra A", real: "aluminio", misterio: true, color: "#e07a5f" },
-  B: { nombre: "Muestra B", real: "laton", misterio: true, color: "#8e6bbf" },
-  C: { nombre: "Muestra C", real: "pvc", misterio: true, color: "#3d9a8b" }
+  agua: MATERIALES.agua, aceite: MATERIALES.aceite, alcohol: MATERIALES.alcohol,
+  aluminio: MATERIALES.aluminio, zinc: MATERIALES.zinc, hierro: MATERIALES.hierro, pino: MATERIALES.pino,
+  A: { nombre: "Muestra A", real: "aluminio", misterio: true },
+  B: { nombre: "Muestra B", real: "laton", misterio: true },
+  C: { nombre: "Muestra C", real: "pvc", misterio: true }
 };
-Object.values(MUESTRAS).forEach(m => { if (m.misterio) m.rho = MATERIALES[m.real].rho; });
-const COLORES_GRAF = { agua: "#1f77b4", aceite: "#c9a227", alcohol: "#7f8c8d", aluminio: "#5d6d7e", hierro: "#2c3e50", pino: "#a0522d", A: "#e07a5f", B: "#8e6bbf", C: "#3d9a8b" };
+Object.values(MUESTRAS).forEach(mu => { if (mu.misterio) mu.d = MATERIALES[mu.real].d; });
+const COLORES_GRAF = { agua: "#1f77b4", aceite: "#c9a227", alcohol: "#7f8c8d", aluminio: "#5d6d7e", zinc: "#16a085", hierro: "#2c3e50", pino: "#a0522d", A: "#e07a5f", B: "#8e6bbf", C: "#3d9a8b" };
 let muestra = "agua", mediciones = [], revelado = false;
-grupoChips($("#chipsMuestra"), Object.entries(MUESTRAS).map(([k, m]) => ({ texto: m.nombre, valor: k })), muestra, v => { muestra = v; leer(); });
+grupoChips($("#chipsMuestra"), Object.entries(MUESTRAS).map(([k, mu]) => ({ texto: mu.nombre, valor: k })), muestra, v => { muestra = v; leer(); });
 $("#volMuestra").addEventListener("input", leer);
 $("#registrar").addEventListener("click", () => {
   const V = Number($("#volMuestra").value);
-  const m = Math.round(MUESTRAS[muestra].rho * V * 100) / 100;
-  mediciones.push({ k: muestra, V, m });
+  mediciones.push({ k: muestra, V, m: Math.round(MUESTRAS[muestra].d * V * 100) / 100 });
   dibujarTabla(); dibujarGrafico();
 });
 $("#borrar").addEventListener("click", () => { mediciones = []; dibujarTabla(); dibujarGrafico(); });
@@ -175,20 +273,16 @@ function leer() {
   const V = Number($("#volMuestra").value);
   $("#volMuestraOut").textContent = `${V} cm³`;
   $("#probeta").textContent = V;
-  $("#balanza").textContent = fmt(MUESTRAS[muestra].rho * V, 2);
+  $("#balanza").textContent = fmt(MUESTRAS[muestra].d * V, 2);
 }
-function nombreMuestra(k) {
-  const m = MUESTRAS[k];
-  return m.misterio && revelado ? `${m.nombre} = ${MATERIALES[m.real].nombre}` : m.nombre;
-}
+const nombreMuestra = k => { const mu = MUESTRAS[k]; return mu.misterio && revelado ? `${mu.nombre} = ${MATERIALES[mu.real].nombre}` : mu.nombre; };
 function dibujarTabla() {
   const tb = $("#tablaMed");
   if (!mediciones.length) { tb.innerHTML = `<tr><td colspan="4" class="nota">Todavía no hay mediciones.</td></tr>`; return; }
   tb.innerHTML = mediciones.map(x => `<tr><td><span style="color:${COLORES_GRAF[x.k]}">●</span> ${nombreMuestra(x.k)}</td><td class="n">${x.V}</td><td class="n">${fmt(x.m, 2)}</td><td class="n">${fmt(x.m / x.V, 2)}</td></tr>`).join("");
 }
 function dibujarGrafico() {
-  const W = 440, H = 340, mx = 60, my = 20, ancho = W - mx - 20, alto = H - my - 50;
-  const Vmax = 100;
+  const W = 440, H = 340, mx = 60, my = 20, ancho = W - mx - 20, alto = H - my - 50, Vmax = 100;
   const mMax = Math.max(100, ...mediciones.map(x => x.m));
   const escM = [100, 200, 400, 800, 1000].find(t => t >= mMax) || Math.ceil(mMax / 100) * 100;
   const X = v => mx + ancho * v / Vmax, Y = m => my + alto - alto * m / escM;
@@ -196,49 +290,104 @@ function dibujarGrafico() {
   for (let v = 0; v <= Vmax; v += 20) h += `<line x1="${X(v)}" x2="${X(v)}" y1="${my}" y2="${my + alto}" stroke="#e1e4e0"/><text x="${X(v)}" y="${my + alto + 18}" text-anchor="middle" font-size="12" fill="#5d6762">${v}</text>`;
   for (let k = 0; k <= 5; k++) { const m = escM * k / 5; h += `<line x1="${mx}" x2="${mx + ancho}" y1="${Y(m)}" y2="${Y(m)}" stroke="#e1e4e0"/><text x="${mx - 6}" y="${Y(m) + 4}" text-anchor="end" font-size="12" fill="#5d6762">${fmtLibre(m, 0)}</text>`; }
   h += `<line x1="${mx}" x2="${mx + ancho}" y1="${my + alto}" y2="${my + alto}" stroke="#1d2320" stroke-width="1.5"/><line x1="${mx}" x2="${mx}" y1="${my}" y2="${my + alto}" stroke="#1d2320" stroke-width="1.5"/>`;
-  h += `<text x="${mx + ancho / 2}" y="${H - 8}" text-anchor="middle" font-size="13" fill="#1d2320">volumen (cm³)</text>`;
-  h += `<text x="16" y="${my + alto / 2}" text-anchor="middle" font-size="13" fill="#1d2320" transform="rotate(-90 16 ${my + alto / 2})">masa (g)</text>`;
-  // Recta por el origen para cada muestra con 2 o más puntos, con pendiente = promedio de m/V
+  h += `<text x="${mx + ancho / 2}" y="${H - 8}" text-anchor="middle" font-size="13" fill="#1d2320">volumen, V (cm³)</text>`;
+  h += `<text x="16" y="${my + alto / 2}" text-anchor="middle" font-size="13" fill="#1d2320" transform="rotate(-90 16 ${my + alto / 2})">masa, m (g)</text>`;
   const porMuestra = {};
   mediciones.forEach(x => (porMuestra[x.k] = porMuestra[x.k] || []).push(x));
   Object.entries(porMuestra).forEach(([k, pts]) => {
     if (pts.length >= 2) {
-      const rho = pts.reduce((s, x) => s + x.m / x.V, 0) / pts.length;
-      const vFin = Math.min(Vmax, escM / rho);
-      h += `<line x1="${X(0)}" y1="${Y(0)}" x2="${X(vFin)}" y2="${Y(rho * vFin)}" stroke="${COLORES_GRAF[k]}" stroke-width="2" stroke-dasharray="6 4"/>`;
-      h += `<text x="${X(vFin) - 4}" y="${Y(rho * vFin) - 6}" text-anchor="end" font-size="12" fill="${COLORES_GRAF[k]}">${fmt(rho, 2)} g/cm³</text>`;
+      const d = pts.reduce((s, x) => s + x.m / x.V, 0) / pts.length;
+      const vFin = Math.min(Vmax, escM / d);
+      h += `<line x1="${X(0)}" y1="${Y(0)}" x2="${X(vFin)}" y2="${Y(d * vFin)}" stroke="${COLORES_GRAF[k]}" stroke-width="2" stroke-dasharray="6 4"/>`;
+      h += `<text x="${X(vFin) - 4}" y="${Y(d * vFin) - 6}" text-anchor="end" font-size="12" fill="${COLORES_GRAF[k]}">d = ${fmt(d, 2)} g/cm³</text>`;
     }
     pts.forEach(x => h += `<circle cx="${X(x.V)}" cy="${Y(x.m)}" r="5.5" fill="${COLORES_GRAF[k]}" stroke="#fff" stroke-width="1.5"/>`);
   });
-  if (!mediciones.length) h += `<text x="${mx + ancho / 2}" y="${my + alto / 2}" text-anchor="middle" font-size="15" fill="#5d6762">Registrá mediciones para ver los puntos</text>`;
+  if (!mediciones.length) h += `<text x="${mx + ancho / 2}" y="${my + alto / 2}" text-anchor="middle" font-size="15" fill="#5d6762">Registra mediciones para ver los puntos</text>`;
   $("#grafico").innerHTML = h;
 }
-$("#tablaRef").innerHTML = Object.values(MATERIALES).slice().sort((a, b) => a.rho - b.rho)
-  .map(m => `<tr><td>${m.nombre}</td><td class="n">${fmt(m.rho, 2)}</td><td class="nota">${m.estado}</td></tr>`).join("");
+$("#tablaRef").innerHTML = Object.entries(MATERIALES).filter(([k]) => !["salmuera"].includes(k)).map(([, mt]) => mt).sort((a, b) => a.d - b.d)
+  .map(mt => `<tr><td>${mt.nombre}</td><td class="n">${fmtLibre(mt.d, 4)}</td><td class="nota">${mt.estado}</td></tr>`).join("");
 leer(); dibujarTabla(); dibujarGrafico();
 
-/* ---------- 2 · Flota ---------- */
-const OBJ_F = {
-  pino: MATERIALES.pino, parafina: MATERIALES.parafina, hielo: MATERIALES.hielo,
-  huevo: { nombre: "Huevo fresco", rho: 1.07, color: "#f1e3c8" },
-  pvc: MATERIALES.pvc, aluminio: MATERIALES.aluminio, telgopor: MATERIALES.telgopor
+/* ---------- 3 · Partículas ---------- */
+// n: partículas por cm³ (en unidades de 10²² ); mp: masa de cada partícula comparada con la del hidrógeno.
+// d ≈ n · mp / 60,2. Los valores reproducen las densidades de la tabla.
+const PART = {
+  aire: { nombre: "Aire", n: 0.0025, mp: 29, estado: "gas" },
+  agua: { nombre: "Agua", n: 3.34, mp: 18, estado: "líquido" },
+  aluminio: { nombre: "Aluminio", n: 6.03, mp: 27, estado: "sólido" },
+  hierro: { nombre: "Hierro", n: 8.49, mp: 56, estado: "sólido" },
+  plomo: { nombre: "Plomo", n: 3.30, mp: 207, estado: "sólido" },
+  oro: { nombre: "Oro", n: 5.90, mp: 197, estado: "sólido" }
 };
-const LIQ_F = { agua: MATERIALES.agua, aguaSal: MATERIALES.aguaSal, aceite: MATERIALES.aceite, alcohol: MATERIALES.alcohol, glicerina: MATERIALES.glicerina };
+let partA = "agua", partB = "plomo";
+grupoChips($("#chipsPartA"), Object.entries(PART).map(([k, p]) => ({ texto: p.nombre, valor: k })), partA, v => { partA = v; dibujarParticulas(); });
+grupoChips($("#chipsPartB"), Object.entries(PART).map(([k, p]) => ({ texto: p.nombre, valor: k })), partB, v => { partB = v; dibujarParticulas(); });
+function cajaParticulas(k) {
+  const p = PART[k], L = 260, x0 = 20, y0 = 20;
+  const porFila = p.estado === "gas" ? 6 : Math.round(6 * Math.cbrt(p.n / 3.34));
+  const celda = L / porFila;
+  const oscuro = Math.min(1, Math.log(p.mp) / Math.log(210));
+  const tono = `hsl(210, 35%, ${78 - 55 * oscuro}%)`;
+  let s = `<rect x="${x0}" y="${y0}" width="${L}" height="${L}" fill="#fafaf7" stroke="#1d2320" stroke-width="2.5"/>`;
+  if (p.estado === "gas") {
+    s += `<circle cx="${x0 + L * 0.62}" cy="${y0 + L * 0.35}" r="${celda * 0.42}" fill="${tono}" stroke="#1d2320"/>`;
+  } else {
+    let semilla = 7;
+    const azar = () => { semilla = (semilla * 9301 + 49297) % 233280; return semilla / 233280; };
+    for (let i = 0; i < porFila; i++) for (let j = 0; j < porFila; j++) {
+      let cx = x0 + celda * (j + 0.5), cy = y0 + celda * (i + 0.5), r = celda * 0.47;
+      if (p.estado === "líquido") { cx += (azar() - 0.5) * celda * 0.35; cy += (azar() - 0.5) * celda * 0.35; r = celda * 0.4; }
+      s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${tono}" stroke="#1d2320" stroke-width=".8"/>`;
+    }
+  }
+  return { svg: s, porFila };
+}
+function dibujarParticulas() {
+  [["A", partA], ["B", partB]].forEach(([lado, k]) => {
+    const p = PART[k], { svg, porFila } = cajaParticulas(k);
+    $(`#svgPart${lado}`).innerHTML = svg;
+    const d = MATERIALES[k].d; // valor de la tabla; n · mp / 60,2 da casi lo mismo
+    $(`#datosPart${lado}`).innerHTML =
+      `<div class="lectura"><div class="k">Partículas por cm³</div><div class="v">${p.estado === "gas" ? "muy pocas" : fmtLibre(p.n, 2) + " × 10²²"}</div></div>
+       <div class="lectura"><div class="k">Masa de cada partícula</div><div class="v">${p.mp}</div></div>
+       <div class="lectura destacada"><div class="k">Densidad (d)</div><div class="v">${d < 0.01 ? fmtLibre(d, 4) : fmt(d, 2)} g/cm³</div></div>`;
+  });
+  const a = PART[partA], b = PART[partB];
+  let txt = "";
+  if (partA === partB) txt = "Es el mismo material: misma cantidad de partículas y misma masa de cada una.";
+  else if (a.estado === "gas" || b.estado === "gas") txt = `En un gas las partículas están muy separadas: en el mismo lugar entran unas mil veces menos que en un líquido o un sólido. Por eso su densidad es tan baja. (En el dibujo hay una sola partícula de aire; para que sea justo, por cada una tendría que haber unas 1300 de agua.)`;
+  else {
+    const rn = b.n / a.n, rm = b.mp / a.mp;
+    txt = `${b.nombre} tiene ${rn >= 1 ? fmt(rn, 1) + " veces más" : fmt(1 / rn, 1) + " veces menos"} partículas por cm³ que ${a.nombre.toLowerCase()}, y cada una tiene ${rm >= 1 ? fmt(rm, 1) + " veces más" : fmt(1 / rm, 1) + " veces menos"} masa. ` +
+      (partA === "agua" && partB === "plomo" || partA === "plomo" && partB === "agua" ? "El agua y el plomo tienen casi la misma cantidad de partículas en el mismo lugar: la diferencia de densidad viene de la masa de cada partícula. " : "") +
+      `Por eso la densidad de ${b.nombre.toLowerCase()} es unas ${fmt(MATERIALES[partB].d / MATERIALES[partA].d, 1)} veces la de ${a.nombre.toLowerCase()}.`;
+  }
+  $("#partComparacion").textContent = txt;
+}
+dibujarParticulas();
+
+/* ---------- 4 · Flota ---------- */
+const OBJ_F = {
+  corcho: MATERIALES.corcho, pino: MATERIALES.pino, parafina: MATERIALES.parafina, hielo: MATERIALES.hielo,
+  huevo: { nombre: "Huevo fresco", d: 1.07, color: "#f1e3c8" },
+  semLlena: { nombre: "Semilla sana", d: 1.15, color: "#c9a25a" },
+  semVana: { nombre: "Semilla vacía", d: 0.70, color: "#e3cf9e" },
+  pvc: MATERIALES.pvc, aluminio: MATERIALES.aluminio, plomo: MATERIALES.plomo
+};
+const LIQ_F = { agua: MATERIALES.agua, salmuera: MATERIALES.salmuera, aguaSal: MATERIALES.aguaSal, aceite: MATERIALES.aceite, alcohol: MATERIALES.alcohol, glicerina: MATERIALES.glicerina, mercurio: MATERIALES.mercurio };
 let objF = "hielo", liqF = "agua";
-grupoChips($("#chipsObjF"), Object.entries(OBJ_F).map(([k, o]) => ({ texto: `${o.nombre}`, valor: k })), objF, v => { objF = v; dibujarFlota(); });
+grupoChips($("#chipsObjF"), Object.entries(OBJ_F).map(([k, o]) => ({ texto: o.nombre, valor: k })), objF, v => { objF = v; dibujarFlota(); });
 grupoChips($("#chipsLiqF"), Object.entries(LIQ_F).map(([k, l]) => ({ texto: l.nombre, valor: k })), liqF, v => { liqF = v; dibujarFlota(); });
 function dibujarFlota() {
   const o = OBJ_F[objF], l = LIQ_F[liqF];
-  const frac = o.rho / l.rho;
-  const flota = frac < 1;
-  const x0 = 80, y0 = 40, w = 240, h = 240, sup = y0 + 70;
-  const t = 70; // lado del objeto
-  let s = "";
-  s += `<rect x="${x0}" y="${sup}" width="${w}" height="${y0 + h - sup}" fill="${l.color}" opacity=".85"/>`;
-  let oy;
-  if (flota) oy = sup - t * (1 - frac); else oy = y0 + h - t - 3;
-  const ox = x0 + w / 2 - t / 2;
+  const frac = o.d / l.d, flota = frac < 1;
+  const x0 = 80, y0 = 40, w = 240, h = 240, sup = y0 + 70, t = 70;
+  let s = `<rect x="${x0}" y="${sup}" width="${w}" height="${y0 + h - sup}" fill="${l.color}" opacity=".85"/>`;
+  const oy = flota ? sup - t * (1 - frac) : y0 + h - t - 3, ox = x0 + w / 2 - t / 2;
   if (objF === "huevo") s += `<ellipse cx="${ox + t / 2}" cy="${oy + t / 2}" rx="${t / 2.6}" ry="${t / 2}" fill="${o.color}" stroke="#333" stroke-width="1.5"/>`;
+  else if (objF.startsWith("sem")) s += `<ellipse cx="${ox + t / 2}" cy="${oy + t / 2}" rx="${t / 2}" ry="${t / 2.8}" fill="${o.color}" stroke="#333" stroke-width="1.5"/>`;
   else s += `<rect x="${ox}" y="${oy}" width="${t}" height="${t}" rx="3" fill="${o.color}" stroke="#333" stroke-width="1.5"/>`;
   s += `<line x1="${x0}" x2="${x0 + w}" y1="${sup}" y2="${sup}" stroke="#3a6f8f" stroke-width="1.5"/>`;
   s += `<path d="M${x0} ${y0} V${y0 + h} H${x0 + w} V${y0}" fill="none" stroke="#555" stroke-width="3"/>`;
@@ -248,116 +397,141 @@ function dibujarFlota() {
   }
   s += `<text x="200" y="22" text-anchor="middle" font-size="16" fill="#1d2320" font-weight="600">${flota ? "FLOTA" : "SE HUNDE"}</text>`;
   $("#svgFlota").innerHTML = s;
-  const comp = flota ? "<" : (frac === 1 ? "=" : ">");
-  $("#flotaFormula").innerHTML = `${o.nombre}: ${fmt(o.rho, 2)} g/cm³ ${comp} ${l.nombre}: ${fmt(l.rho, 2)} g/cm³<br>` +
-    (flota ? `Flota. Parte sumergida = ${fmt(o.rho, 2)} ÷ ${fmt(l.rho, 2)} = <span class="res">${fmt(frac, 2)} → ${fmt(frac * 100, 0)} %</span>`
-           : `<span class="res">Se hunde</span>: el objeto es más denso que el líquido.`);
+  $("#flotaFormula").innerHTML = `${o.nombre}: d = ${fmt(o.d, 2)} g/cm³ ${flota ? "<" : ">"} ${l.nombre}: d = ${fmt(l.d, 2)} g/cm³<br>` +
+    (flota ? `Flota. Parte sumergida = ${fmt(o.d, 2)} ÷ ${fmt(l.d, 2)} = <span class="res">${fmt(frac, 2)} → ${fmt(frac * 100, 0)} %</span>`
+           : `<span class="res">Se hunde</span>: el objeto es más denso que el líquido.`) +
+    (objF === "plomo" && liqF !== "mercurio" ? `<br>¿Qué densidad debería tener un líquido para que el plomo flote? Prueba con el mercurio.` : "");
 }
 dibujarFlota();
 
-/* ---------- 3 · Suelo ---------- */
-const RHO_PARTICULAS = 2.65; // densidad de las partículas minerales, g/cm³
+/* ---------- 5 · Suelo ---------- */
+const D_PARTICULAS = 2.65; // densidad de las partículas minerales del suelo, g/cm³
 ["sDiam", "sAlto", "sMasa"].forEach(id => $("#" + id).addEventListener("input", calcularSuelo));
 function calcularSuelo() {
-  const d = Number($("#sDiam").value), h = Number($("#sAlto").value), m = Number($("#sMasa").value);
-  const r = d / 2, V = Math.PI * r * r * h, rho = m / V, por = (1 - rho / RHO_PARTICULAS) * 100;
-  $("#sDiamOut").textContent = `${fmt(d, 1)} cm`; $("#sAltoOut").textContent = `${fmt(h, 1)} cm`; $("#sMasaOut").textContent = `${m} g`;
+  const D = Number($("#sDiam").value), h = Number($("#sAlto").value), m = Number($("#sMasa").value);
+  const r = D / 2, Ab = PI * r * r, V = Ab * h, d = m / V, por = (1 - d / D_PARTICULAS) * 100;
+  $("#sDiamOut").textContent = `${fmt(D, 1)} cm`; $("#sAltoOut").textContent = `${fmt(h, 1)} cm`; $("#sMasaOut").textContent = `${m} g`;
   $("#sVol").textContent = `${fmt(V, 1)} cm³`;
-  $("#sRho").textContent = `${fmt(rho, 2)} g/cm³`;
+  $("#sRho").textContent = `${fmt(d, 2)} g/cm³`;
   $("#sPor").textContent = `${fmt(por, 0)} %`;
-  // Aguja sobre las franjas (escala 0,8 a 2,0 repartida en 4 franjas: <1,1 | 1,1–1,4 | 1,4–1,6 | >1,6)
   const tramos = [[0.8, 1.1], [1.1, 1.4], [1.4, 1.6], [1.6, 2.0]];
   let pos = 0;
-  for (let i = 0; i < 4; i++) { const [a, b] = tramos[i]; if (rho <= b || i === 3) { pos = (i + Math.max(0, Math.min(1, (rho - a) / (b - a)))) / 4; break; } }
+  for (let i = 0; i < 4; i++) { const [a, b] = tramos[i]; if (d <= b || i === 3) { pos = (i + Math.max(0, Math.min(1, (d - a) / (b - a)))) / 4; break; } }
   $("#sAguja").style.left = `${pos * 100}%`;
-  const masaHa = 10000 * 0.2 * rho; // t: 2000 m³ × densidad en t/m³ (igual valor que en g/cm³)
+  const masaHa = 10000 * 0.2 * d;
   $("#sFormula").innerHTML =
-    `V = π × r × r × h = 3,1416 × ${fmtLibre(r, 2)} cm × ${fmtLibre(r, 2)} cm × ${fmtLibre(h, 1)} cm = ${fmt(V, 1)} cm³<br>` +
-    `densidad aparente = m ÷ V = ${m} g ÷ ${fmt(V, 1)} cm³ = <span class="res">${fmt(rho, 2)} g/cm³</span><br>` +
-    `poros = (1 − ${fmt(rho, 2)} ÷ ${fmt(RHO_PARTICULAS, 2)}) × 100 = <span class="res">${fmt(por, 0)} %</span> del volumen<br>` +
-    `En 1 ha, los primeros 20 cm: 10 000 m² × 0,20 m = 2000 m³ × ${fmt(rho, 2)} t/m³ = <span class="res">${fmtLibre(Math.round(masaHa), 0)} t de suelo</span>`;
-  // Dibujo del cilindro con suelo
-  const esc = 22, D = d * esc, H = h * esc, e = D * 0.18, cx = 120, y0 = 30 + (192 - H) / 2;
-  let s = "";
-  s += `<path d="M${cx - D / 2} ${y0} V${y0 + H} A${D / 2} ${e} 0 0 0 ${cx + D / 2} ${y0 + H} V${y0}" fill="#8b6b4a" stroke="#333" stroke-width="1.5"/>`;
-  for (let k = 0; k < 30; k++) { const px = cx - D / 2 + 6 + ((k * 37) % (D - 12)), py = y0 + 8 + ((k * 53) % (H - 10)); s += `<circle cx="${px}" cy="${py}" r="${1 + (k % 3)}" fill="#6e5238"/>`; }
-  s += `<ellipse cx="${cx}" cy="${y0}" rx="${D / 2}" ry="${e}" fill="#a07e5a" stroke="#333" stroke-width="1.5"/>`;
-  s += `<text x="${cx}" y="${y0 - e - 8}" text-anchor="middle" font-size="14" fill="#1d2320">d = ${fmt(d, 1)} cm</text>`;
-  s += `<text x="${cx + D / 2 + 10}" y="${y0 + H / 2}" font-size="14" fill="#1d2320">h = ${fmt(h, 1)} cm</text>`;
+    `r = D ÷ 2 = ${fmtLibre(D, 1)} cm ÷ 2 = ${fmtLibre(r, 2)} cm<br>` +
+    `A<sub>b</sub> = π · r² = 3,14 · ${fmtLibre(r, 2)} cm · ${fmtLibre(r, 2)} cm = ${fmt(Ab, 2)} cm²<br>` +
+    `V = A<sub>b</sub> · h = ${fmt(Ab, 2)} cm² · ${fmtLibre(h, 1)} cm = ${fmt(V, 1)} cm³<br>` +
+    `d<sub>ap</sub> = m / V = ${m} g / ${fmt(V, 1)} cm³ = <span class="res">${fmt(d, 2)} g/cm³</span><br>` +
+    `poros = (1 − ${fmt(d, 2)} ÷ ${fmt(D_PARTICULAS, 2)}) · 100 = <span class="res">${fmt(por, 0)} %</span> del volumen<br>` +
+    `En 1 ha, los primeros 20 cm: 10 000 m² · 0,20 m = 2000 m³; como 1 g/cm³ = 1 t/m³, son 2000 m³ · ${fmt(d, 2)} t/m³ = <span class="res">${fmtLibre(Math.round(masaHa), 0)} t de suelo</span>`;
+  const esc = 22, DD = D * esc, H = h * esc, e = DD * 0.18, cx = 120, y0 = 30 + (192 - H) / 2;
+  let s = `<path d="M${cx - DD / 2} ${y0} V${y0 + H} A${DD / 2} ${e} 0 0 0 ${cx + DD / 2} ${y0 + H} V${y0}" fill="#8b6b4a" stroke="#333" stroke-width="1.5"/>`;
+  for (let k = 0; k < 30; k++) { const px = cx - DD / 2 + 6 + ((k * 37) % (DD - 12)), py = y0 + 8 + ((k * 53) % (H - 10)); s += `<circle cx="${px}" cy="${py}" r="${1 + (k % 3)}" fill="#6e5238"/>`; }
+  s += `<ellipse cx="${cx}" cy="${y0}" rx="${DD / 2}" ry="${e}" fill="#a07e5a" stroke="#333" stroke-width="1.5"/>`;
+  s += `<text x="${cx}" y="${y0 - e - 8}" text-anchor="middle" font-size="14" fill="#1d2320">D = ${fmt(D, 1)} cm</text>`;
+  s += `<text x="${cx + DD / 2 + 10}" y="${y0 + H / 2}" font-size="14" fill="#1d2320">h = ${fmt(h, 1)} cm</text>`;
   $("#svgCil").innerHTML = s;
 }
 calcularSuelo();
 
-/* ---------- 4 · Problemas por grupo ---------- */
-// Los números de cada grupo están elegidos para que los resultados sean redondos y verificables.
+/* ---------- 6 · Problemas con la Guía para resolver problemas ---------- */
+// Los números de cada grupo están elegidos para que los resultados sean verificables.
 const G = {
-  bulon: [39.35, 47.22, 55.09, 62.96, 70.83, 78.70],     // g de hierro → 5 a 10 cm³
-  piedraSube: [18, 20, 22, 24, 26, 30],                  // mL que sube el agua
-  tanque: [600, 800, 1000, 1500, 2000, 3000],            // L
-  cuboLado: [2, 2.5, 3, 3.5, 4, 5],                      // cm, aluminio
-  sueloMasa: [118, 128, 137, 147, 157, 167]              // g, cilindro de 5 cm × 5 cm
+  bulon: [39.35, 47.22, 55.09, 62.96, 70.83, 78.70],   // g de hierro → 5 a 10 cm³
+  piedraSube: [18, 20, 22, 24, 26, 30],                // mL que sube el agua
+  tanque: [600, 800, 1000, 1500, 2000, 3000],          // L
+  cuboArista: [2, 2.5, 3, 3.5, 4, 5],                  // cm, aluminio
+  sueloMasa: [118, 128, 137, 147, 157, 167],           // g, cilindro de D = 5 cm y h = 5 cm
+  coronaPlata: [10, 15, 20, 25, 30, 35]                // % de plata en una corona de 1000 g
 };
 let grupo = 1;
 grupoChips($("#chipsGrupo"), [1, 2, 3, 4, 5, 6].map(g => ({ texto: `Grupo ${g}`, valor: g })), grupo, v => { grupo = v; armarProblemas(); });
+const P = t => ({ t: "p", x: t }), A = t => ({ t: "a", x: t });
 function armarProblemas() {
-  const i = grupo - 1;
-  const lista = [];
-  { // 1. Bulón
-    const m = G.bulon[i], V = m / 7.87;
+  const i = grupo - 1, lista = [];
+  lista.push({ t: "Ejemplo resuelto: el objeto de zinc (igual para todos)",
+    e: "Un objeto de zinc tiene una masa de 68,60 g. Al sumergirlo en una probeta, el agua sube de 35,5 mL a 45,0 mL. ¿Cuál es su densidad?",
+    pasos: [
+      [P("¿Qué me pide el problema? La densidad del objeto."), A("Busco: d (en g/mL)")],
+      [P("¿Qué datos me da? ¿Tengo todos? Falta el volumen: es un dato intermedio."), A("m = 68,60 g · V<sub>inicial</sub> = 35,5 mL · V<sub>final</sub> = 45,0 mL")],
+      [P("¿Qué relación hay? d = m / V. Primero calculo el volumen desplazado."), A("Dato intermedio: V = V<sub>final</sub> − V<sub>inicial</sub> = 45,0 mL − 35,5 mL = 9,5 mL"), P("¿Hay que despejar? No: d ya está sola. ¿Convertir unidades? No."), A("d = m / V = 68,60 g / 9,5 mL = 7,22 g/mL")],
+      [P("¿La unidad tiene sentido? g/mL es una densidad. ¿Es razonable? Es mayor que la del agua: el zinc se hunde."), A("Respuesta: la densidad del objeto es 7,22 g/mL (el zinc tiene 7,14 g/mL).")]
+    ] });
+  { const m = G.bulon[i], V = m / MATERIALES.hierro.d;
     lista.push({ t: "1. El bulón", e: `Un bulón de hierro tiene una masa de ${fmt(m, 2)} g. ¿Qué volumen ocupa? Densidad del hierro: 7,87 g/cm³.`,
-      p: [["Datos", `m = ${fmt(m, 2)} g · densidad = 7,87 g/cm³`], ["Incógnita", "V = ? (en cm³)"], ["Plan", "densidad = m ÷ V, entonces V = m ÷ densidad"],
-          ["Cálculo", `V = ${fmt(m, 2)} g ÷ 7,87 g/cm³ = ${fmt(V, 2)} cm³ (los g se cancelan y queda cm³)`],
-          ["Verificación", `Comprobación con la probeta: el agua tiene que subir unos ${fmt(V, 0)} mL. Un bulón es chico: unos pocos cm³ tiene sentido.`]] });
-  }
-  { // 2. Piedra
-    const dV = G.piedraSube[i], m = Math.round(2.70 * dV * 10) / 10, rho = m / dV;
+      pasos: [
+        [P("¿Qué me pide? El volumen del bulón."), A("Busco: V (en cm³)")],
+        [P("¿Qué datos me da? ¿Están en unidades que combinan? Sí: g y g/cm³."), A(`m = ${fmt(m, 2)} g · d = 7,87 g/cm³`)],
+        [P("¿Qué relación hay? d = m / V."), A("Despejo V: d · V = m → V = m / d"), A(`V = ${fmt(m, 2)} g / 7,87 g/cm³ = ${fmt(V, 2)} cm³ (g se cancela con g y queda cm³)`)],
+        [P("¿Es razonable? Un bulón es chico: unos pocos cm³ tiene sentido."), A(`Respuesta: el bulón ocupa ${fmt(V, 2)} cm³. En la probeta, el agua subiría ${fmt(V, 0)} mL.`)]
+      ] }); }
+  { const dV = G.piedraSube[i], m = Math.round(2.70 * dV * 10) / 10, d = m / dV;
     lista.push({ t: "2. La piedra", e: `En una probeta con 50 mL de agua se sumerge una piedra de ${fmt(m, 1)} g. El agua sube hasta ${50 + dV} mL. ¿Cuál es la densidad de la piedra? ¿Flota en agua?`,
-      p: [["Datos", `V₁ = 50 mL · V₂ = ${50 + dV} mL · m = ${fmt(m, 1)} g`], ["Incógnita", "densidad = ? (en g/cm³)"],
-          ["Plan", "V piedra = V₂ − V₁; después densidad = m ÷ V. Recordar 1 mL = 1 cm³."],
-          ["Cálculo", `V = ${50 + dV} mL − 50 mL = ${dV} mL = ${dV} cm³ · densidad = ${fmt(m, 1)} g ÷ ${dV} cm³ = ${fmt(rho, 2)} g/cm³`],
-          ["Verificación", `${fmt(rho, 2)} g/cm³ es mayor que 1,00 g/cm³ del agua: se hunde, como esperábamos. El valor coincide con el del granito.`]] });
-  }
-  { // 3. Tanque
-    const L = G.tanque[i], kgA = L * 1.00, kgG = L * 0.84;
-    lista.push({ t: "3. El tanque", e: `Un tanque tiene ${L.toLocaleString("es-AR")} L de agua. ¿Qué masa de agua carga, en kg? ¿Y si se llena con gasoil (0,84 g/cm³)?`,
-      p: [["Datos", `V = ${L.toLocaleString("es-AR")} L · agua 1,00 g/cm³ · gasoil 0,84 g/cm³`], ["Incógnita", "m = ? (en kg)"],
-          ["Plan", "Pasar la densidad a kg/L: 1 g/cm³ = 1 g/mL = 1000 g / 1000 mL = 1 kg/L. Después m = densidad × V."],
-          ["Cálculo", `agua: ${L.toLocaleString("es-AR")} L × 1,00 kg/L = ${fmtLibre(kgA, 1)} kg · gasoil: ${L.toLocaleString("es-AR")} L × 0,84 kg/L = ${fmtLibre(kgG, 1)} kg`],
-          ["Verificación", "El gasoil es menos denso que el agua: el mismo tanque pesa menos lleno de gasoil. Los litros de agua y los kilos de agua coinciden."]] });
-  }
-  { // 4. Cubo
-    const a = G.cuboLado[i], V = a ** 3, m = 2.70 * V;
-    lista.push({ t: "4. El cubo de aluminio", e: `Un cubo de aluminio mide ${fmtLibre(a, 1)} cm de lado. ¿Cuál es su masa? Densidad del aluminio: 2,70 g/cm³.`,
-      p: [["Datos", `lado = ${fmtLibre(a, 1)} cm · densidad = 2,70 g/cm³`], ["Incógnita", "m = ? (en g)"],
-          ["Plan", "Primero el volumen: V = lado × lado × lado. Después m = densidad × V."],
-          ["Cálculo", `V = ${fmtLibre(a, 1)} cm × ${fmtLibre(a, 1)} cm × ${fmtLibre(a, 1)} cm = ${fmtLibre(V, 3)} cm³ · m = 2,70 g/cm³ × ${fmtLibre(V, 3)} cm³ = ${fmt(m, 2)} g`],
-          ["Verificación", "Los cm³ se cancelan y queda g. Comprobación en la balanza, si hay un cubo de ese tamaño."]] });
-  }
-  { // 5. Suelo
-    const m = G.sueloMasa[i], V = Math.PI * 2.5 * 2.5 * 5, rho = m / V;
-    const est = rho < 1.1 ? "muy suelto" : rho <= 1.4 ? "adecuado para las raíces" : rho <= 1.6 ? "compactado" : "tan compactado que limita las raíces";
+      pasos: [
+        [P("¿Qué me pide? La densidad de la piedra y si flota."), A("Busco: d (en g/mL)")],
+        [P("¿Tengo todos los datos? Falta el volumen: es un dato intermedio."), A(`m = ${fmt(m, 1)} g · V<sub>inicial</sub> = 50 mL · V<sub>final</sub> = ${50 + dV} mL`)],
+        [A(`Dato intermedio: V = ${50 + dV} mL − 50 mL = ${dV} mL`), P("¿Hay que despejar? No: d ya está sola."), A(`d = m / V = ${fmt(m, 1)} g / ${dV} mL = ${fmt(d, 2)} g/mL`)],
+        [P(`¿Es razonable? ${fmt(d, 2)} g/mL es mayor que 1 g/mL del agua: se hunde, como cualquier piedra.`), A(`Respuesta: d = ${fmt(d, 2)} g/mL; la piedra se hunde. Coincide con la densidad del granito.`)]
+      ] }); }
+  { const L = G.tanque[i], mL = L * 1000;
+    lista.push({ t: "3. El tanque", e: `Un tanque tiene ${L.toLocaleString("es-AR")} L de agua (d = 1 g/mL). ¿Qué masa de agua carga, en kg? ¿Y si se llena con gasoil (d = 0,84 g/mL)?`,
+      pasos: [
+        [P("¿Qué me pide? La masa del agua y la del gasoil, en kg."), A("Busco: m (en kg)")],
+        [P("¿Las unidades combinan? No: el volumen está en L y la densidad en g/mL. Hay que convertir."), A(`V = ${L.toLocaleString("es-AR")} L · d<sub>agua</sub> = 1 g/mL · d<sub>gasoil</sub> = 0,84 g/mL`)],
+        [A(`Convierto con la tabla de saltos: ${L.toLocaleString("es-AR")} L → mL son 3 saltos, la coma corre 3 lugares: V = ${mL.toLocaleString("es-AR")} mL`),
+         A("Despejo m: d = m / V → d · V = m"),
+         A(`agua: m = 1 g/mL · ${mL.toLocaleString("es-AR")} mL = ${mL.toLocaleString("es-AR")} g → con la tabla, g → kg: ${L.toLocaleString("es-AR")} kg`),
+         A(`gasoil: m = 0,84 g/mL · ${mL.toLocaleString("es-AR")} mL = ${(mL * 0.84).toLocaleString("es-AR")} g = ${fmtLibre(L * 0.84, 1)} kg`)],
+        [P("¿Es razonable? El gasoil es menos denso: el mismo tanque tiene menos masa lleno de gasoil."), A(`Respuesta: ${L.toLocaleString("es-AR")} kg de agua o ${fmtLibre(L * 0.84, 1)} kg de gasoil.`)]
+      ] }); }
+  { const a = G.cuboArista[i], Ab = a * a, V = Ab * a, m = 2.70 * V;
+    lista.push({ t: "4. El cubo de aluminio", e: `Un cubo de aluminio tiene ${fmtLibre(a, 1)} cm de arista. ¿Cuál es su masa? Densidad del aluminio: 2,70 g/cm³.`,
+      pasos: [
+        [P("¿Qué me pide? La masa del cubo."), A("Busco: m (en g)")],
+        [P("¿Tengo todos los datos? Falta el volumen: lo calculo con la arista."), A(`a = ${fmtLibre(a, 1)} cm · d = 2,70 g/cm³`)],
+        [A(`Dato intermedio: A<sub>b</sub> = a² = ${fmtLibre(Ab, 3)} cm² · V = A<sub>b</sub> · h = ${fmtLibre(Ab, 3)} cm² · ${fmtLibre(a, 1)} cm = ${fmtLibre(V, 3)} cm³`),
+         A("Despejo m: d · V = m"), A(`m = 2,70 g/cm³ · ${fmtLibre(V, 3)} cm³ = ${fmt(m, 2)} g`)],
+        [P("¿La unidad tiene sentido? cm³ se cancela y queda g: es una masa."), A(`Respuesta: el cubo tiene una masa de ${fmt(m, 2)} g.`)]
+      ] }); }
+  { const m = G.sueloMasa[i], Ab = PI * 2.5 * 2.5, V = Ab * 5, d = m / V;
+    const est = d < 1.1 ? "muy suelto" : d <= 1.4 ? "adecuado para las raíces" : d <= 1.6 ? "compactado" : "tan compactado que limita las raíces";
     lista.push({ t: "5. La muestra de suelo", e: `Con un cilindro de 5 cm de diámetro y 5 cm de altura se saca una muestra de suelo. Seca, tiene una masa de ${m} g. ¿Cuál es su densidad aparente? ¿Cómo está el suelo?`,
-      p: [["Datos", `d = 5 cm (r = 2,5 cm) · h = 5 cm · m = ${m} g`], ["Incógnita", "densidad aparente = ? (en g/cm³)"],
-          ["Plan", "V = π × r × r × h; después densidad = m ÷ V."],
-          ["Cálculo", `V = 3,1416 × 2,5 cm × 2,5 cm × 5 cm = ${fmt(V, 2)} cm³ · densidad = ${m} g ÷ ${fmt(V, 2)} cm³ = ${fmt(rho, 2)} g/cm³`],
-          ["Verificación", `Está entre 1 y 2 g/cm³, como todos los suelos. Según la tabla orientativa, el suelo está ${est}.`]] });
-  }
+      pasos: [
+        [P("¿Qué me pide? La densidad aparente y cómo está el suelo."), A("Busco: d<sub>ap</sub> (en g/cm³)")],
+        [P("¿Tengo todos los datos? Falta el volumen, y antes el radio."), A(`D = 5 cm · h = 5 cm · m = ${m} g`)],
+        [A("Datos intermedios: r = D ÷ 2 = 2,5 cm · A<sub>b</sub> = π · r² = 3,14 · 2,5 cm · 2,5 cm = 19,625 cm²"),
+         A(`V = A<sub>b</sub> · h = 19,625 cm² · 5 cm = ${fmtLibre(V, 3)} cm³`),
+         A(`d<sub>ap</sub> = m / V = ${m} g / ${fmtLibre(V, 3)} cm³ = ${fmt(d, 2)} g/cm³`)],
+        [P("¿Es razonable? Todos los suelos están entre 1 y 2 g/cm³."), A(`Respuesta: d<sub>ap</sub> = ${fmt(d, 2)} g/cm³; según la tabla orientativa, el suelo está ${est}.`)]
+      ] }); }
+  { const p = G.coronaPlata[i] / 100, m = 1000, V = m * (1 - p) / 19.3 + m * p / 10.5, Vr = Math.round(V * 10) / 10, d = m / Vr;
+    lista.push({ t: "6. La corona", e: `Una corona de 1000 g sumergida en un recipiente lleno hasta el tope derrama ${fmt(Vr, 1)} mL de agua. ¿Es de oro puro? Densidad del oro: 19,3 g/mL.`,
+      pasos: [
+        [P("¿Qué me pide? Saber si la corona es de oro puro."), A("Busco: d de la corona (en g/mL), para compararla con la del oro")],
+        [P("¿El agua derramada es un dato útil? Sí: es el volumen de la corona."), A(`m = 1000 g · V = ${fmt(Vr, 1)} mL · d<sub>oro</sub> = 19,3 g/mL`)],
+        [P("¿Hay que despejar? No: d ya está sola."), A(`d = m / V = 1000 g / ${fmt(Vr, 1)} mL = ${fmt(d, 1)} g/mL`)],
+        [P(`¿Es razonable? Está entre la plata (10,5) y el oro (19,3): tiene sentido para una mezcla.`), A(`Respuesta: la densidad es ${fmt(d, 1)} g/mL, menor que la del oro. La corona no es de oro puro.`)]
+      ] }); }
+  const NOMBRES = ["Comprender el problema", "Identificar los datos", "Elegir la estrategia y resolver", "Comprobar la respuesta"];
   const caja = $("#listaProblemas"); caja.innerHTML = "";
-  lista.forEach((pr, k) => {
+  lista.forEach(pr => {
     const div = document.createElement("div");
     div.className = "problema";
     div.innerHTML = `<h3>${pr.t}</h3><p style="margin:0">${pr.e}</p>
-      <div class="fila-botones"><button type="button" class="boton sec" data-sig>Mostrar el siguiente paso</button><button type="button" class="boton sec" data-todo>Mostrar la resolución</button></div>
-      <div class="pasos"></div>`;
-    const pasos = $(".pasos", div);
+      <div class="fila-botones"><button type="button" class="boton sec" data-sig>Mostrar la siguiente etapa</button><button type="button" class="boton sec" data-todo>Mostrar la resolución</button></div>
+      <div class="controles etapas"></div>`;
+    const etapas = $(".etapas", div);
     let n = 0;
     const mostrarHasta = hasta => {
       n = hasta;
-      pasos.innerHTML = pr.p.slice(0, n).map(([t, c]) => `<div class="paso"><div><b>${t}</b><span class="cuenta">${c}</span></div></div>`).join("");
-      $("[data-sig]", div).disabled = n >= pr.p.length;
+      etapas.innerHTML = pr.pasos.slice(0, n).map((items, k) => `<div class="etapa e${k + 1}"><div class="cab"><span class="n">${k + 1}</span>${NOMBRES[k]}</div><ul>${items.map(it => `<li class="${it.t}"><span class="${it.t === "a" ? "cuenta" : ""}">${it.x}</span></li>`).join("")}</ul></div>`).join("");
+      $("[data-sig]", div).disabled = n >= pr.pasos.length;
+      $("[data-todo]", div).textContent = n >= pr.pasos.length ? "Ocultar la resolución" : "Mostrar la resolución";
     };
-    $("[data-sig]", div).addEventListener("click", () => mostrarHasta(Math.min(pr.p.length, n + 1)));
-    $("[data-todo]", div).addEventListener("click", () => mostrarHasta(n >= pr.p.length ? 0 : pr.p.length));
+    $("[data-sig]", div).addEventListener("click", () => mostrarHasta(Math.min(pr.pasos.length, n + 1)));
+    $("[data-todo]", div).addEventListener("click", () => mostrarHasta(n >= pr.pasos.length ? 0 : pr.pasos.length));
     caja.appendChild(div);
   });
 }

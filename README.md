@@ -2,7 +2,7 @@
 
 Material de clase de Química de 1.er año: guías para el docente, fichas para los alumnos y simuladores interactivos para proyectar.
 
-Cada clase parte de una pregunta concreta y termina con mediciones reales en el laboratorio. Todo valor que muestra un simulador se puede comprobar con la balanza, la probeta, la regla o el calibre. La Matemática está presente en cada encuentro: las cuentas se hacen con las unidades escritas y se verifican.
+Cada clase parte de una pregunta concreta y termina con mediciones reales en el laboratorio, siguiendo el método científico: pregunta, hipótesis, experimentación, registro y conclusión. Todo valor que muestra un simulador se puede comprobar con la balanza, la probeta, la regla o el calibre. Los problemas se resuelven con la guía de la hoja de Herramientas didácticas, con las unidades escritas en cada paso.
 
 **Simuladores en línea:** https://silvinacprieto.github.io/CNQ/
 
@@ -10,7 +10,7 @@ Cada clase parte de una pregunta concreta y termina con mediciones reales en el 
 
 | N.º | Clase | Encuentros | Contenido |
 | --- | --- | --- | --- |
-| 01 | [Materia, medición y densidad](clases/01-materia-medicion-densidad/) | 3 × 2 h | Materia y propiedades, perímetro, superficie y volumen, conversión de unidades, análisis dimensional, densidad, flotación, densidad aparente del suelo, resolución de problemas |
+| 01 | [Materia, medición y densidad](clases/01-materia-medicion-densidad/) | 3 × 2 h | Eje 1. TP N° 1 (¿el aire es materia?), propiedades, perímetro, área y volumen, tabla de saltos, despeje, densidad, modelo cinético-corpuscular, flotación, densidad aparente del suelo, resolución de problemas |
 
 ## Laboratorio
 
@@ -33,7 +33,7 @@ Cada clase nueva se agrega como una carpeta `clases/NN-nombre-corto/` con la mis
 
 ## Cómo usar los simuladores sin internet
 
-Descargar el repositorio (*Code → Download ZIP*), descomprimirlo y abrir `index.html` con el navegador. Sin conexión, las páginas funcionan igual; solo cambia la tipografía.
+Descarga el repositorio (*Code → Download ZIP*), descomprímelo y abre `index.html` con el navegador. Sin conexión, las páginas funcionan igual; solo cambia la tipografía.
 
 ## Autora
 

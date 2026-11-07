@@ -8,44 +8,98 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo.css">
+<style>
+.tarjeta .pregunta-t { font-size: 13px; color: var(--muted); margin: 0; }
+.corona { display: grid; grid-template-columns: 90px 1fr; gap: 16px; align-items: center; }
+@media (max-width: 600px) { .corona { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
 <header class="top">
   <div class="kicker">QUÍMICA · 1.ER AÑO · CLASE 1 · ENCUENTRO 1 DE 3</div>
   <h1>¿Qué es la materia y qué podemos medir de ella?</h1>
-  <p class="lead">Todo lo que tiene masa y ocupa un lugar es materia. En este encuentro medimos objetos reales con regla, calibre y probeta, y calculamos su perímetro, su superficie y su volumen.</p>
+  <p class="lead">Todo lo que tiene masa y ocupa un lugar es materia. En este encuentro medimos objetos reales con regla, calibre, balanza y probeta, y calculamos su perímetro, su área y su volumen.</p>
 </header>
 
 <nav class="secciones" aria-label="Secciones">
   <div class="fila">
     <a class="volver" href="index.html">← Clase 1</a>
-    <a href="#materia">1 · ¿Es materia?</a>
-    <a href="#propiedades">2 · Propiedades</a>
-    <a href="#figuras">3 · Perímetro, superficie y volumen</a>
-    <a href="#probeta">4 · Volumen con la probeta</a>
+    <a href="#problema">El problema de la corona</a>
+    <a href="#aire">1 · ¿El aire es materia?</a>
+    <a href="#materia">2 · ¿Es materia?</a>
+    <a href="#propiedades">3 · Propiedades</a>
+    <a href="#figuras">4 · Perímetro, área y volumen</a>
+    <a href="#probeta">5 · Volumen con la probeta</a>
     <button type="button" id="tema">Tema oscuro</button>
   </div>
 </nav>
 
 <main>
 
-<!-- 1 · ¿Es materia? -->
+<!-- El problema -->
+<section class="bloque" id="problema">
+  <div class="corona">
+    <svg viewBox="0 0 90 70" aria-hidden="true" style="width:90px">
+      <path d="M8 60 L8 22 L25 40 L45 10 L65 40 L82 22 L82 60 Z" fill="#e2b93b" stroke="#8a6d16" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="45" cy="44" r="5" fill="#c0392b"/><circle cx="24" cy="50" r="3.5" fill="#2b7a4b"/><circle cx="66" cy="50" r="3.5" fill="#2b7a4b"/>
+    </svg>
+    <div>
+      <div class="titulo"><h2>El problema de la corona</h2></div>
+      <p class="pregunta">El rey Hierón II sospechaba que su corona no era de oro puro. Arquímedes necesitaba saber su <strong>volumen</strong>, pero la corona estaba llena de curvas y no se podía fundir. ¿Cómo se mide el volumen de algo que no tiene forma de cubo? Hoy medimos objetos con forma regular y con forma irregular. En el encuentro 3 resolvemos el problema de la corona.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 1 · ¿El aire es materia? -->
+<section class="bloque" id="aire">
+  <div class="titulo"><span class="num">1</span><h2>TP N° 1: ¿El aire es materia?</h2></div>
+  <p class="pregunta"><strong>Hipótesis:</strong> antes de inflar, escribe qué crees que va a pasar con la masa de la pelota. Después infla con el inflador, bombeo por bombeo, y registra lo que marca la balanza.</p>
+  <div class="grid2">
+    <div class="controles">
+      <div class="control">
+        <label for="bombeos">Bombeos con el inflador <output id="bombeosOut"></output></label>
+        <input type="range" id="bombeos" min="0" max="40" step="1" value="0">
+      </div>
+      <div class="instrumento">
+        <div class="rotulo"><span>BALANZA DE PRECISIÓN</span><span>0,01 g</span></div>
+        <div class="pantalla"><span id="balanzaPelota">430,00</span> <small>g</small></div>
+      </div>
+      <div class="lecturas">
+        <div class="lectura"><div class="k">Pelota desinflada</div><div class="v">430,00 g</div></div>
+        <div class="lectura destacada"><div class="k">Masa del aire que entró</div><div class="v" id="masaAire">0,00 g</div></div>
+      </div>
+      <div class="fila-botones">
+        <button type="button" class="boton sec" id="registrarPelota">Registrar en la tabla</button>
+        <button type="button" class="boton sec" id="borrarPelota">Borrar la tabla</button>
+      </div>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th class="n">Bombeos</th><th class="n">Masa de la pelota (g)</th><th class="n">Masa del aire (g)</th></tr></thead>
+          <tbody id="tablaPelota"><tr><td colspan="3" class="nota">Registra al menos tres mediciones.</td></tr></tbody>
+        </table>
+      </div>
+      <p class="idea" id="ideaPelota">Cada bombeo empuja unos 0,2 L de aire, que tienen una masa de unos 0,24 g. La balanza de precisión lo detecta.</p>
+    </div>
+    <div class="dibujo" aria-hidden="true"><svg id="svgPelota" viewBox="0 0 360 320"></svg></div>
+  </div>
+</section>
+
+<!-- 2 · ¿Es materia? -->
 <section class="bloque" id="materia">
-  <div class="titulo"><span class="num">1</span><h2>¿Es materia o no?</h2></div>
-  <p class="pregunta">Criterio para decidir: <strong>¿tiene masa?</strong> y <strong>¿ocupa un lugar?</strong> Si las dos respuestas son sí, es materia. Tocá una opción en cada tarjeta y después comprobá.</p>
+  <div class="titulo"><span class="num">2</span><h2>¿Es materia o no?</h2></div>
+  <p class="pregunta">La regla de oro: para que algo sea materia tiene que <strong>tener masa</strong> y <strong>ocupar un lugar</strong> (tener volumen). Toca una opción en cada tarjeta y después comprueba.</p>
   <div class="tarjetas" id="tarjetasMateria"></div>
   <div class="fila-botones">
     <button type="button" class="boton" id="corregirMateria">Comprobar</button>
     <button type="button" class="boton sec" id="reiniciarMateria">Empezar de nuevo</button>
     <span id="puntajeMateria" class="nota" aria-live="polite"></span>
   </div>
-  <p class="idea"><strong>Para comprobarlo en el laboratorio:</strong> una pelota inflada en la balanza de precisión pesa más que la misma pelota desinflada. El aire tiene masa.</p>
 </section>
 
-<!-- 2 · Propiedades -->
+<!-- 3 · Propiedades -->
 <section class="bloque" id="propiedades">
-  <div class="titulo"><span class="num">2</span><h2>Propiedades que dependen de la cantidad y propiedades que no</h2></div>
-  <p class="pregunta">Elegí un material y cambiá la cantidad. ¿Qué valores cambian y cuál queda igual?</p>
+  <div class="titulo"><span class="num">3</span><h2>Propiedades de la materia</h2></div>
+  <p class="pregunta">Elige un material y cambia la cantidad. ¿Qué valores cambian y cuál queda igual?</p>
   <div class="grid2">
     <div class="controles">
       <div class="chips" id="chipsMaterialProp" role="group" aria-label="Material"></div>
@@ -54,50 +108,61 @@
         <input type="range" id="cantidad" min="1" max="500" step="1" value="50">
       </div>
       <div class="lecturas">
-        <div class="lectura"><div class="k">Masa (cambia)</div><div class="v" id="propMasa"></div></div>
-        <div class="lectura"><div class="k">Volumen (cambia)</div><div class="v" id="propVol"></div></div>
-        <div class="lectura destacada"><div class="k">Masa ÷ volumen</div><div class="v" id="propCociente"></div></div>
+        <div class="lectura"><div class="k">Masa (m): cambia</div><div class="v" id="propMasa"></div></div>
+        <div class="lectura"><div class="k">Volumen (V): cambia</div><div class="v" id="propVol"></div></div>
+        <div class="lectura destacada"><div class="k">m ÷ V: no cambia</div><div class="v" id="propCociente"></div></div>
       </div>
       <div class="formula" id="propFormula"></div>
-      <p class="idea">La masa y el volumen son <strong>propiedades extensivas</strong>: dependen de cuánta materia hay. El cociente masa ÷ volumen no cambia: es una <strong>propiedad intensiva</strong> y sirve para reconocer el material. Se llama <strong>densidad</strong> y la medimos en el encuentro 3.</p>
+      <p class="idea">La masa y el volumen son <strong>propiedades extensivas</strong>: dependen de la cantidad de materia y no sirven para diferenciar una sustancia de otra. El cociente m ÷ V no cambia: es una <strong>propiedad intensiva</strong>, sirve para reconocer el material y se llama <strong>densidad</strong> (d). La trabajamos en el encuentro 3.</p>
     </div>
     <div class="dibujo" aria-hidden="true"><svg id="svgProp" viewBox="0 0 360 300"></svg></div>
   </div>
 
-  <h3>Clasificá estas propiedades</h3>
+  <h3>Clasifica estas propiedades</h3>
+  <p class="pregunta">Cada propiedad se clasifica de dos maneras: si depende o no de la cantidad (extensiva o intensiva), y si se puede medir con un número y una unidad (cuantitativa) o no (cualitativa).</p>
   <div class="tarjetas" id="tarjetasProp"></div>
   <div class="fila-botones">
     <button type="button" class="boton" id="corregirProp">Comprobar</button>
     <button type="button" class="boton sec" id="reiniciarProp">Empezar de nuevo</button>
     <span id="puntajeProp" class="nota" aria-live="polite"></span>
   </div>
+  <p class="nota">Las propiedades cuantitativas se llaman <strong>magnitudes</strong>: necesitan una unidad de medida. En el laboratorio nunca se prueba el sabor de una sustancia.</p>
 </section>
 
-<!-- 3 · Figuras -->
+<!-- 4 · Figuras -->
 <section class="bloque" id="figuras">
-  <div class="titulo"><span class="num">3</span><h2>Perímetro, superficie y volumen</h2></div>
-  <p class="pregunta">Medí el objeto con la regla o el calibre, cargá las medidas y comprobá tus cálculos. Las cuentas se muestran con los números reemplazados.</p>
+  <div class="titulo"><span class="num">4</span><h2>Perímetro, área y volumen</h2></div>
+  <p class="pregunta">Mide el objeto con la regla o el calibre, carga las medidas y comprueba tus cálculos. Para todos los cuerpos usamos la misma idea: <strong>V = A<sub>b</sub> · h</strong>, el área de la base por la altura.</p>
   <div class="grid2">
     <div class="controles">
       <div class="chips" id="chipsFigura" role="group" aria-label="Forma del objeto"></div>
       <div id="medidas" class="controles"></div>
       <div class="lecturas">
-        <div class="lectura"><div class="k">Perímetro de la base</div><div class="v" id="figPer"></div></div>
-        <div class="lectura"><div class="k">Superficie de la base</div><div class="v" id="figSupBase"></div></div>
-        <div class="lectura"><div class="k">Superficie total</div><div class="v" id="figSupTot"></div></div>
-        <div class="lectura destacada"><div class="k">Volumen</div><div class="v" id="figVol"></div></div>
+        <div class="lectura"><div class="k" id="figPerK">Perímetro de la base</div><div class="v" id="figPer"></div></div>
+        <div class="lectura"><div class="k">Área de la base (A<sub>b</sub>)</div><div class="v" id="figArea"></div></div>
+        <div class="lectura destacada"><div class="k">Volumen (V)</div><div class="v" id="figVol"></div></div>
       </div>
     </div>
     <div class="dibujo" aria-hidden="true"><svg id="svgFigura" viewBox="0 0 420 340"></svg></div>
   </div>
   <div class="formula" id="figFormulas"></div>
-  <p class="idea"><strong>Fijate en las unidades:</strong> el perímetro es una longitud (cm), la superficie es longitud × longitud (cm²) y el volumen es longitud × longitud × longitud (cm³). Si una cuenta de volumen da cm², algo está mal.</p>
+  <div class="tabla-wrap">
+    <table>
+      <thead><tr><th>Magnitud</th><th>¿Qué mide?</th><th>Dimensiones</th><th>Unidad en el SI</th></tr></thead>
+      <tbody>
+        <tr><td>Perímetro</td><td>La longitud del contorno de una figura</td><td>Una dimensión</td><td>metro (m)</td></tr>
+        <tr><td>Superficie (área)</td><td>La extensión de una superficie</td><td>Dos dimensiones</td><td>metro cuadrado (m²)</td></tr>
+        <tr><td>Volumen</td><td>El espacio que ocupa un cuerpo</td><td>Tres dimensiones</td><td>metro cúbico (m³)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="idea"><strong>Fíjate en las unidades:</strong> si una cuenta de volumen da cm², algo está mal. Si mides el diámetro (D), primero calcula el radio: r = D ÷ 2. Usamos D mayúscula para no confundirlo con la densidad (d).</p>
 </section>
 
-<!-- 4 · Probeta -->
+<!-- 5 · Probeta -->
 <section class="bloque" id="probeta">
-  <div class="titulo"><span class="num">4</span><h2>Volumen de un objeto irregular: la probeta</h2></div>
-  <p class="pregunta">Una piedra no tiene fórmula. Se mide el agua antes y después de sumergirla: la diferencia es el volumen de la piedra. Leé la probeta antes de mostrar el valor.</p>
+  <div class="titulo"><span class="num">5</span><h2>Volumen por desplazamiento: el experimento preliminar de Arquímedes</h2></div>
+  <p class="pregunta">Antes de ir a ver al rey, Arquímedes comprobó su método con objetos de volumen conocido. Hacemos lo mismo: primero un cubo y un cilindro (cuyo volumen ya calculaste), después una piedra y un bulón. <strong>Lee la probeta antes de mostrar el valor.</strong></p>
   <div class="grid2">
     <div class="controles">
       <div>
@@ -120,9 +185,9 @@
         <table>
           <thead><tr><th>Lectura</th><th class="n">Valor</th></tr></thead>
           <tbody>
-            <tr><td>V₁ · agua sola</td><td class="n" id="probV1">?</td></tr>
-            <tr><td>V₂ · agua + objeto</td><td class="n" id="probV2">?</td></tr>
-            <tr><td><strong>V objeto = V₂ − V₁</strong></td><td class="n" id="probVobj">?</td></tr>
+            <tr><td>V<sub>inicial</sub> · agua sola</td><td class="n" id="probV1">?</td></tr>
+            <tr><td>V<sub>final</sub> · agua + objeto</td><td class="n" id="probV2">?</td></tr>
+            <tr><td><strong>V<sub>desplazado</sub> = V<sub>final</sub> − V<sub>inicial</sub></strong></td><td class="n" id="probVobj">?</td></tr>
           </tbody>
         </table>
       </div>
@@ -137,143 +202,197 @@
 </section>
 
 </main>
-<footer>Clase 1 · Encuentro 1 · Ciencias Naturales – Química. Los valores son los mismos que usa la guía del docente.</footer>
+<footer>Clase 1 · Encuentro 1 · Ciencias Naturales – Química · Ing. Agr. Silvina C. Prieto. En todas las cuentas se usa π ≈ 3,14.</footer>
 
 <script src="comun.js"></script>
 <script>
 botonTema($("#tema"));
 
-/* ---------- 1 · ¿Es materia? ---------- */
-const ITEMS_MATERIA = [
-  { n: "Aire", r: "si", p: "Tiene masa (la pelota inflada pesa más) y ocupa lugar (infla el globo)." },
-  { n: "Luz", r: "no", p: "No tiene masa ni ocupa lugar: es energía." },
-  { n: "Agua de la canilla", r: "si", p: "Tiene masa y ocupa lugar en el vaso." },
-  { n: "Sonido", r: "no", p: "Es una vibración que viaja a través de la materia; no es materia." },
-  { n: "Semilla de soja", r: "si", p: "Tiene masa y ocupa lugar." },
-  { n: "Calor", r: "no", p: "Es energía que pasa de un cuerpo caliente a uno frío." },
-  { n: "Humo", r: "si", p: "Son gases y partículas muy chicas: tienen masa y ocupan lugar." },
-  { n: "Sombra", r: "no", p: "Es una zona donde no llega la luz." },
-  { n: "Perfume que se siente en el aula", r: "si", p: "Son partículas del perfume que viajan por el aire." },
-  { n: "Suelo de un lote", r: "si", p: "Partículas minerales, materia orgánica, agua y aire: todo es materia." }
-];
-function armarTarjetas(contenedor, items, opciones) {
+/* ---------- 1 · La pelota ---------- */
+const MASA_PELOTA = 430;      // g, pelota de fútbol desinflada
+const AIRE_POR_BOMBEO = 0.24; // g: unos 0,2 L de aire a 1,2 g/L
+const BOMBEOS_LLENA = 27;     // a partir de acá la pelota ya no crece: el aire se comprime
+let registrosPelota = [];
+$("#bombeos").addEventListener("input", dibujarPelota);
+$("#registrarPelota").addEventListener("click", () => {
+  const n = Number($("#bombeos").value);
+  registrosPelota = registrosPelota.filter(r => r.n !== n);
+  registrosPelota.push({ n, m: MASA_PELOTA + AIRE_POR_BOMBEO * n });
+  registrosPelota.sort((a, b) => a.n - b.n);
+  tablaPelota();
+});
+$("#borrarPelota").addEventListener("click", () => { registrosPelota = []; tablaPelota(); });
+function tablaPelota() {
+  const tb = $("#tablaPelota");
+  if (!registrosPelota.length) { tb.innerHTML = `<tr><td colspan="3" class="nota">Registra al menos tres mediciones.</td></tr>`; return; }
+  tb.innerHTML = registrosPelota.map(r => `<tr><td class="n">${r.n}</td><td class="n">${fmt(r.m, 2)}</td><td class="n">${fmt(r.m - MASA_PELOTA, 2)}</td></tr>`).join("");
+}
+function dibujarPelota() {
+  const n = Number($("#bombeos").value);
+  const m = MASA_PELOTA + AIRE_POR_BOMBEO * n;
+  $("#bombeosOut").textContent = n;
+  $("#balanzaPelota").textContent = fmt(m, 2);
+  $("#masaAire").textContent = `${fmt(m - MASA_PELOTA, 2)} g`;
+  const llenado = Math.min(1, n / BOMBEOS_LLENA);
+  $("#ideaPelota").innerHTML = n > BOMBEOS_LLENA
+    ? `La pelota ya no crece, pero la masa sigue aumentando: entra más aire en el mismo lugar. Las partículas de aire quedan más juntas (el aire se comprime).`
+    : `Cada bombeo empuja unos 0,2 L de aire, que tienen una masa de unos 0,24 g. La balanza de precisión lo detecta. Mientras se infla, el aire además <strong>ocupa lugar</strong>: la pelota crece.`;
+  // Dibujo: balanza con la pelota, que se infla hasta su tamaño final
+  const cx = 180, base = 250, rMax = 95, rMin = 40;
+  const r = rMin + (rMax - rMin) * llenado;
+  const aplastada = 1 - 0.45 * (1 - llenado);
+  let s = `<rect x="70" y="${base}" width="220" height="16" rx="4" fill="#cfd5d2" stroke="#555"/>`;
+  s += `<rect x="90" y="${base + 16}" width="180" height="40" rx="6" fill="#e6e9e7" stroke="#555"/>`;
+  s += `<rect x="150" y="${base + 24}" width="60" height="22" rx="3" fill="#b9c4a6" stroke="#555"/>`;
+  s += `<text x="180" y="${base + 40}" text-anchor="middle" font-size="12" fill="#1c2414">${fmt(m, 2)}</text>`;
+  const ry = r * aplastada;
+  s += `<ellipse cx="${cx}" cy="${base - ry}" rx="${r}" ry="${ry}" fill="#f5f5f2" stroke="#333" stroke-width="2"/>`;
+  // Gajos de la pelota
+  s += `<path d="M${cx - r * 0.5} ${base - ry * 1.6} Q${cx} ${base - ry * 1.2} ${cx + r * 0.5} ${base - ry * 1.6}" fill="none" stroke="#333" stroke-width="1.5"/>`;
+  s += `<path d="M${cx - r * 0.75} ${base - ry * 0.7} Q${cx} ${base - ry * 0.35} ${cx + r * 0.75} ${base - ry * 0.7}" fill="none" stroke="#333" stroke-width="1.5"/>`;
+  // Partículas de aire dentro (más cantidad cuanto más bombeos)
+  const puntos = Math.min(140, Math.round(n * 3.5));
+  for (let k = 0; k < puntos; k++) {
+    const ang = k * 2.39996, rad = Math.sqrt((k + 0.5) / Math.max(puntos, 1)) * 0.82;
+    s += `<circle cx="${cx + Math.cos(ang) * rad * r}" cy="${base - ry + Math.sin(ang) * rad * ry}" r="2" fill="#6fa6c9"/>`;
+  }
+  s += `<text x="${cx}" y="24" text-anchor="middle" font-size="14" fill="#1d2320">${n === 0 ? "Pelota desinflada" : n < BOMBEOS_LLENA ? "Se infla: crece y gana masa" : "Llena: no crece, pero gana masa"}</text>`;
+  $("#svgPelota").innerHTML = s;
+}
+dibujarPelota();
+
+/* ---------- Tarjetas para clasificar (una o dos preguntas por tarjeta) ---------- */
+function armarTarjetas(contenedor, items, preguntas) {
   contenedor.innerHTML = "";
-  items.forEach((it, i) => {
+  items.forEach(it => {
     const t = document.createElement("div");
     t.className = "tarjeta";
-    t.dataset.correcta = it.r;
-    t.innerHTML = `<div class="nombre">${it.n}</div><div class="opciones"></div><p class="porque oculto">${it.p}</p>`;
-    const caja = $(".opciones", t);
-    opciones.forEach(op => {
-      const b = document.createElement("button");
-      b.type = "button"; b.className = "chip"; b.textContent = op.texto; b.dataset.valor = op.valor;
-      b.setAttribute("aria-pressed", "false");
-      b.addEventListener("click", () => {
-        $$(".chip", caja).forEach(c => c.setAttribute("aria-pressed", "false"));
-        b.setAttribute("aria-pressed", "true");
-        t.classList.remove("bien", "mal");
-        $(".porque", t).classList.add("oculto");
+    t.innerHTML = `<div class="nombre">${it.n}</div>`;
+    preguntas.forEach((pr, q) => {
+      if (pr.titulo) { const p = document.createElement("p"); p.className = "pregunta-t"; p.textContent = pr.titulo; t.appendChild(p); }
+      const caja = document.createElement("div");
+      caja.className = "opciones"; caja.dataset.q = q; caja.dataset.correcta = it.r[q];
+      pr.opciones.forEach(op => {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "chip"; b.textContent = op.texto; b.dataset.valor = op.valor;
+        b.setAttribute("aria-pressed", "false");
+        b.addEventListener("click", () => {
+          $$(".chip", caja).forEach(c => c.setAttribute("aria-pressed", "false"));
+          b.setAttribute("aria-pressed", "true");
+          t.classList.remove("bien", "mal");
+          $(".porque", t).classList.add("oculto");
+        });
+        caja.appendChild(b);
       });
-      caja.appendChild(b);
+      t.appendChild(caja);
     });
+    const p = document.createElement("p"); p.className = "porque oculto"; p.textContent = it.p; t.appendChild(p);
     contenedor.appendChild(t);
   });
 }
 function corregir(contenedor, salida) {
-  let bien = 0, respondidas = 0;
-  $$(".tarjeta", contenedor).forEach(t => {
-    const elegido = $('.chip[aria-pressed="true"]', t);
+  let bien = 0, completas = 0;
+  const tarjetas = $$(".tarjeta", contenedor);
+  tarjetas.forEach(t => {
     t.classList.remove("bien", "mal");
-    if (!elegido) return;
-    respondidas++;
-    const ok = elegido.dataset.valor === t.dataset.correcta;
+    const cajas = $$(".opciones", t);
+    const elegidos = cajas.map(c => $('.chip[aria-pressed="true"]', c));
+    if (elegidos.some(e => !e)) return;
+    completas++;
+    const ok = cajas.every((c, i) => elegidos[i].dataset.valor === c.dataset.correcta);
     if (ok) bien++;
     t.classList.add(ok ? "bien" : "mal");
     $(".porque", t).classList.remove("oculto");
   });
-  const total = $$(".tarjeta", contenedor).length;
-  salida.textContent = respondidas < total
-    ? `${bien} bien de ${respondidas} respondidas. Faltan ${total - respondidas}.`
-    : `${bien} de ${total} bien.`;
+  salida.textContent = completas < tarjetas.length
+    ? `${bien} bien de ${completas} completas. Faltan ${tarjetas.length - completas}.`
+    : `${bien} de ${tarjetas.length} bien.`;
 }
-const OPC_MATERIA = [{ texto: "Es materia", valor: "si" }, { texto: "No es materia", valor: "no" }];
-armarTarjetas($("#tarjetasMateria"), ITEMS_MATERIA, OPC_MATERIA);
-$("#corregirMateria").addEventListener("click", () => corregir($("#tarjetasMateria"), $("#puntajeMateria")));
-$("#reiniciarMateria").addEventListener("click", () => { armarTarjetas($("#tarjetasMateria"), ITEMS_MATERIA, OPC_MATERIA); $("#puntajeMateria").textContent = ""; });
 
-/* ---------- 2 · Propiedades ---------- */
+/* ---------- 2 · ¿Es materia? ---------- */
+const ITEMS_MATERIA = [
+  { n: "Aire", r: ["si"], p: "Tiene masa (la pelota gana masa al inflarla) y ocupa lugar (la pelota crece)." },
+  { n: "Luz", r: ["no"], p: "No tiene masa ni ocupa lugar: es energía." },
+  { n: "Agua de la canilla", r: ["si"], p: "Tiene masa y ocupa lugar en el vaso." },
+  { n: "Sonido", r: ["no"], p: "Es una vibración que viaja a través de la materia; no es materia." },
+  { n: "Semilla de soja", r: ["si"], p: "Tiene masa y ocupa lugar." },
+  { n: "Calor", r: ["no"], p: "Es energía que pasa de un cuerpo caliente a uno frío." },
+  { n: "Humo", r: ["si"], p: "Son gases y partículas muy chicas: tienen masa y ocupan lugar." },
+  { n: "Sombra", r: ["no"], p: "Es una zona donde no llega la luz." },
+  { n: "Perfume que se siente en el aula", r: ["si"], p: "Son partículas del perfume que viajan por el aire." },
+  { n: "Suelo de un lote", r: ["si"], p: "Partículas minerales, materia orgánica, agua y aire: todo es materia." }
+];
+const PREG_MATERIA = [{ opciones: [{ texto: "Es materia", valor: "si" }, { texto: "No es materia", valor: "no" }] }];
+armarTarjetas($("#tarjetasMateria"), ITEMS_MATERIA, PREG_MATERIA);
+$("#corregirMateria").addEventListener("click", () => corregir($("#tarjetasMateria"), $("#puntajeMateria")));
+$("#reiniciarMateria").addEventListener("click", () => { armarTarjetas($("#tarjetasMateria"), ITEMS_MATERIA, PREG_MATERIA); $("#puntajeMateria").textContent = ""; });
+
+/* ---------- 3 · Propiedades ---------- */
 const MAT_PROP = ["aluminio", "hierro", "pino", "agua", "aceite"];
 let matProp = "aluminio";
 grupoChips($("#chipsMaterialProp"), MAT_PROP.map(k => ({ texto: MATERIALES[k].nombre, valor: k })), matProp, v => { matProp = v; dibujarProp(); });
 $("#cantidad").addEventListener("input", dibujarProp);
 function dibujarProp() {
-  const m = MATERIALES[matProp];
+  const mt = MATERIALES[matProp];
   const V = Number($("#cantidad").value);
-  const masa = m.rho * V;
+  const masa = mt.d * V;
   $("#cantidadOut").textContent = `${V} cm³`;
   $("#propMasa").textContent = `${fmt(masa, 1)} g`;
   $("#propVol").textContent = `${V} cm³`;
-  $("#propCociente").textContent = `${fmt(m.rho, 2)} g/cm³`;
-  $("#propFormula").innerHTML = `masa ÷ volumen = ${fmt(masa, 1)} g ÷ ${V} cm³ = <span class="res">${fmt(m.rho, 2)} g/cm³</span>`;
-  // Dibujo: un cubo (sólido) o un vaso (líquido) cuyo tamaño acompaña al volumen.
+  $("#propCociente").textContent = `${fmt(mt.d, 2)} g/cm³`;
+  $("#propFormula").innerHTML = `m ÷ V = ${fmt(masa, 1)} g ÷ ${V} cm³ = <span class="res">${fmt(mt.d, 2)} g/cm³</span>`;
   const svg = $("#svgProp");
-  const lado = Math.cbrt(V); // cm
-  const esc = 150 / Math.cbrt(500);
-  const L = lado * esc;
-  let html = `<rect x="0" y="0" width="360" height="300" fill="none"/>`;
-  if (m.estado === "sólido") {
-    const x0 = 180 - L / 2 - L * 0.2, y0 = 260 - L;
-    const d = L * 0.4;
-    html += `<polygon points="${x0},${y0} ${x0 + d},${y0 - d * 0.6} ${x0 + d + L},${y0 - d * 0.6} ${x0 + L},${y0}" fill="${m.color}" stroke="#333" stroke-width="1.5" opacity=".85"/>`;
-    html += `<polygon points="${x0 + L},${y0} ${x0 + L + d},${y0 - d * 0.6} ${x0 + L + d},${y0 + L - d * 0.6} ${x0 + L},${y0 + L}" fill="${m.color}" stroke="#333" stroke-width="1.5" opacity=".65"/>`;
-    html += `<rect x="${x0}" y="${y0}" width="${L}" height="${L}" fill="${m.color}" stroke="#333" stroke-width="1.5"/>`;
-    html += `<text x="${x0 + L / 2}" y="${y0 + L + 26}" text-anchor="middle" font-size="14" fill="currentColor">lado ${fmt(lado, 2)} cm</text>`;
+  const lado = Math.cbrt(V);
+  const L = lado * 150 / Math.cbrt(500);
+  let html = `<text x="180" y="24" text-anchor="middle" font-size="16" fill="#1d2320" font-weight="600">${mt.nombre}</text>`;
+  if (mt.estado === "sólido") {
+    const x0 = 180 - L / 2 - L * 0.2, y0 = 260 - L, d = L * 0.4;
+    html += `<polygon points="${x0},${y0} ${x0 + d},${y0 - d * 0.6} ${x0 + d + L},${y0 - d * 0.6} ${x0 + L},${y0}" fill="${mt.color}" stroke="#333" stroke-width="1.5" opacity=".85"/>`;
+    html += `<polygon points="${x0 + L},${y0} ${x0 + L + d},${y0 - d * 0.6} ${x0 + L + d},${y0 + L - d * 0.6} ${x0 + L},${y0 + L}" fill="${mt.color}" stroke="#333" stroke-width="1.5" opacity=".65"/>`;
+    html += `<rect x="${x0}" y="${y0}" width="${L}" height="${L}" fill="${mt.color}" stroke="#333" stroke-width="1.5"/>`;
+    html += `<text x="${x0 + L / 2}" y="${y0 + L + 24}" text-anchor="middle" font-size="14" fill="#1d2320">arista ${fmt(lado, 2)} cm</text>`;
   } else {
-    const w = 170, h = 220, x0 = 95, y0 = 30;
-    const nivel = h * V / 500;
-    html += `<rect x="${x0}" y="${y0 + h - nivel}" width="${w}" height="${nivel}" fill="${m.color}" opacity=".85"/>`;
+    const w = 170, h = 220, x0 = 95, y0 = 40, nivel = h * V / 500;
+    html += `<rect x="${x0}" y="${y0 + h - nivel}" width="${w}" height="${nivel}" fill="${mt.color}" opacity=".85"/>`;
     html += `<path d="M${x0} ${y0} V${y0 + h} H${x0 + w} V${y0}" fill="none" stroke="#555" stroke-width="3"/>`;
     for (let k = 100; k <= 500; k += 100) {
       const y = y0 + h - h * k / 500;
       html += `<line x1="${x0}" x2="${x0 + 18}" y1="${y}" y2="${y}" stroke="#555"/><text x="${x0 + 24}" y="${y + 5}" font-size="13" fill="#555">${k} mL</text>`;
     }
   }
-  html += `<text x="180" y="24" text-anchor="middle" font-size="16" fill="#1d2320" font-weight="600">${m.nombre}</text>`;
   svg.innerHTML = html;
 }
 dibujarProp();
 
 const ITEMS_PROP = [
-  { n: "Masa", r: "ext", p: "Más material, más masa." },
-  { n: "Volumen", r: "ext", p: "Más material, más lugar ocupado." },
-  { n: "Peso", r: "ext", p: "Depende de la masa, y la masa depende de la cantidad." },
-  { n: "Longitud de un alambre", r: "ext", p: "Más alambre, más largo." },
-  { n: "Densidad", r: "int", p: "Un clavo y una viga de hierro tienen la misma densidad." },
-  { n: "Color", r: "int", p: "Una gota y un litro de aceite tienen el mismo color." },
-  { n: "Olor", r: "int", p: "No depende de cuánto hay, aunque mucho se sienta más fuerte." },
-  { n: "Temperatura de ebullición", r: "int", p: "El agua pura hierve a unos 100 °C sea una taza o una olla." },
-  { n: "Dureza", r: "int", p: "Un trozo chico o grande de vidrio raya igual." },
-  { n: "Brillo", r: "int", p: "Es una característica del material, no de la cantidad." }
+  { n: "Masa", r: ["ext", "cuant"], p: "Más material, más masa. Se mide con la balanza, en g o kg." },
+  { n: "Volumen", r: ["ext", "cuant"], p: "Más material, más lugar ocupado. Se mide en cm³ o mL." },
+  { n: "Longitud de un alambre", r: ["ext", "cuant"], p: "Más alambre, más largo. Se mide en m o cm." },
+  { n: "Densidad", r: ["int", "cuant"], p: "Un clavo y una viga de hierro tienen la misma densidad: 7,87 g/cm³." },
+  { n: "Temperatura de ebullición", r: ["int", "cuant"], p: "El agua pura hierve a unos 100 °C, sea una taza o una olla." },
+  { n: "Color", r: ["int", "cual"], p: "Una gota y un litro de aceite tienen el mismo color. Se describe, no se mide con una unidad." },
+  { n: "Olor", r: ["int", "cual"], p: "Es una característica de la sustancia, no de la cantidad." },
+  { n: "Brillo", r: ["int", "cual"], p: "Un trozo chico o grande de aluminio brilla igual." },
+  { n: "Suavidad", r: ["int", "cual"], p: "Se describe al tacto; no tiene unidad de medida." },
+  { n: "Sabor", r: ["int", "cual"], p: "Es cualitativa. En el laboratorio nunca se prueba una sustancia." }
 ];
-const OPC_PROP = [{ texto: "Depende de la cantidad", valor: "ext" }, { texto: "No depende", valor: "int" }];
-armarTarjetas($("#tarjetasProp"), ITEMS_PROP, OPC_PROP);
+const PREG_PROP = [
+  { titulo: "¿Depende de la cantidad?", opciones: [{ texto: "Sí: extensiva", valor: "ext" }, { texto: "No: intensiva", valor: "int" }] },
+  { titulo: "¿Se mide con número y unidad?", opciones: [{ texto: "Sí: cuantitativa", valor: "cuant" }, { texto: "No: cualitativa", valor: "cual" }] }
+];
+armarTarjetas($("#tarjetasProp"), ITEMS_PROP, PREG_PROP);
 $("#corregirProp").addEventListener("click", () => corregir($("#tarjetasProp"), $("#puntajeProp")));
-$("#reiniciarProp").addEventListener("click", () => { armarTarjetas($("#tarjetasProp"), ITEMS_PROP, OPC_PROP); $("#puntajeProp").textContent = ""; });
+$("#reiniciarProp").addEventListener("click", () => { armarTarjetas($("#tarjetasProp"), ITEMS_PROP, PREG_PROP); $("#puntajeProp").textContent = ""; });
 
-/* ---------- 3 · Figuras ---------- */
+/* ---------- 4 · Figuras (notación de la hoja de Herramientas didácticas) ---------- */
 const FIGURAS = {
-  prisma: { texto: "Prisma rectangular (caja, ladrillo)", medidas: [["largo", "Largo", 12], ["ancho", "Ancho", 6], ["alto", "Alto", 4]] },
-  cubo: { texto: "Cubo (dado)", medidas: [["lado", "Lado", 3]] },
-  cilindro: { texto: "Cilindro (lata, caño)", medidas: [["diam", "Diámetro", 6.6], ["alto", "Altura", 12.2]] }
+  prisma: { texto: "Prisma rectangular (caja, ladrillo)", medidas: [["l", "Largo (l)"], ["a", "Ancho (a)"], ["h", "Altura (h)"]] },
+  cubo: { texto: "Cubo (dado)", medidas: [["arista", "Arista (a)"]] },
+  cilindro: { texto: "Cilindro recto (lata, caño)", medidas: [["D", "Diámetro medido (D)"], ["hc", "Altura (h)"]] }
 };
 let figura = "prisma";
-const valores = { largo: 12, ancho: 6, alto: 4, lado: 3, diam: 6.6 };
-grupoChips($("#chipsFigura"), Object.entries(FIGURAS).map(([k, f]) => ({ texto: f.texto, valor: k })), figura, v => {
-  figura = v;
-  if (v === "cilindro" && valores.alto === 4) valores.alto = 12.2;
-  if (v === "prisma" && valores.alto === 12.2) valores.alto = 4;
-  armarMedidas();
-});
+const valores = { l: 12, a: 6, h: 4, arista: 3, D: 6.6, hc: 12.2 };
+grupoChips($("#chipsFigura"), Object.entries(FIGURAS).map(([k, f]) => ({ texto: f.texto, valor: k })), figura, v => { figura = v; armarMedidas(); });
 function armarMedidas() {
   const caja = $("#medidas");
   caja.innerHTML = "";
@@ -290,92 +409,84 @@ function armarMedidas() {
   calcularFigura();
 }
 function calcularFigura() {
-  let per, sb, st, vol, f = "";
+  let per, area, vol, f = "", perK = "Perímetro de la base (P)";
   const c = x => fmtLibre(x, 2);
   if (figura === "prisma") {
-    const { largo: a, ancho: b, alto: h } = valores;
-    per = 2 * (a + b); sb = a * b; st = 2 * (a * b + a * h + b * h); vol = a * b * h;
-    f = `Perímetro de la base = 2 × (largo + ancho) = 2 × (${c(a)} cm + ${c(b)} cm) = <span class="res">${fmt(per, 2)} cm</span><br>
-         Superficie de la base = largo × ancho = ${c(a)} cm × ${c(b)} cm = <span class="res">${fmt(sb, 2)} cm²</span><br>
-         Superficie total = 2 × (largo×ancho + largo×alto + ancho×alto) = 2 × (${fmt(a*b,2)} + ${fmt(a*h,2)} + ${fmt(b*h,2)}) cm² = <span class="res">${fmt(st, 2)} cm²</span><br>
-         Volumen = largo × ancho × alto = ${c(a)} cm × ${c(b)} cm × ${c(h)} cm = <span class="res">${fmt(vol, 2)} cm³</span>`;
+    const { l, a, h } = valores;
+    per = 2 * (l + a); area = l * a; vol = area * h;
+    f = `P = 2 · (l + a) = 2 · (${c(l)} cm + ${c(a)} cm) = <span class="res">${fmt(per, 2)} cm</span><br>
+         A<sub>b</sub> = l · a = ${c(l)} cm · ${c(a)} cm = <span class="res">${fmt(area, 2)} cm²</span><br>
+         V = A<sub>b</sub> · h = ${fmt(area, 2)} cm² · ${c(h)} cm = <span class="res">${fmt(vol, 2)} cm³</span>`;
   } else if (figura === "cubo") {
-    const a = valores.lado;
-    per = 4 * a; sb = a * a; st = 6 * a * a; vol = a ** 3;
-    f = `Perímetro de la base = 4 × lado = 4 × ${c(a)} cm = <span class="res">${fmt(per, 2)} cm</span><br>
-         Superficie de la base = lado × lado = ${c(a)} cm × ${c(a)} cm = <span class="res">${fmt(sb, 2)} cm²</span><br>
-         Superficie total = 6 × lado × lado = 6 × ${fmt(sb, 2)} cm² = <span class="res">${fmt(st, 2)} cm²</span><br>
-         Volumen = lado × lado × lado = ${c(a)} cm × ${c(a)} cm × ${c(a)} cm = <span class="res">${fmt(vol, 2)} cm³</span>`;
+    const a = valores.arista;
+    per = 4 * a; area = a * a; vol = area * a;
+    f = `P = 4 · a = 4 · ${c(a)} cm = <span class="res">${fmt(per, 2)} cm</span><br>
+         A<sub>b</sub> = a² = ${c(a)} cm · ${c(a)} cm = <span class="res">${fmt(area, 2)} cm²</span><br>
+         V = A<sub>b</sub> · h = ${fmt(area, 2)} cm² · ${c(a)} cm = <span class="res">${fmt(vol, 2)} cm³</span> (en el cubo h = a, así que V = a³)`;
   } else {
-    const d = valores.diam, h = valores.alto, r = d / 2;
-    per = Math.PI * d; sb = Math.PI * r * r; st = 2 * sb + per * h; vol = sb * h;
-    f = `Radio = diámetro ÷ 2 = ${c(d)} cm ÷ 2 = ${fmtLibre(r, 3)} cm<br>
-         Perímetro de la base = π × diámetro = 3,1416 × ${c(d)} cm = <span class="res">${fmt(per, 2)} cm</span><br>
-         Superficie de la base = π × radio × radio = 3,1416 × ${fmtLibre(r, 3)} cm × ${fmtLibre(r, 3)} cm = <span class="res">${fmt(sb, 2)} cm²</span><br>
-         Superficie total = 2 × base + perímetro × altura = 2 × ${fmt(sb, 2)} cm² + ${fmt(per, 2)} cm × ${c(h)} cm = <span class="res">${fmt(st, 2)} cm²</span><br>
-         Volumen = superficie de la base × altura = ${fmt(sb, 2)} cm² × ${c(h)} cm = <span class="res">${fmt(vol, 2)} cm³</span>`;
+    const D = valores.D, h = valores.hc, r = D / 2;
+    per = 2 * PI * r; area = PI * r * r; vol = area * h; perK = "Circunferencia de la base (C)";
+    f = `r = D ÷ 2 = ${c(D)} cm ÷ 2 = ${fmtLibre(r, 3)} cm<br>
+         C = 2 · π · r = 2 · 3,14 · ${fmtLibre(r, 3)} cm = <span class="res">${fmt(per, 2)} cm</span><br>
+         A<sub>b</sub> = π · r² = 3,14 · ${fmtLibre(r, 3)} cm · ${fmtLibre(r, 3)} cm = <span class="res">${fmt(area, 2)} cm²</span><br>
+         V = A<sub>b</sub> · h = ${fmt(area, 2)} cm² · ${c(h)} cm = <span class="res">${fmt(vol, 2)} cm³</span>`;
   }
+  $("#figPerK").textContent = perK;
   $("#figPer").textContent = `${fmt(per, 2)} cm`;
-  $("#figSupBase").textContent = `${fmt(sb, 2)} cm²`;
-  $("#figSupTot").textContent = `${fmt(st, 2)} cm²`;
+  $("#figArea").textContent = `${fmt(area, 2)} cm²`;
   $("#figVol").textContent = `${fmt(vol, 2)} cm³`;
   $("#figFormulas").innerHTML = f + `<br>Como 1 cm³ = 1 mL, este objeto desplazaría <span class="res">${fmt(vol, 1)} mL</span> de agua en una probeta.`;
   dibujarFigura();
 }
 function dibujarFigura() {
-  const svg = $("#svgFigura");
   const W = 420, H = 340;
-  let html = "";
+  let html = `<defs><marker id="fl" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#2b7a4b"/></marker></defs>`;
   const cota = (x1, y1, x2, y2, txt, dx = 0, dy = 0) =>
     `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#2b7a4b" stroke-width="1.5" marker-start="url(#fl)" marker-end="url(#fl)"/>
      <text x="${(x1 + x2) / 2 + dx}" y="${(y1 + y2) / 2 + dy}" text-anchor="middle" font-size="15" fill="#2b7a4b">${txt}</text>`;
-  html += `<defs><marker id="fl" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#2b7a4b"/></marker></defs>`;
   if (figura === "prisma" || figura === "cubo") {
-    const a = figura === "cubo" ? valores.lado : valores.largo;
-    const b = figura === "cubo" ? valores.lado : valores.ancho;
-    const h = figura === "cubo" ? valores.lado : valores.alto;
-    const esc = Math.min(220 / (a + b * 0.5), 200 / (h + b * 0.35));
-    const A = a * esc, B = b * esc * 0.5, Hh = h * esc, k = 0.7;
-    const x0 = (W - A - B * k) / 2, y0 = (H - Hh + B * 0.7 * k) / 2 + 10;
-    const dx = B * k, dy = -B * 0.7 * k;
+    const cubo = figura === "cubo";
+    const a1 = cubo ? valores.arista : valores.l, b1 = cubo ? valores.arista : valores.a, h1 = cubo ? valores.arista : valores.h;
+    const esc = Math.min(220 / (a1 + b1 * 0.5), 200 / (h1 + b1 * 0.35));
+    const A = a1 * esc, B = b1 * esc * 0.5, Hh = h1 * esc, k = 0.7;
+    const x0 = (W - A - B * k) / 2, y0 = (H - Hh + B * 0.7 * k) / 2 + 10, dx = B * k, dy = -B * 0.7 * k;
     html += `<polygon points="${x0},${y0} ${x0 + dx},${y0 + dy} ${x0 + A + dx},${y0 + dy} ${x0 + A},${y0}" fill="#d9b27c" stroke="#333" stroke-width="1.5"/>`;
     html += `<polygon points="${x0 + A},${y0} ${x0 + A + dx},${y0 + dy} ${x0 + A + dx},${y0 + Hh + dy} ${x0 + A},${y0 + Hh}" fill="#c49a62" stroke="#333" stroke-width="1.5"/>`;
     html += `<rect x="${x0}" y="${y0}" width="${A}" height="${Hh}" fill="#e6c79a" stroke="#333" stroke-width="1.5"/>`;
-    html += cota(x0, y0 + Hh + 18, x0 + A, y0 + Hh + 18, `${fmtLibre(a, 2)} cm`, 0, 20);
-    html += cota(x0 - 16, y0, x0 - 16, y0 + Hh, `${fmtLibre(h, 2)} cm`, -34, 5);
-    html += cota(x0 + A + 12, y0 + Hh + 6, x0 + A + dx + 12, y0 + Hh + dy + 6, `${fmtLibre(b, 2)} cm`, 34, 8);
+    html += cota(x0, y0 + Hh + 18, x0 + A, y0 + Hh + 18, `${cubo ? "a" : "l"} = ${fmtLibre(a1, 2)} cm`, 0, 20);
+    html += cota(x0 - 16, y0, x0 - 16, y0 + Hh, `h = ${fmtLibre(h1, 2)}`, -40, 5);
+    html += cota(x0 + A + 12, y0 + Hh + 6, x0 + A + dx + 12, y0 + Hh + dy + 6, `a = ${fmtLibre(b1, 2)}`, 40, 8);
   } else {
-    const d = valores.diam, h = valores.alto;
+    const d = valores.D, h = valores.hc;
     const esc = Math.min(220 / d, 230 / (h + d * 0.3));
-    const D = d * esc, Hh = h * esc, e = D * 0.15;
-    const cx = W / 2, y0 = (H - Hh) / 2;
+    const D = d * esc, Hh = h * esc, e = D * 0.15, cx = W / 2 - 20, y0 = (H - Hh) / 2;
     html += `<path d="M${cx - D / 2} ${y0} V${y0 + Hh} A${D / 2} ${e} 0 0 0 ${cx + D / 2} ${y0 + Hh} V${y0}" fill="#b8c0c6" stroke="#333" stroke-width="1.5"/>`;
     html += `<ellipse cx="${cx}" cy="${y0}" rx="${D / 2}" ry="${e}" fill="#d3d9dd" stroke="#333" stroke-width="1.5"/>`;
-    html += `<line x1="${cx - D / 2}" y1="${y0}" x2="${cx + D / 2}" y2="${y0}" stroke="#2b7a4b" stroke-dasharray="4 3"/>`;
-    html += `<text x="${cx}" y="${y0 - e - 8}" text-anchor="middle" font-size="15" fill="#2b7a4b">diámetro ${fmtLibre(d, 2)} cm</text>`;
-    html += cota(cx + D / 2 + 18, y0, cx + D / 2 + 18, y0 + Hh, `${fmtLibre(h, 2)} cm`, 38, 5);
+    html += `<line x1="${cx}" y1="${y0}" x2="${cx + D / 2}" y2="${y0}" stroke="#c0392b" stroke-width="2"/>`;
+    html += `<text x="${cx + D / 4}" y="${y0 - e - 8}" text-anchor="middle" font-size="15" fill="#c0392b">r = ${fmtLibre(d / 2, 3)} cm</text>`;
+    html += cota(cx + D / 2 + 18, y0, cx + D / 2 + 18, y0 + Hh, `h = ${fmtLibre(h, 2)} cm`, 48, 5);
   }
-  svg.innerHTML = html;
+  $("#svgFigura").innerHTML = html;
 }
 armarMedidas();
 
-/* ---------- 4 · Probeta ---------- */
+/* ---------- 5 · Probeta ---------- */
 const PROBETAS = {
   p100: { texto: "100 mL (división 1 mL)", cap: 100, div: 1, mayor: 10 },
   p250: { texto: "250 mL (división 2 mL)", cap: 250, div: 2, mayor: 50 },
   p1000: { texto: "1000 mL (división 10 mL)", cap: 1000, div: 10, mayor: 100 }
 };
 const OBJETOS = {
+  cubo3: { texto: "Cubo de 3 cm de arista", vol: 27, color: "#b8c0c6", regular: "V = a³ = 3 cm · 3 cm · 3 cm = 27 cm³" },
+  cil: { texto: "Cilindro (r = 1,5 cm; h = 4 cm)", vol: PI * 1.5 * 1.5 * 4, color: "#c9a94a", regular: "V = π · r² · h = 3,14 · 1,5 cm · 1,5 cm · 4 cm = 28,26 cm³" },
   piedra: { texto: "Piedra", vol: 23, color: "#9a8f86" },
   bulon: { texto: "Bulón de acero", vol: 6.4, color: "#6f7478" },
-  cubo3: { texto: "Cubo de 3 cm de lado", vol: 27, color: "#b8c0c6" },
   canica: { texto: "Bolita de vidrio", vol: 2.1, color: "#a8d8cf" }
 };
-let probeta = "p100", objeto = "piedra", sumergido = false, mostrar = false;
+let probeta = "p100", objeto = "cubo3", sumergido = false, mostrar = false;
 grupoChips($("#chipsProbeta"), Object.entries(PROBETAS).map(([k, p]) => ({ texto: p.texto, valor: k })), probeta, v => {
   probeta = v;
-  const p = PROBETAS[v];
-  const ai = $("#aguaInicial");
+  const p = PROBETAS[v], ai = $("#aguaInicial");
   ai.max = Math.round(p.cap * 0.6); ai.step = p.div; ai.value = Math.round(p.cap * 0.5);
   sumergido = false; mostrar = false; dibujarProbeta();
 });
@@ -388,11 +499,9 @@ function dibujarProbeta() {
   const p = PROBETAS[probeta], o = OBJETOS[objeto];
   const V1 = Number($("#aguaInicial").value);
   const nivel = V1 + (sumergido ? o.vol : 0);
-  $("#aguaInicialOut").textContent = mostrar ? `${fmtLibre(V1, 1)} mL` : "leé la probeta";
+  $("#aguaInicialOut").textContent = mostrar ? `${fmtLibre(V1, 1)} mL` : "lee la probeta";
   $("#sumergir").textContent = sumergido ? "Sacar el objeto" : "Sumergir el objeto";
   $("#mostrarLectura").textContent = mostrar ? "Ocultar lectura" : "Mostrar lectura";
-
-  // Lectura: lo que se puede leer es el nivel redondeado a la división de la probeta.
   const leer = v => Math.round(v / p.div) * p.div;
   $("#probV1").textContent = mostrar ? `${fmtLibre(leer(V1), 1)} mL` : "?";
   $("#probV2").textContent = mostrar && sumergido ? `${fmtLibre(leer(nivel), 1)} mL` : "?";
@@ -400,39 +509,32 @@ function dibujarProbeta() {
   $("#probVobj").textContent = mostrar && sumergido ? `${fmtLibre(vobj, 1)} mL = ${fmtLibre(vobj, 1)} cm³` : "?";
   let nota = "";
   if (mostrar && sumergido) {
-    const err = Math.abs(vobj - o.vol) / o.vol * 100;
     if (o.vol < 2 * p.div) nota = `El objeto sube el agua menos de dos divisiones (${fmtLibre(o.vol, 1)} mL contra divisiones de ${p.div} mL): con esta probeta casi no se nota. Hay que elegir una probeta más chica.`;
-    else nota = `Volumen real del objeto: ${fmtLibre(o.vol, 1)} cm³. Con esta probeta leés ${fmtLibre(vobj, 1)} mL (diferencia de ${fmt(err, 0)} %).`;
-    if (objeto === "cubo3") nota += " Calculado con la regla: 3 cm × 3 cm × 3 cm = 27 cm³. Medido con la probeta: 27 mL. Por eso 1 cm³ = 1 mL.";
+    else if (o.regular) nota = `Calculado con la fórmula: ${o.regular}. Leído en la probeta: ${fmtLibre(vobj, 1)} mL. El método funciona, y por eso 1 cm³ = 1 mL.`;
+    else nota = `Volumen real del objeto: ${fmtLibre(o.vol, 1)} cm³. Con esta probeta lees ${fmtLibre(vobj, 1)} mL.`;
   }
   $("#probNota").textContent = nota;
 
-  // Probeta completa
   const top = 30, bot = 390, alto = bot - top, x0 = 70, ancho = 60;
   const yDe = v => bot - alto * v / (p.cap * 1.08);
-  let h = "";
-  h += `<rect x="${x0}" y="${yDe(nivel)}" width="${ancho}" height="${bot - yDe(nivel)}" fill="#6fb7e0" opacity=".75"/>`;
+  let h = `<rect x="${x0}" y="${yDe(nivel)}" width="${ancho}" height="${bot - yDe(nivel)}" fill="#6fb7e0" opacity=".75"/>`;
   if (sumergido) {
     const t = Math.max(10, Math.min(40, 8 * Math.cbrt(o.vol)));
-    h += `<rect x="${x0 + ancho / 2 - t / 2}" y="${bot - t - 2}" width="${t}" height="${t}" rx="${objeto === "piedra" ? 6 : 1}" fill="${o.color}" stroke="#333"/>`;
+    h += `<rect x="${x0 + ancho / 2 - t / 2}" y="${bot - t - 2}" width="${t}" height="${t}" rx="${objeto === "piedra" ? 6 : objeto === "canica" ? t / 2 : 1}" fill="${o.color}" stroke="#333"/>`;
   }
   h += `<path d="M${x0} ${top - 10} V${bot} H${x0 + ancho} V${top - 10}" fill="none" stroke="#555" stroke-width="3"/>`;
   h += `<rect x="${x0 - 30}" y="${bot}" width="${ancho + 60}" height="12" rx="3" fill="#555"/>`;
-  const n = p.cap / p.div;
-  for (let i = 0; i <= n; i++) {
+  for (let i = 0; i <= p.cap / p.div; i++) {
     const v = i * p.div, y = yDe(v);
     const mayor = v % p.mayor === 0, medio = !mayor && v % (p.mayor / 2) === 0;
-    const largo = mayor ? 22 : medio ? 15 : 9;
-    h += `<line x1="${x0 + ancho}" x2="${x0 + ancho - largo}" y1="${y}" y2="${y}" stroke="#333" stroke-width="${mayor ? 1.4 : 0.7}"/>`;
+    h += `<line x1="${x0 + ancho}" x2="${x0 + ancho - (mayor ? 22 : medio ? 15 : 9)}" y1="${y}" y2="${y}" stroke="#333" stroke-width="${mayor ? 1.4 : 0.7}"/>`;
     if (mayor) h += `<text x="${x0 + ancho + 6}" y="${y + 4}" font-size="12" fill="#333">${v}</text>`;
   }
   h += `<text x="${x0 + ancho / 2}" y="18" text-anchor="middle" font-size="13" fill="#555">mL</text>`;
-  // Marco de la lupa
   const span = 6 * p.div;
   h += `<rect x="${x0 - 6}" y="${yDe(nivel + span)}" width="${ancho + 12}" height="${yDe(nivel - span) - yDe(nivel + span)}" fill="none" stroke="#c98a12" stroke-width="2" stroke-dasharray="5 3"/>`;
   $("#svgProbeta").innerHTML = h;
 
-  // Lupa: 12 divisiones alrededor del nivel, con el menisco dibujado
   const lt = 20, lb = 400, la = lb - lt, lx = 30, lw = 110;
   const vMin = nivel - span, vMax = nivel + span;
   const yL = v => lb - la * (v - vMin) / (vMax - vMin);
@@ -440,16 +542,14 @@ function dibujarProbeta() {
   const yN = yL(nivel);
   z += `<path d="M${lx} ${yN - 12} Q${lx + lw / 2} ${yN + 10} ${lx + lw} ${yN - 12} V${lb} H${lx} Z" fill="#6fb7e0" opacity=".75"/>`;
   z += `<line x1="${lx}" x2="${lx}" y1="${lt}" y2="${lb}" stroke="#555" stroke-width="3"/><line x1="${lx + lw}" x2="${lx + lw}" y1="${lt}" y2="${lb}" stroke="#555" stroke-width="3"/>`;
-  const iMin = Math.ceil(vMin / p.div), iMax = Math.floor(vMax / p.div);
-  for (let i = iMin; i <= iMax; i++) {
+  for (let i = Math.ceil(vMin / p.div); i <= Math.floor(vMax / p.div); i++) {
     const v = i * p.div; if (v < 0 || v > p.cap) continue;
     const y = yL(v), mayor = v % p.mayor === 0, medio = !mayor && v % (p.mayor / 2) === 0;
-    const largo = mayor ? 60 : medio ? 42 : 26;
-    z += `<line x1="${lx + lw}" x2="${lx + lw - largo}" y1="${y}" y2="${y}" stroke="#333" stroke-width="${mayor ? 2 : 1.2}"/>`;
+    z += `<line x1="${lx + lw}" x2="${lx + lw - (mayor ? 60 : medio ? 42 : 26)}" y1="${y}" y2="${y}" stroke="#333" stroke-width="${mayor ? 2 : 1.2}"/>`;
     if (mayor || medio || p.div >= 2) z += `<text x="${lx + lw + 8}" y="${y + 5}" font-size="15" fill="#333">${v}</text>`;
   }
   z += `<line x1="${lx - 18}" x2="${lx + lw + 4}" y1="${yN}" y2="${yN}" stroke="#c98a12" stroke-width="1.5" stroke-dasharray="4 3"/>`;
-  z += `<text x="${lx - 22}" y="${yN - 6}" font-size="13" fill="#c98a12" text-anchor="start">ojo</text>`;
+  z += `<text x="${lx - 22}" y="${yN - 6}" font-size="13" fill="#c98a12">ojo</text>`;
   z += `<text x="100" y="14" text-anchor="middle" font-size="13" fill="#555">Lupa · base del menisco</text>`;
   $("#svgLupa").innerHTML = z;
 }

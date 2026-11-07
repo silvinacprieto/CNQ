@@ -3,26 +3,37 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Encuentro 2 – Unidades y análisis dimensional</title>
+<title>Encuentro 2 – Unidades y despeje</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo.css">
 <style>
-.escalera { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; align-items: end; }
-.peldano {
-  font: inherit; cursor: pointer; border: 1px solid var(--line); background: var(--bg); color: var(--ink);
-  border-radius: 10px; padding: 10px 4px; text-align: center; min-height: 64px; display: grid; gap: 2px; place-content: center;
+/* Tabla de saltos, igual a la hoja plastificada */
+.saltos-wrap { overflow-x: auto; }
+table.saltos { table-layout: fixed; min-width: 640px; border: 1px solid var(--line); }
+table.saltos td { border: 1px solid var(--line); text-align: center; padding: 0; height: 52px; }
+table.saltos .flechas td { height: 40px; font-family: var(--font-mono); font-size: 14px; color: var(--warn); }
+table.saltos button.unidad {
+  font: inherit; font-family: var(--font-mono); font-size: 20px; font-weight: 600; width: 100%; height: 100%;
+  min-height: 52px; border: none; cursor: pointer; background: transparent; color: var(--uc, var(--ink));
 }
-.peldano b { font-family: var(--font-mono); font-size: 22px; }
-.peldano small { font-size: 12px; color: var(--muted); }
-.peldano.desde { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-.peldano.desde small { color: inherit; }
-.peldano.hasta { outline: 3px solid var(--warn); outline-offset: -3px; }
-.peldano.camino { border-color: var(--warn); }
-.saltos { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; font-family: var(--font-mono); font-size: 14px; color: var(--warn); text-align: center; min-height: 22px; }
-.fila-escalera { display: grid; gap: 4px; }
-.etiqueta-fila { font-size: 13px; color: var(--muted); }
+table.saltos button.unidad.desde { background: var(--accent); color: var(--accent-ink); }
+table.saltos button.unidad.hasta { outline: 3px solid var(--warn); outline-offset: -3px; }
+table.saltos .valores td { font-family: var(--font-mono); font-size: 17px; font-variant-numeric: tabular-nums; }
+table.saltos .valores td.lleno { background: var(--bg); }
+table.saltos .valores td.extremo { font-weight: 600; color: var(--accent); }
+table.saltos small { display: block; font-size: 11px; color: var(--muted); font-family: var(--font-body); font-weight: 400; }
+
+/* Despeje */
+.ecuacion { font-family: var(--font-mono); font-size: 30px; padding: 14px 18px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; text-align: center; }
+.circulo { display: inline-block; border: 3px solid var(--bad); border-radius: 50%; padding: 0 8px; line-height: 1.2; }
+.pasos { display: grid; gap: 10px; }
+.paso { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: start; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.paso .n { font-family: var(--font-mono); font-size: 22px; color: var(--accent); text-align: center; }
+.paso .tipo { font-weight: 600; }
+.paso .eq { font-family: var(--font-mono); font-size: 22px; margin-top: 6px; }
+.reglas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 18px; font-family: var(--font-mono); font-size: 15px; max-width: 460px; }
 
 /* Análisis dimensional */
 .cadena { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-family: var(--font-mono); font-size: 22px; padding: 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; min-height: 110px; }
@@ -38,55 +49,71 @@ button.frac:hover, button.frac:focus-visible { border-color: var(--accent); }
 .veredicto { font-weight: 600; }
 .veredicto.ok { color: var(--ok); }
 .veredicto.mal { color: var(--bad); }
-
-/* Cuadrícula y cubo */
 .equiv td:first-child { font-family: var(--font-mono); }
 </style>
 </head>
 <body>
 <header class="top">
   <div class="kicker">QUÍMICA · 1.ER AÑO · CLASE 1 · ENCUENTRO 2 DE 3</div>
-  <h1>Unidades: el mismo valor con otro nombre</h1>
-  <p class="lead">Cambiar de unidad no cambia la cantidad, solo cómo la escribimos. En este encuentro convertimos unidades con la escalera de prefijos y con factores de conversión, que es lo que se llama análisis dimensional.</p>
+  <h1>Unidades y ecuaciones: herramientas para resolver problemas</h1>
+  <p class="lead">Cambiar de unidad no cambia la cantidad, solo cómo la escribimos. En este encuentro usamos la tabla de saltos para convertir unidades, aprendemos a despejar una variable y, para las unidades compuestas, usamos factores de conversión.</p>
 </header>
 
 <nav class="secciones" aria-label="Secciones">
   <div class="fila">
     <a class="volver" href="index.html">← Clase 1</a>
-    <a href="#escalera">1 · Escalera de prefijos</a>
-    <a href="#porque">2 · ¿Por qué ×100 y ×1000?</a>
-    <a href="#dimensional">3 · Análisis dimensional</a>
+    <a href="#tabla">1 · Tabla de saltos</a>
+    <a href="#porque">2 · ¿Por qué 2 y 3 lugares?</a>
+    <a href="#despeje">3 · Despeje</a>
+    <a href="#compuestas">4 · Unidades compuestas</a>
     <button type="button" id="tema">Tema oscuro</button>
   </div>
 </nav>
 
 <main>
 
-<!-- 1 · Escalera -->
-<section class="bloque" id="escalera">
-  <div class="titulo"><span class="num">1</span><h2>La escalera de prefijos</h2></div>
-  <p class="pregunta">Elegí la magnitud, escribí un valor, tocá la unidad de partida y después la de llegada. Cada escalón hacia la derecha multiplica; hacia la izquierda, divide.</p>
+<!-- 1 · Tabla de saltos -->
+<section class="bloque" id="tabla">
+  <div class="titulo"><span class="num">1</span><h2>Conversión de unidades: la tabla de saltos</h2></div>
+  <p class="pregunta">Es la misma tabla de la hoja plastificada. Elige la magnitud, escribe el valor, toca la unidad que tienes y después la que necesitas. Puedes ver el <strong>método 1</strong> (contar todos los saltos y correr la coma de una vez) o el <strong>método 2</strong> (completar columna por columna).</p>
   <div class="chips" id="chipsMagnitud" role="group" aria-label="Magnitud"></div>
-  <div class="control" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-    <label for="valorEsc" style="display:inline">Valor</label>
+  <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+    <label for="valorEsc" style="font-weight:600">Valor</label>
     <input type="number" id="valorEsc" value="2.5" step="any">
-    <span class="nota">Tocá un escalón para la unidad de partida y otro para la de llegada.</span>
+    <span class="nota" id="pasoToque" aria-live="polite">Toca la unidad que tienes.</span>
   </div>
-  <div class="fila-escalera">
-    <div class="etiqueta-fila">Unidad de partida</div>
-    <div class="escalera" id="escDesde"></div>
-    <div class="saltos" id="saltos"></div>
-    <div class="etiqueta-fila">Unidad de llegada</div>
-    <div class="escalera" id="escHasta"></div>
+  <div class="chips" id="chipsMetodo" role="group" aria-label="Método"></div>
+  <div class="saltos-wrap">
+    <table class="saltos">
+      <tbody>
+        <tr class="flechas" id="filaFlechas"></tr>
+        <tr id="filaUnidades"></tr>
+        <tr class="valores" id="filaValores"></tr>
+      </tbody>
+    </table>
   </div>
   <div class="formula" id="escFormula" aria-live="polite"></div>
-  <p class="idea" id="escIdea"></p>
+  <div class="grid2 igual">
+    <div class="idea">
+      <strong>Regla de los saltos</strong><br>
+      Masa, capacidad y longitud: cada salto corre la coma <strong>1 lugar</strong>.<br>
+      Superficie: cada salto corre la coma <strong>2 lugares</strong>.<br>
+      Volumen: cada salto corre la coma <strong>3 lugares</strong>.<br>
+      Hacia la derecha (unidad más chica) el número crece; hacia la izquierda, se achica.
+    </div>
+    <div class="idea">
+      <strong>Equivalencias que conviene recordar</strong><br>
+      1 kL = 1 m³ · 1 L = 1 dm³ · 1 mL = 1 cm³ = 1 cc<br>
+      1 ha = 1 hm² = 10 000 m²<br>
+      1 t = 1000 kg · 1 q = 100 kg
+    </div>
+  </div>
 </section>
 
 <!-- 2 · Por qué -->
 <section class="bloque" id="porque">
-  <div class="titulo"><span class="num">2</span><h2>¿Por qué la superficie salta de a 100 y el volumen de a 1000?</h2></div>
-  <p class="pregunta">Un decímetro son 10 centímetros. Contá cuántos cuadraditos de 1 cm² entran en 1 dm², y cuántos cubitos de 1 cm³ entran en 1 dm³.</p>
+  <div class="titulo"><span class="num">2</span><h2>¿Por qué en superficie la coma corre 2 lugares y en volumen 3?</h2></div>
+  <p class="pregunta">Un decímetro son 10 centímetros. Cuenta cuántos cuadraditos de 1 cm² entran en 1 dm², y cuántos cubitos de 1 cm³ entran en 1 dm³.</p>
   <div class="grid2 igual">
     <div class="controles">
       <h3>Superficie: 1 dm² en cm²</h3>
@@ -107,24 +134,44 @@ button.frac:hover, button.frac:focus-visible { border-color: var(--accent); }
       <div class="formula" id="cuboFormula"></div>
     </div>
   </div>
-  <div class="tabla-wrap">
-    <table class="equiv">
-      <thead><tr><th>Equivalencia</th><th>De dónde sale</th></tr></thead>
-      <tbody>
-        <tr><td>1 dm³ = 1 L</td><td>Un cubo de 10 cm de lado se llena con un litro de agua.</td></tr>
-        <tr><td>1 cm³ = 1 mL</td><td>1 L = 1000 mL y 1 dm³ = 1000 cm³.</td></tr>
-        <tr><td>1 m³ = 1000 L</td><td>1 m³ = 1000 dm³ y cada dm³ es un litro.</td></tr>
-        <tr><td>1 ha = 10 000 m²</td><td>Un cuadrado de 100 m × 100 m. Una cuadra de lote.</td></tr>
-        <tr><td>1 m³ = 1 000 000 cm³</td><td>1 m = 100 cm, así que 100 × 100 × 100.</td></tr>
-      </tbody>
-    </table>
+  <p class="idea">1 dm² = 10 · 10 = <strong>100 cm²</strong>: por eso en superficie la coma corre 2 lugares por salto. 1 dm³ = 10 · 10 · 10 = <strong>1000 cm³</strong>: en volumen corre 3. Y como un cubo de 10 cm de arista se llena con un litro de agua, <strong>1 dm³ = 1 L</strong>.</p>
+</section>
+
+<!-- 3 · Despeje -->
+<section class="bloque" id="despeje">
+  <div class="titulo"><span class="num">3</span><h2>Despeje de variables en una ecuación</h2></div>
+  <p class="pregunta">Despejar una variable significa dejarla sola en uno de los lados del signo igual, para poder conocer su valor. Elige la ecuación y la variable que quieres despejar, y avanza paso a paso. <strong>◆</strong> pregunta de análisis: respóndela antes de seguir. <strong>▶</strong> acción a ejecutar: escríbela en tu carpeta.</p>
+  <div class="chips" id="chipsEcuacion" role="group" aria-label="Ecuación"></div>
+  <div class="chips" id="chipsVariable" role="group" aria-label="Variable a despejar"></div>
+  <div class="grid2">
+    <div class="controles">
+      <div class="fila-botones">
+        <button type="button" class="boton" id="sigPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="todosPasos">Mostrar todos</button>
+        <button type="button" class="boton sec" id="reiniciarDespeje">Empezar de nuevo</button>
+      </div>
+      <div class="pasos" id="pasosDespeje" aria-live="polite"></div>
+    </div>
+    <div class="controles">
+      <div class="ecuacion" id="ecuacionActual"></div>
+      <div class="idea">
+        <strong>¿Qué le pasa al elemento cuando cruza el igual?</strong>
+        <div class="reglas" style="margin-top:8px">
+          <span>+ sumando</span><span>→ − restando</span>
+          <span>− restando</span><span>→ + sumando</span>
+          <span>× multiplicando</span><span>→ ÷ dividiendo</span>
+          <span>÷ dividiendo</span><span>→ × multiplicando</span>
+        </div>
+      </div>
+      <div class="formula" id="despejeNumeros"></div>
+    </div>
   </div>
 </section>
 
-<!-- 3 · Análisis dimensional -->
-<section class="bloque" id="dimensional">
-  <div class="titulo"><span class="num">3</span><h2>Análisis dimensional: multiplicar por 1</h2></div>
-  <p class="pregunta">Un factor de conversión vale 1, porque arriba y abajo hay la misma cantidad (1000 m y 1 km). Multiplicar por 1 no cambia la cantidad, pero cambia la unidad. La unidad que querés sacar tiene que quedar una vez arriba y otra abajo, así se cancela. <strong>Tocá un factor para darlo vuelta.</strong></p>
+<!-- 4 · Unidades compuestas -->
+<section class="bloque" id="compuestas">
+  <div class="titulo"><span class="num">4</span><h2>Cuando la tabla no alcanza: unidades compuestas</h2></div>
+  <p class="pregunta">La tabla de saltos sirve para una sola unidad (m, g, L). Para unidades compuestas, como km/h, g/cm³ o L/ha, usamos <strong>factores de conversión</strong>: fracciones que valen 1, porque arriba y abajo hay la misma cantidad (1000 m y 1 km). Multiplicar por 1 no cambia la cantidad, pero cambia la unidad. La unidad que quieres sacar tiene que quedar una vez arriba y otra abajo, así se cancela. <strong>Toca un factor para darlo vuelta.</strong></p>
   <div class="chips" id="chipsProblema" role="group" aria-label="Problema"></div>
   <p id="enunciado" class="idea"></p>
   <div class="fila-botones">
@@ -139,71 +186,74 @@ button.frac:hover, button.frac:focus-visible { border-color: var(--accent); }
 </section>
 
 </main>
-<footer>Clase 1 · Encuentro 2 · Ciencias Naturales – Química.</footer>
+<footer>Clase 1 · Encuentro 2 · Ciencias Naturales – Química · Ing. Agr. Silvina C. Prieto.</footer>
 
 <script src="comun.js"></script>
 <script>
 botonTema($("#tema"));
 
-/* ---------- 1 · Escalera ---------- */
-const PREFIJOS = [
-  { p: "k", n: "kilo" }, { p: "h", n: "hecto" }, { p: "da", n: "deca" }, { p: "", n: "unidad" },
-  { p: "d", n: "deci" }, { p: "c", n: "centi" }, { p: "m", n: "mili" }
-];
+/* ---------- 1 · Tabla de saltos ---------- */
 const MAGNITUDES = {
-  longitud: { texto: "Longitud (m)", base: "m", paso: 10, sufijo: "" },
-  masa: { texto: "Masa (g)", base: "g", paso: 10, sufijo: "" },
-  capacidad: { texto: "Capacidad (L)", base: "L", paso: 10, sufijo: "" },
-  superficie: { texto: "Superficie (m²)", base: "m", paso: 100, sufijo: "²" },
-  volumen: { texto: "Volumen (m³)", base: "m", paso: 1000, sufijo: "³" }
+  masa: { texto: "Masa", color: "#7b3fb0", lugares: 1, unidades: [["t", "tonelada"], ["q", "quintal"], ["mag", "miriagramo"], ["kg", ""], ["hg", ""], ["dag", ""], ["g", ""], ["dg", ""], ["cg", ""], ["mg", ""]], inicio: 3, fin: 6 },
+  capacidad: { texto: "Capacidad (litros)", color: "#1f5f8b", lugares: 1, unidades: [["kL"], ["hL"], ["daL"], ["L"], ["dL"], ["cL"], ["mL"]], inicio: 3, fin: 6 },
+  longitud: { texto: "Longitud", color: "#1f6f8b", lugares: 1, unidades: [["km"], ["hm"], ["dam"], ["m"], ["dm"], ["cm"], ["mm"]], inicio: 3, fin: 5 },
+  superficie: { texto: "Superficie (área)", color: "#2b7a4b", lugares: 2, unidades: [["km²"], ["hm²", "= ha"], ["dam²"], ["m²"], ["dm²"], ["cm²"], ["mm²"]], inicio: 3, fin: 5 },
+  volumen: { texto: "Volumen", color: "#a0522d", lugares: 3, unidades: [["km³"], ["hm³"], ["dam³"], ["m³", "= kL"], ["dm³", "= L"], ["cm³", "= mL"], ["mm³"]], inicio: 3, fin: 5 }
 };
-let magnitud = "longitud", iDesde = 3, iHasta = 5;
-const nombreUnidad = (i, mag) => PREFIJOS[i].p + MAGNITUDES[mag].base + MAGNITUDES[mag].sufijo;
-grupoChips($("#chipsMagnitud"), Object.entries(MAGNITUDES).map(([k, m]) => ({ texto: m.texto, valor: k })), magnitud, v => { magnitud = v; dibujarEscalera(); });
-$("#valorEsc").addEventListener("input", dibujarEscalera);
-function dibujarEscalera() {
-  const mag = MAGNITUDES[magnitud];
-  ["#escDesde", "#escHasta"].forEach((sel, fila) => {
-    const caja = $(sel); caja.innerHTML = "";
-    PREFIJOS.forEach((pr, i) => {
-      const b = document.createElement("button");
-      b.type = "button"; b.className = "peldano";
-      b.style.marginBottom = `${(6 - i) * 0}px`;
-      b.innerHTML = `<b>${nombreUnidad(i, magnitud)}</b><small>${pr.n}</small>`;
-      const elegido = fila === 0 ? i === iDesde : i === iHasta;
-      if (elegido) b.classList.add(fila === 0 ? "desde" : "hasta");
-      const lo = Math.min(iDesde, iHasta), hi = Math.max(iDesde, iHasta);
-      if (fila === 1 && i > lo && i < hi) b.classList.add("camino");
-      b.setAttribute("aria-pressed", String(elegido));
-      b.addEventListener("click", () => { if (fila === 0) iDesde = i; else iHasta = i; dibujarEscalera(); });
-      caja.appendChild(b);
-    });
-  });
-  const pasos = iHasta - iDesde;
-  const saltos = $("#saltos"); saltos.innerHTML = "";
-  for (let i = 0; i < 7; i++) {
-    const s = document.createElement("div");
-    const lo = Math.min(iDesde, iHasta), hi = Math.max(iDesde, iHasta);
-    if (i >= lo && i < hi) s.textContent = pasos > 0 ? `× ${mag.paso.toLocaleString("es-AR")} →` : `← ÷ ${mag.paso.toLocaleString("es-AR")}`;
-    saltos.appendChild(s);
-  }
+let magnitud = "masa", iDesde = 3, iHasta = 6, metodo = 2, tocando = "desde";
+grupoChips($("#chipsMagnitud"), Object.entries(MAGNITUDES).map(([k, m]) => ({ texto: m.texto, valor: k })), magnitud, v => {
+  magnitud = v; iDesde = MAGNITUDES[v].inicio; iHasta = MAGNITUDES[v].fin; tocando = "desde"; dibujarTabla();
+});
+grupoChips($("#chipsMetodo"), [{ texto: "Método 1: de una vez", valor: 1 }, { texto: "Método 2: columna por columna", valor: 2 }], metodo, v => { metodo = v; dibujarTabla(); });
+$("#valorEsc").addEventListener("input", dibujarTabla);
+function dibujarTabla() {
+  const mag = MAGNITUDES[magnitud], n = mag.unidades.length;
   const x = Number($("#valorEsc").value);
-  const factor = Math.pow(mag.paso, Math.abs(pasos));
-  const res = pasos >= 0 ? x * factor : x / factor;
-  const uD = nombreUnidad(iDesde, magnitud), uH = nombreUnidad(iHasta, magnitud);
-  const factorTxt = factor.toLocaleString("es-AR");
-  let txt;
-  if (pasos === 0) txt = `${fmtLibre(x, 6)} ${uD} = <span class="res">${fmtLibre(x, 6)} ${uH}</span> (misma unidad)`;
-  else {
-    const cadena = Array(Math.abs(pasos)).fill(mag.paso.toLocaleString("es-AR")).join(pasos > 0 ? " × " : " ÷ ");
-    txt = `${fmtLibre(x, 6)} ${uD} ${pasos > 0 ? "×" : "÷"} ${cadena} = ${fmtLibre(x, 6)} ${uD} ${pasos > 0 ? "×" : "÷"} ${factorTxt} = <span class="res">${fmtLibre(res, 9)} ${uH}</span>`;
-  }
-  $("#escFormula").innerHTML = txt;
-  const sentido = pasos > 0 ? "La unidad de llegada es más chica: hacen falta más de ellas, entonces el número crece." :
-    pasos < 0 ? "La unidad de llegada es más grande: hacen falta menos de ellas, entonces el número se achica." : "";
-  $("#escIdea").textContent = `${Math.abs(pasos)} escalón${Math.abs(pasos) === 1 ? "" : "es"}, cada uno de ${pasos >= 0 ? "×" : "÷"} ${mag.paso.toLocaleString("es-AR")}. ${sentido}`;
+  const fU = $("#filaUnidades"), fV = $("#filaValores"), fF = $("#filaFlechas");
+  fU.innerHTML = ""; fV.innerHTML = ""; fF.innerHTML = "";
+  const lo = Math.min(iDesde, iHasta), hi = Math.max(iDesde, iHasta);
+  const pasos = iHasta - iDesde;
+  mag.unidades.forEach(([u, nota], i) => {
+    const td = document.createElement("td");
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "unidad"; b.style.setProperty("--uc", mag.color);
+    b.innerHTML = `${u}${nota ? `<small>${nota}</small>` : ""}`;
+    if (i === iDesde) b.classList.add("desde");
+    if (i === iHasta) b.classList.add("hasta");
+    b.setAttribute("aria-label", `${u}${i === iDesde ? ", unidad que tengo" : ""}${i === iHasta ? ", unidad que necesito" : ""}`);
+    b.addEventListener("click", () => {
+      if (tocando === "desde") { iDesde = i; tocando = "hasta"; } else { iHasta = i; tocando = "desde"; }
+      dibujarTabla();
+    });
+    td.appendChild(b); fU.appendChild(td);
+    // Valores: método 2 completa todas las columnas del camino; método 1 solo origen y destino
+    const tv = document.createElement("td");
+    const enCamino = i >= lo && i <= hi;
+    if (i === iDesde || i === iHasta || (metodo === 2 && enCamino)) {
+      const saltos = i - iDesde;
+      tv.textContent = fmtLibre(x * Math.pow(10, saltos * mag.lugares), 12);
+      tv.className = "lleno" + (i === iDesde || i === iHasta ? " extremo" : "");
+    }
+    fV.appendChild(tv);
+    // Flechas entre columnas
+    const tf = document.createElement("td");
+    if (pasos !== 0 && i >= lo && i <= hi) {
+      if (i === iDesde) tf.textContent = pasos > 0 ? "inicio →" : "← inicio";
+      else if (i === iHasta) tf.textContent = pasos > 0 ? "→ fin" : "fin ←";
+      else tf.textContent = pasos > 0 ? "→" : "←";
+    }
+    fF.appendChild(tf);
+  });
+  $("#pasoToque").textContent = tocando === "desde" ? "Toca la unidad que tienes." : "Ahora toca la unidad que necesitas.";
+  const uD = mag.unidades[iDesde][0], uH = mag.unidades[iHasta][0];
+  const res = x * Math.pow(10, pasos * mag.lugares);
+  const lugares = Math.abs(pasos) * mag.lugares;
+  const dir = pasos > 0 ? "a la derecha" : "a la izquierda";
+  $("#escFormula").innerHTML = pasos === 0
+    ? `${fmtLibre(x, 12)} ${uD} = <span class="res">${fmtLibre(x, 12)} ${uH}</span> (misma unidad)`
+    : `${Math.abs(pasos)} salto${Math.abs(pasos) > 1 ? "s" : ""} × ${mag.lugares} lugar${mag.lugares > 1 ? "es" : ""} = la coma se corre <strong>${lugares} lugar${lugares > 1 ? "es" : ""} ${dir}</strong><br>${fmtLibre(x, 12)} ${uD} = <span class="res">${fmtLibre(res, 12)} ${uH}</span>`;
 }
-dibujarEscalera();
+dibujarTabla();
 
 /* ---------- 2 · Cuadrícula y cubo ---------- */
 $("#filas").addEventListener("input", dibujarCuadro);
@@ -213,26 +263,21 @@ function dibujarCuadro() {
   $("#filasOut").textContent = `${f} de 10`;
   const L = 260, x0 = 40, y0 = 20, c = L / 10;
   let h = "";
-  for (let i = 0; i < 10; i++) for (let j = 0; j < 10; j++) {
-    const lleno = i >= 10 - f;
-    h += `<rect x="${x0 + j * c}" y="${y0 + i * c}" width="${c}" height="${c}" fill="${lleno ? "#8cc7a1" : "#fafaf7"}" stroke="#7a8580" stroke-width=".8"/>`;
-  }
+  for (let i = 0; i < 10; i++) for (let j = 0; j < 10; j++)
+    h += `<rect x="${x0 + j * c}" y="${y0 + i * c}" width="${c}" height="${c}" fill="${i >= 10 - f ? "#8cc7a1" : "#fafaf7"}" stroke="#7a8580" stroke-width=".8"/>`;
   h += `<rect x="${x0}" y="${y0}" width="${L}" height="${L}" fill="none" stroke="#1d2320" stroke-width="2.5"/>`;
   h += `<text x="${x0 + L / 2}" y="${y0 + L + 26}" text-anchor="middle" font-size="15" fill="#1d2320">1 dm = 10 cm</text>`;
   h += `<text x="${x0 - 12}" y="${y0 + L / 2}" text-anchor="middle" font-size="15" fill="#1d2320" transform="rotate(-90 ${x0 - 12} ${y0 + L / 2})">10 cm</text>`;
   $("#svgCuadro").innerHTML = h;
-  $("#cuadroFormula").innerHTML = `${f} filas × 10 cuadraditos = <span class="res">${f * 10} cm²</span>` + (f === 10 ? `<br>10 × 10 = 100: <span class="res">1 dm² = 100 cm²</span>` : "");
+  $("#cuadroFormula").innerHTML = `${f} filas · 10 cuadraditos = <span class="res">${f * 10} cm²</span>` + (f === 10 ? `<br>10 · 10 = 100: <span class="res">1 dm² = 100 cm²</span>` : "");
 }
 function dibujarCubo() {
   const n = Number($("#capas").value);
   $("#capasOut").textContent = `${n} de 10`;
   const L = 180, x0 = 50, y0 = 110, d = 0.5 * L, dx = d * 0.8, dy = -d * 0.55, c = L / 10;
-  let h = "";
-  // Contorno del cubo de 1 dm³
-  const cara = (pts, fill, op = 1) => `<polygon points="${pts}" fill="${fill}" opacity="${op}" stroke="#1d2320" stroke-width="1.2"/>`;
-  h += cara(`${x0},${y0} ${x0 + dx},${y0 + dy} ${x0 + L + dx},${y0 + dy} ${x0 + L},${y0}`, "#fafaf7");
+  const cara = (pts, fill) => `<polygon points="${pts}" fill="${fill}" stroke="#1d2320" stroke-width="1.2"/>`;
+  let h = cara(`${x0},${y0} ${x0 + dx},${y0 + dy} ${x0 + L + dx},${y0 + dy} ${x0 + L},${y0}`, "#fafaf7");
   h += cara(`${x0 + L},${y0} ${x0 + L + dx},${y0 + dy} ${x0 + L + dx},${y0 + L + dy} ${x0 + L},${y0 + L}`, "#fafaf7");
-  // Capas llenas desde abajo
   if (n > 0) {
     const yt = y0 + L - n * c;
     h += cara(`${x0},${yt} ${x0 + dx},${yt + dy} ${x0 + L + dx},${yt + dy} ${x0 + L},${yt}`, "#a9d6b7");
@@ -240,8 +285,7 @@ function dibujarCubo() {
     h += `<rect x="${x0}" y="${yt}" width="${L}" height="${n * c}" fill="#8cc7a1" stroke="#1d2320" stroke-width="1.2"/>`;
     for (let k = 1; k < n; k++) {
       const y = y0 + L - k * c;
-      h += `<line x1="${x0}" y1="${y}" x2="${x0 + L}" y2="${y}" stroke="#1d2320" stroke-width=".6"/>`;
-      h += `<line x1="${x0 + L}" y1="${y}" x2="${x0 + L + dx}" y2="${y + dy}" stroke="#1d2320" stroke-width=".6"/>`;
+      h += `<line x1="${x0}" y1="${y}" x2="${x0 + L}" y2="${y}" stroke="#1d2320" stroke-width=".6"/><line x1="${x0 + L}" y1="${y}" x2="${x0 + L + dx}" y2="${y + dy}" stroke="#1d2320" stroke-width=".6"/>`;
     }
     for (let k = 1; k < 10; k++) {
       h += `<line x1="${x0 + k * c}" y1="${yt}" x2="${x0 + k * c}" y2="${y0 + L}" stroke="#1d2320" stroke-width=".4" opacity=".6"/>`;
@@ -252,13 +296,111 @@ function dibujarCubo() {
   h += `<rect x="${x0}" y="${y0}" width="${L}" height="${L}" fill="none" stroke="#1d2320" stroke-width="2.5"/>`;
   h += `<text x="${x0 + L / 2}" y="${y0 + L + 24}" text-anchor="middle" font-size="15" fill="#1d2320">10 cm</text>`;
   $("#svgCubo").innerHTML = h;
-  $("#cuboFormula").innerHTML = `Cada capa: 10 × 10 = 100 cubitos de 1 cm³<br>${n} capas × 100 cm³ = <span class="res">${(n * 100).toLocaleString("es-AR")} cm³</span>` +
-    (n === 10 ? `<br>10 × 10 × 10 = 1000: <span class="res">1 dm³ = 1000 cm³ = 1 L</span>` : "");
+  $("#cuboFormula").innerHTML = `Cada capa: 10 · 10 = 100 cubitos de 1 cm³<br>${n} capas · 100 cm³ = <span class="res">${(n * 100).toLocaleString("es-AR")} cm³</span>` +
+    (n === 10 ? `<br>10 · 10 · 10 = 1000: <span class="res">1 dm³ = 1000 cm³ = 1 L</span>` : "");
 }
 dibujarCuadro(); dibujarCubo();
 
-/* ---------- 3 · Análisis dimensional ---------- */
-// Cada unidad es un "token". Un token que aparece arriba y abajo se cancela.
+/* ---------- 3 · Despeje (procedimiento de 7 pasos de la hoja de Herramientas) ---------- */
+// Cada paso: [número, tipo ("◆" pregunta o "▶" acción), título, explicación, ecuación con la variable marcada]
+const C = v => `<span class="circulo">${v}</span>`;
+const DESPEJES = {
+  densidad: {
+    texto: "d = m / V",
+    ejemplo: { d: 2.7, m: 54, V: 20, uni: { d: "g/cm³", m: "g", V: "cm³" }, nombre: "un trozo de aluminio" },
+    vars: {
+      d: { fin: "d = m / V", pasos: [
+        [1, "▶", "Escribe la ecuación.", "", "d = m / V"],
+        [2, "◆", "¿Qué variable quiero despejar?", "La densidad, d. Márcala con un círculo.", `${C("d")} = m / V`],
+        [3, "◆", "¿Está sola o hay algo que la acompaña?", "Ya está sola del lado izquierdo: no hay nada que despejar.", `${C("d")} = m / V`]
+      ] },
+      m: { fin: "m = d · V", pasos: [
+        [1, "▶", "Escribe la ecuación.", "", "d = m / V"],
+        [2, "◆", "¿Qué variable quiero despejar?", "La masa, m. Márcala con un círculo.", `d = ${C("m")} / V`],
+        [3, "◆", "¿Está sola o hay algo que la acompaña?", "No está sola: está dividida por V.", `d = ${C("m")} / V`],
+        [4, "◆", "¿Qué elemento tengo que mover y qué operación está realizando?", "Tengo que mover V, que está dividiendo.", `d = ${C("m")} / <u>V</u>`],
+        [5, "◆", "¿Qué le pasa al elemento cuando cruza el igual?", "Lo que está dividiendo pasa multiplicando.", "÷ V  →  · V"],
+        [6, "▶", "Escribe la ecuación en el renglón de abajo.", "Primero, en su lugar, lo que no se mueve (d y m). Después, el elemento trasladado con su nueva operación.", `d · V = ${C("m")}`],
+        [7, "◆", "¿La variable que necesito conocer quedó sola?", "Sí: m quedó sola.", `${C("m")} = d · V`]
+      ] },
+      V: { fin: "V = m / d", pasos: [
+        [1, "▶", "Escribe la ecuación.", "", "d = m / V"],
+        [2, "◆", "¿Qué variable quiero despejar?", "El volumen, V. Márcalo con un círculo.", `d = m / ${C("V")}`],
+        [3, "◆", "¿Está sola o hay algo que la acompaña?", "No está sola: está abajo, dividiendo a m.", `d = m / ${C("V")}`],
+        [4, "◆", "¿Qué elemento tengo que mover y qué operación está realizando?", "Muevo la misma V, que está dividiendo, para sacarla de abajo.", `d = m / ${C("V")}`],
+        [5, "◆", "¿Qué le pasa al elemento cuando cruza el igual?", "Lo que está dividiendo pasa multiplicando.", "÷ V  →  · V"],
+        [6, "▶", "Escribe la ecuación en el renglón de abajo.", "Primero lo que no se mueve (d y m), después V multiplicando.", `d · ${C("V")} = m`],
+        [7, "◆", "¿La variable que necesito conocer quedó sola?", "Todavía no: V está multiplicada por d. Repito desde el paso 4.", `d · ${C("V")} = m`],
+        [4, "◆", "¿Qué elemento tengo que mover y qué operación está realizando?", "Ahora muevo d, que está multiplicando.", `<u>d</u> · ${C("V")} = m`],
+        [5, "◆", "¿Qué le pasa al elemento cuando cruza el igual?", "Lo que está multiplicando pasa dividiendo.", "· d  →  ÷ d"],
+        [6, "▶", "Escribe la ecuación en el renglón de abajo.", "Primero lo que no se mueve (V y m), después d dividiendo.", `${C("V")} = m / d`],
+        [7, "◆", "¿La variable que necesito conocer quedó sola?", "Sí: V quedó sola.", `${C("V")} = m / d`]
+      ] }
+    }
+  },
+  volumen: {
+    texto: "V = Ab · h",
+    ejemplo: { V: 288, Ab: 72, h: 4, uni: { V: "cm³", Ab: "cm²", h: "cm" }, nombre: "una caja" },
+    vars: {
+      V: { fin: "V = Ab · h", pasos: [
+        [1, "▶", "Escribe la ecuación.", "", "V = Ab · h"],
+        [2, "◆", "¿Qué variable quiero despejar?", "El volumen, V. Márcalo con un círculo.", `${C("V")} = Ab · h`],
+        [3, "◆", "¿Está sola o hay algo que la acompaña?", "Ya está sola: no hay nada que despejar.", `${C("V")} = Ab · h`]
+      ] },
+      h: { fin: "h = V / Ab", pasos: [
+        [1, "▶", "Escribe la ecuación.", "", "V = Ab · h"],
+        [2, "◆", "¿Qué variable quiero despejar?", "La altura, h. Márcala con un círculo.", `V = Ab · ${C("h")}`],
+        [3, "◆", "¿Está sola o hay algo que la acompaña?", "No está sola: está multiplicada por Ab.", `V = Ab · ${C("h")}`],
+        [4, "◆", "¿Qué elemento tengo que mover y qué operación está realizando?", "Muevo Ab, que está multiplicando.", `V = <u>Ab</u> · ${C("h")}`],
+        [5, "◆", "¿Qué le pasa al elemento cuando cruza el igual?", "Lo que está multiplicando pasa dividiendo.", "· Ab  →  ÷ Ab"],
+        [6, "▶", "Escribe la ecuación en el renglón de abajo.", "Primero lo que no se mueve (V y h), después Ab dividiendo.", `V / Ab = ${C("h")}`],
+        [7, "◆", "¿La variable que necesito conocer quedó sola?", "Sí: h quedó sola.", `${C("h")} = V / Ab`]
+      ] },
+      Ab: { fin: "Ab = V / h", pasos: [
+        [1, "▶", "Escribe la ecuación.", "", "V = Ab · h"],
+        [2, "◆", "¿Qué variable quiero despejar?", "El área de la base, Ab. Márcala con un círculo.", `V = ${C("Ab")} · h`],
+        [3, "◆", "¿Está sola o hay algo que la acompaña?", "No está sola: está multiplicada por h.", `V = ${C("Ab")} · h`],
+        [4, "◆", "¿Qué elemento tengo que mover y qué operación está realizando?", "Muevo h, que está multiplicando.", `V = ${C("Ab")} · <u>h</u>`],
+        [5, "◆", "¿Qué le pasa al elemento cuando cruza el igual?", "Lo que está multiplicando pasa dividiendo.", "· h  →  ÷ h"],
+        [6, "▶", "Escribe la ecuación en el renglón de abajo.", "Primero lo que no se mueve (V y Ab), después h dividiendo.", `V / h = ${C("Ab")}`],
+        [7, "◆", "¿La variable que necesito conocer quedó sola?", "Sí: Ab quedó sola.", `${C("Ab")} = V / h`]
+      ] }
+    }
+  }
+};
+const conSub = s => s.replace(/Ab/g, "A<sub>b</sub>");
+let ecuacion = "densidad", variable = "m", mostrados = 0;
+grupoChips($("#chipsEcuacion"), Object.entries(DESPEJES).map(([k, e]) => ({ texto: e.texto.replace("Ab", "A_b"), valor: k })), ecuacion, v => {
+  ecuacion = v; variable = Object.keys(DESPEJES[v].vars)[1]; armarVariables(); reiniciarDespeje();
+});
+function armarVariables() {
+  const vars = Object.keys(DESPEJES[ecuacion].vars);
+  grupoChips($("#chipsVariable"), vars.map(x => ({ texto: `Despejar ${x === "Ab" ? "A_b" : x}`, valor: x })), variable, v => { variable = v; reiniciarDespeje(); });
+}
+$("#sigPaso").addEventListener("click", () => { const n = DESPEJES[ecuacion].vars[variable].pasos.length; if (mostrados < n) { mostrados++; dibujarDespeje(); } });
+$("#todosPasos").addEventListener("click", () => { mostrados = DESPEJES[ecuacion].vars[variable].pasos.length; dibujarDespeje(); });
+$("#reiniciarDespeje").addEventListener("click", reiniciarDespeje);
+function reiniciarDespeje() { mostrados = 1; dibujarDespeje(); }
+function dibujarDespeje() {
+  const e = DESPEJES[ecuacion], dv = e.vars[variable], pasos = dv.pasos;
+  $("#pasosDespeje").innerHTML = pasos.slice(0, mostrados).map(([n, tipo, tit, exp, eq]) =>
+    `<div class="paso"><div class="n">${n}</div><div><div class="tipo">${tipo} ${tit}</div>${exp ? `<div>${conSub(exp)}</div>` : ""}<div class="eq">${conSub(eq)}</div></div></div>`).join("");
+  $("#ecuacionActual").innerHTML = conSub(pasos[mostrados - 1][4]);
+  $("#sigPaso").disabled = mostrados >= pasos.length;
+  const ej = e.ejemplo, u = ej.uni;
+  if (mostrados >= pasos.length) {
+    const otras = Object.keys(e.vars).filter(x => x !== variable);
+    const reemplazo = ecuacion === "densidad"
+      ? { d: `${fmtLibre(ej.m, 2)} ${u.m} / ${fmtLibre(ej.V, 2)} ${u.V}`, m: `${fmtLibre(ej.d, 2)} ${u.d} · ${fmtLibre(ej.V, 2)} ${u.V}`, V: `${fmtLibre(ej.m, 2)} ${u.m} / ${fmtLibre(ej.d, 2)} ${u.d}` }[variable]
+      : { V: `${fmtLibre(ej.Ab, 2)} ${u.Ab} · ${fmtLibre(ej.h, 2)} ${u.h}`, h: `${fmtLibre(ej.V, 2)} ${u.V} / ${fmtLibre(ej.Ab, 2)} ${u.Ab}`, Ab: `${fmtLibre(ej.V, 2)} ${u.V} / ${fmtLibre(ej.h, 2)} ${u.h}` }[variable];
+    $("#despejeNumeros").innerHTML = `<strong>Ahora reemplaza los datos</strong> (${ej.nombre}): ${otras.map(x => `${conSub(x)} = ${fmtLibre(ej[x], 2)} ${u[x]}`).join(" · ")}<br>${conSub(dv.fin)} = ${reemplazo} = <span class="res">${fmtLibre(ej[variable], 2)} ${u[variable]}</span>`;
+  } else {
+    $("#despejeNumeros").innerHTML = "Cuando la variable quede sola, se reemplazan los datos con sus unidades.";
+  }
+}
+armarVariables(); reiniciarDespeje();
+
+/* ---------- 4 · Unidades compuestas: análisis dimensional ---------- */
 const PROBLEMAS = {
   tractor: {
     texto: "Velocidad del tractor",
@@ -266,20 +408,6 @@ const PROBLEMAS = {
     inicio: { v: 18, arriba: ["km"], abajo: ["h"] },
     factores: [{ a: [1000, "m"], b: [1, "km"] }, { a: [1, "h"], b: [3600, "s"] }],
     objetivo: { arriba: ["m"], abajo: ["s"] }
-  },
-  tanque: {
-    texto: "Tanque en m³",
-    enunciado: "El tanque de una pulverizadora tiene 3000 L. ¿Cuántos metros cúbicos son?",
-    inicio: { v: 3000, arriba: ["L"], abajo: [] },
-    factores: [{ a: [1, "dm³"], b: [1, "L"] }, { a: [1, "m³"], b: [1000, "dm³"] }],
-    objetivo: { arriba: ["m³"], abajo: [] }
-  },
-  lote: {
-    texto: "Lote en hectáreas",
-    enunciado: "Un lote rectangular mide 250 m × 400 m = 100 000 m². ¿Cuántas hectáreas tiene?",
-    inicio: { v: 100000, arriba: ["m²"], abajo: [] },
-    factores: [{ a: [1, "ha"], b: [10000, "m²"] }],
-    objetivo: { arriba: ["ha"], abajo: [] }
   },
   dosis: {
     texto: "Dosis de herbicida",
@@ -291,15 +419,15 @@ const PROBLEMAS = {
   },
   aguaKg: {
     texto: "Masa del agua del tanque",
-    enunciado: "¿Cuántos kilogramos de agua carga el tanque de 3000 L? Dato: 1 mL de agua tiene una masa de 1 g.",
+    enunciado: "¿Qué masa de agua, en kg, carga un tanque de 3000 L? Dato: la densidad del agua es 1 g/mL.",
     inicio: { v: 3000, arriba: ["L"], abajo: [] },
     factores: [{ a: [1000, "mL"], b: [1, "L"] }, { a: [1, "g"], b: [1, "mL"] }, { a: [1, "kg"], b: [1000, "g"] }],
     objetivo: { arriba: ["kg"], abajo: [] },
-    cierre: "3000 kg son 3 toneladas: por eso las pulverizadoras grandes compactan el suelo."
+    cierre: "3000 kg son 3 t: por eso las pulverizadoras grandes compactan el suelo."
   },
   densidad: {
     texto: "Densidad en kg/m³",
-    enunciado: "El aceite tiene una densidad de 0,92 g/cm³. ¿Cuánto es en kg/m³?",
+    enunciado: "El aceite tiene una densidad de 0,92 g/cm³. ¿Cuánto es en kg/m³, la unidad del SI?",
     inicio: { v: 0.92, arriba: ["g"], abajo: ["cm³"] },
     factores: [{ a: [1, "kg"], b: [1000, "g"] }, { a: [1000000, "cm³"], b: [1, "m³"] }],
     objetivo: { arriba: ["kg"], abajo: ["m³"] }
@@ -312,45 +440,39 @@ const PROBLEMAS = {
     objetivo: { arriba: ["mL"], abajo: ["s"] }
   }
 };
-let problema = "tractor", mostrados = 0, girados = [];
+let problema = "tractor", factoresMostrados = 0, girados = [];
 grupoChips($("#chipsProblema"), Object.entries(PROBLEMAS).map(([k, p]) => ({ texto: p.texto, valor: k })), problema, v => { problema = v; reiniciarCadena(); });
-$("#sigFactor").addEventListener("click", () => { if (mostrados < PROBLEMAS[problema].factores.length) { mostrados++; dibujarCadena(); } });
-$("#todos").addEventListener("click", () => { mostrados = PROBLEMAS[problema].factores.length; dibujarCadena(); });
+$("#sigFactor").addEventListener("click", () => { if (factoresMostrados < PROBLEMAS[problema].factores.length) { factoresMostrados++; dibujarCadena(); } });
+$("#todos").addEventListener("click", () => { factoresMostrados = PROBLEMAS[problema].factores.length; dibujarCadena(); });
 $("#reiniciarCadena").addEventListener("click", reiniciarCadena);
 $("#desafio").addEventListener("change", reiniciarCadena);
 function reiniciarCadena() {
   const p = PROBLEMAS[problema];
-  mostrados = 0;
+  factoresMostrados = 0;
   girados = p.factores.map(() => $("#desafio").checked);
   $("#enunciado").textContent = p.enunciado;
   dibujarCadena();
 }
 function dibujarCadena() {
   const p = PROBLEMAS[problema];
-  // Fracciones visibles: el dato inicial y los factores agregados (con su orientación actual)
   const fr = [{ arriba: [[p.inicio.v, p.inicio.arriba]], abajo: [[1, p.inicio.abajo]], dato: true }];
-  for (let i = 0; i < mostrados; i++) {
+  for (let i = 0; i < factoresMostrados; i++) {
     const f = p.factores[i];
     const [ar, ab] = girados[i] ? [f.b, f.a] : [f.a, f.b];
     fr.push({ arriba: [[ar[0], [ar[1]]]], abajo: [[ab[0], [ab[1]]]], idx: i });
   }
-  // Cuenta de tokens
-  const cuenta = {};
+  const cuenta = {}, arribaN = {}, abajoN = {};
   fr.forEach(f => {
-    f.arriba.forEach(([, us]) => us.forEach(u => cuenta[u] = (cuenta[u] || 0) + 1));
-    f.abajo.forEach(([, us]) => us.forEach(u => cuenta[u] = (cuenta[u] || 0) - 1));
+    f.arriba.forEach(([, us]) => us.forEach(u => { cuenta[u] = (cuenta[u] || 0) + 1; arribaN[u] = (arribaN[u] || 0) + 1; }));
+    f.abajo.forEach(([, us]) => us.forEach(u => { cuenta[u] = (cuenta[u] || 0) - 1; abajoN[u] = (abajoN[u] || 0) + 1; }));
   });
-  // Marcar cancelaciones: se cancelan tantas apariciones arriba y abajo como el mínimo de ambas
-  const arribaN = {}, abajoN = {};
-  fr.forEach(f => { f.arriba.forEach(([, us]) => us.forEach(u => arribaN[u] = (arribaN[u] || 0) + 1)); f.abajo.forEach(([, us]) => us.forEach(u => abajoN[u] = (abajoN[u] || 0) + 1)); });
   const cancelables = {};
   Object.keys(arribaN).forEach(u => { if (abajoN[u]) cancelables[u] = Math.min(arribaN[u], abajoN[u]); });
   const usadosA = {}, usadosB = {};
   const pintar = (u, lado) => {
     const usados = lado === "a" ? usadosA : usadosB;
     usados[u] = (usados[u] || 0) + 1;
-    const cancela = cancelables[u] && usados[u] <= cancelables[u];
-    return `<span class="u${cancela ? " cancela" : ""}">${u}</span>`;
+    return `<span class="u${cancelables[u] && usados[u] <= cancelables[u] ? " cancela" : ""}">${u}</span>`;
   };
   const caja = $("#cadena"); caja.innerHTML = "";
   let valor = 1;
@@ -363,47 +485,38 @@ function dibujarCadena() {
     f.abajo.forEach(([v]) => valor /= v);
     let el;
     if (f.dato) {
-      el = document.createElement("span");
-      el.className = "frac";
+      el = document.createElement("span"); el.className = "frac";
       el.innerHTML = tieneAbajo ? `<span class="arriba">${num}</span><span class="abajo">${den}</span>` : `<span>${num}</span>`;
       if (!tieneAbajo) el.style.alignSelf = "center";
     } else {
-      el = document.createElement("button");
-      el.type = "button"; el.className = "frac";
-      el.title = "Tocá para dar vuelta el factor";
-      el.setAttribute("aria-label", `Factor ${f.idx + 1}, tocá para darlo vuelta`);
+      el = document.createElement("button"); el.type = "button"; el.className = "frac";
+      el.setAttribute("aria-label", `Factor ${f.idx + 1}, toca para darlo vuelta`);
       el.innerHTML = `<span class="arriba">${num}</span><span class="abajo">${den}</span>`;
       el.addEventListener("click", () => { girados[f.idx] = !girados[f.idx]; dibujarCadena(); });
     }
     caja.appendChild(el);
   });
-  // Unidades que quedan
   const arribaQ = [], abajoQ = [];
   Object.entries(cuenta).forEach(([u, e]) => { for (let i = 0; i < Math.abs(e); i++) (e > 0 ? arribaQ : abajoQ).push(u); });
   const uTxt = (arribaQ.length ? arribaQ.join(" · ") : "1") + (abajoQ.length ? " / " + abajoQ.join(" · ") : "");
-  const s = document.createElement("span"); s.className = "signo"; s.textContent = "=";
-  caja.appendChild(s);
-  const r = document.createElement("span"); r.className = "resultado-cadena"; r.innerHTML = `${fmtLibre(valor, 4)} <span class="u">${uTxt}</span>`;
-  caja.appendChild(r);
-
-  // Cuenta numérica escrita
+  const s = document.createElement("span"); s.className = "signo"; s.textContent = "="; caja.appendChild(s);
+  const r = document.createElement("span"); r.className = "resultado-cadena"; r.innerHTML = `${fmtLibre(valor, 4)} <span class="u">${uTxt}</span>`; caja.appendChild(r);
   const nums = [], dens = [];
   fr.forEach(f => { f.arriba.forEach(([v]) => nums.push(v)); f.abajo.forEach(([v]) => { if (v !== 1 || !f.dato) dens.push(v); }); });
   const n1 = nums.map(v => fmtLibre(v, 4)).join(" × "), d1 = dens.map(v => fmtLibre(v, 4)).join(" × ");
-  $("#cadenaCuenta").innerHTML = mostrados === 0 ? "Agregá el primer factor." :
+  $("#cadenaCuenta").innerHTML = factoresMostrados === 0 ? "Agrega el primer factor." :
     `Números: ${dens.length ? `(${n1}) ÷ (${d1})` : n1} = <span class="res">${fmtLibre(valor, 4)}</span>`;
-
-  // Veredicto
   const ob = p.objetivo;
   const igual = (a, b) => a.slice().sort().join("|") === b.slice().sort().join("|");
   const llego = igual(arribaQ, ob.arriba) && igual(abajoQ, ob.abajo);
   const v = $("#veredicto");
   const objTxt = ob.arriba.join(" · ") + (ob.abajo.length ? " / " + ob.abajo.join(" · ") : "");
-  if (mostrados < p.factores.length) {
+  const faltan = p.factores.length - factoresMostrados;
+  if (faltan > 0) {
     v.className = "veredicto";
-    v.textContent = girados.slice(0, mostrados).some(Boolean)
-      ? "Hay un factor dado vuelta: la unidad no se cancela, se repite. Tocalo para corregirlo."
-      : `Queremos llegar a ${objTxt}. Falta${p.factores.length - mostrados > 1 ? "n" : ""} ${p.factores.length - mostrados} factor${p.factores.length - mostrados > 1 ? "es" : ""}.`;
+    v.textContent = girados.slice(0, factoresMostrados).some(Boolean)
+      ? "Hay un factor dado vuelta: la unidad no se cancela, se repite. Tócalo para corregirlo."
+      : `Queremos llegar a ${objTxt}. Falta${faltan > 1 ? "n" : ""} ${faltan} factor${faltan > 1 ? "es" : ""}.`;
   } else if (llego) {
     v.className = "veredicto ok";
     v.textContent = `Llegamos a ${objTxt}: el resultado es ${fmtLibre(valor, 4)} ${objTxt}.` + (p.cierre ? " " + p.cierre : "");
