@@ -1,0 +1,156 @@
+/* Estilo común de los simuladores de Química.
+   Pensado para el proyector con pantalla táctil: botones y deslizadores grandes,
+   nada que dependa de pasar el mouse por encima, secciones apiladas para proyectar. */
+:root {
+  --bg: #f3f4f1;
+  --surface: #ffffff;
+  --ink: #1d2320;
+  --muted: #5d6762;
+  --line: #d7dcd8;
+  --accent: #2b7a4b;
+  --accent-ink: #ffffff;
+  --instrument: #14191b;
+  --instrument-line: #2b3438;
+  --display: #b9c4a6;
+  --display-ink: #1c2414;
+  --agua: #6fb7e0;
+  --ok: #2e8b57;
+  --warn: #c98a12;
+  --bad: #c0392b;
+  --tachado: #c0392b;
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", Arial, Helvetica, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111517; --surface: #1a2023; --ink: #e7ece9; --muted: #9aa6a1; --line: #2e373b;
+    --accent: #6cc391; --accent-ink: #0d1f15; --instrument: #0b0f10; --instrument-line: #263034;
+    --tachado: #ff7a6b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111517; --surface: #1a2023; --ink: #e7ece9; --muted: #9aa6a1; --line: #2e373b;
+  --accent: #6cc391; --accent-ink: #0d1f15; --instrument: #0b0f10; --instrument-line: #263034;
+  --tachado: #ff7a6b;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 18px; line-height: 1.5; }
+
+header.top { padding: 28px 20px 12px; max-width: 1180px; margin: 0 auto; }
+.kicker { font-family: var(--font-mono); font-size: 13px; color: var(--accent); letter-spacing: .04em; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(32px, 4.5vw, 48px); line-height: 1.05; margin-top: 6px; }
+h2 { font-size: clamp(26px, 3vw, 34px); line-height: 1.1; }
+h3 { font-size: 21px; }
+.lead { color: var(--muted); max-width: 70ch; margin: 10px 0 0; }
+.lead a, .nota a, footer a { color: var(--accent); }
+
+nav.secciones { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+nav.secciones .fila { max-width: 1180px; margin: 0 auto; padding: 10px 20px; display: flex; gap: 8px; overflow-x: auto; align-items: center; }
+nav.secciones a, nav.secciones button {
+  white-space: nowrap; text-decoration: none; color: var(--ink); font: inherit; font-size: 15px;
+  border: 1px solid var(--line); background: var(--surface); padding: 8px 14px; border-radius: 999px; cursor: pointer; min-height: 40px;
+}
+nav.secciones a:hover, nav.secciones a:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+nav.secciones .volver { font-weight: 600; }
+
+main { max-width: 1180px; margin: 0 auto; padding: 10px 20px 60px; display: grid; gap: 28px; }
+section.bloque {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 24px; display: grid; gap: 18px; scroll-margin-top: 74px;
+}
+.titulo { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.num { font-family: var(--font-mono); color: var(--accent); font-size: 15px; }
+.pregunta { color: var(--muted); margin: 0; max-width: 72ch; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.grid2.igual { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 860px) { .grid2, .grid2.igual { grid-template-columns: 1fr; } }
+
+/* Controles: grandes para la pantalla táctil */
+.controles { display: grid; gap: 14px; }
+.control label { display: flex; justify-content: space-between; gap: 10px; font-weight: 600; font-size: 16px; }
+.control output { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; accent-color: var(--accent); height: 36px; cursor: pointer; }
+input[type=number] {
+  font: inherit; font-family: var(--font-mono); font-size: 20px; width: 9ch; padding: 6px 10px;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: inherit; font-size: 16px; cursor: pointer; min-height: 44px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+  padding: 8px 16px; border-radius: 999px;
+}
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.chip:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.boton {
+  font: inherit; font-weight: 600; cursor: pointer; min-height: 48px;
+  border: none; border-radius: 10px; padding: 10px 18px; background: var(--accent); color: var(--accent-ink);
+}
+.boton.sec { background: var(--bg); color: var(--ink); border: 1px solid var(--line); }
+.boton:disabled { opacity: .45; cursor: default; }
+.fila-botones { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* Instrumentos */
+.instrumento { background: var(--instrument); border: 1px solid var(--instrument-line); border-radius: 12px; padding: 14px; color: #cfd8d4; }
+.instrumento .rotulo { font-family: var(--font-mono); font-size: 12px; color: #8a9893; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.pantalla {
+  margin-top: 8px; background: var(--display); color: var(--display-ink); border-radius: 8px;
+  font-family: var(--font-mono); font-size: 46px; font-weight: 600; padding: 6px 12px; text-align: right;
+  font-variant-numeric: tabular-nums; letter-spacing: .02em;
+}
+.pantalla small { font-size: 22px; }
+.instrumento .nota { color: #8a9893; }
+
+/* Resultados */
+.lecturas { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.lectura { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.lectura .k { font-size: 13px; color: var(--muted); }
+.lectura .v { font-family: var(--font-mono); font-size: 26px; font-variant-numeric: tabular-nums; }
+.lectura.destacada { border-color: var(--accent); }
+.lectura.destacada .v { color: var(--accent); }
+
+.nota { font-size: 15px; color: var(--muted); margin: 0; }
+.idea { border-left: 4px solid var(--accent); background: var(--bg); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 0; }
+.formula {
+  font-family: var(--font-mono); font-size: 18px; background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 12px 14px; overflow-x: auto; line-height: 1.8;
+}
+.formula .res { color: var(--accent); font-weight: 600; }
+.oculto { display: none !important; }
+
+/* Tablas */
+.tabla-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 16px; }
+th, td { border-bottom: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+th { font-size: 14px; color: var(--muted); font-weight: 600; }
+td.n, th.n { text-align: right; }
+td.n { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* Tarjetas para clasificar */
+.tarjetas { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.tarjeta { border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 10px; background: var(--bg); }
+.tarjeta .nombre { font-weight: 600; font-size: 18px; }
+.tarjeta .opciones { display: flex; gap: 6px; flex-wrap: wrap; }
+.tarjeta .opciones .chip { font-size: 14px; padding: 6px 12px; min-height: 40px; }
+.tarjeta.bien { border-color: var(--ok); box-shadow: inset 4px 0 0 var(--ok); }
+.tarjeta.mal { border-color: var(--bad); box-shadow: inset 4px 0 0 var(--bad); }
+.tarjeta .porque { font-size: 14px; color: var(--muted); margin: 0; }
+.estado { font-size: 14px; font-weight: 600; padding: 2px 10px; border-radius: 999px; color: #fff; display: inline-block; }
+.estado.ok { background: var(--ok); }
+.estado.mal { background: var(--bad); }
+.estado.atencion { background: var(--warn); }
+
+/* Dibujos */
+.dibujo { border: 1px solid var(--line); border-radius: 12px; background: #fafaf7; color: #1d2320; padding: 8px; }
+.dibujo svg { display: block; width: 100%; height: auto; }
+.dibujo svg text { font-family: var(--font-mono); }
+
+footer { max-width: 1180px; margin: 0 auto; padding: 0 20px 40px; color: var(--muted); font-size: 14px; }

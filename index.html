@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ciencias Naturales – Química · 1.er año</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="clases/01-materia-medicion-densidad/simuladores/estilo.css">
+<style>
+.clases { display: grid; gap: 12px; }
+a.clase, div.clase {
+  display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; text-decoration: none; color: var(--ink);
+}
+a.clase:hover, a.clase:focus-visible { border-color: var(--accent); outline: none; }
+.clase .n { font-family: var(--font-mono); font-size: 28px; color: var(--accent); text-align: center; }
+.clase .t { font-family: var(--font-display); font-size: 24px; font-weight: 700; display: block; }
+.clase .d { font-size: 16px; color: var(--muted); }
+.pendiente { opacity: .55; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="kicker">CIENCIAS NATURALES – QUÍMICA · 1.ER AÑO</div>
+  <h1>Simuladores para las clases de Química</h1>
+  <p class="lead">Páginas interactivas para proyectar en el laboratorio y usar desde las netbooks. Todos los valores se pueden comprobar con la balanza, la probeta, la regla y el calibre.</p>
+</header>
+<main>
+  <div class="clases">
+    <a class="clase" href="clases/01-materia-medicion-densidad/simuladores/">
+      <span class="n">01</span>
+      <span><span class="t">Materia, medición y densidad</span><span class="d">Tres encuentros: materia y propiedades; perímetro, superficie y volumen; unidades y análisis dimensional; densidad, flotación y suelo.</span></span>
+    </a>
+    <div class="clase pendiente">
+      <span class="n">02</span>
+      <span><span class="t">Próximamente</span></span>
+    </div>
+  </div>
+  <p class="nota">Guías, fichas y código en el repositorio: <a href="https://github.com/silvinacprieto/CNQ">github.com/silvinacprieto/CNQ</a></p>
+</main>
+</body>
+</html>

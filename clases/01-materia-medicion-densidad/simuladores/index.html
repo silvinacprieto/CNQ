@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 1 – Materia, medición y densidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
+<style>
+.encuentros { display: grid; gap: 14px; }
+a.encuentro {
+  display: grid; grid-template-columns: 70px 1fr; gap: 16px; align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; text-decoration: none; color: var(--ink); min-height: 96px;
+}
+a.encuentro:hover, a.encuentro:focus-visible { border-color: var(--accent); outline: none; }
+a.encuentro .n { font-family: var(--font-mono); font-size: 34px; color: var(--accent); text-align: center; }
+a.encuentro .t { font-family: var(--font-display); font-size: 26px; font-weight: 700; display: block; }
+a.encuentro .d { color: var(--muted); font-size: 16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="kicker">CIENCIAS NATURALES – QUÍMICA · 1.ER AÑO · CLASE 1</div>
+  <h1>Materia, medición y densidad</h1>
+  <p class="lead">Tres encuentros de 2 horas. Cada uno arranca con una pregunta y termina con mediciones hechas en el laboratorio. Estas páginas se proyectan y se usan con la pantalla táctil, o desde las netbooks.</p>
+</header>
+<main>
+  <div class="encuentros">
+    <a class="encuentro" href="e1.html">
+      <span class="n">1</span>
+      <span><span class="t">¿Qué es la materia y qué podemos medir de ella?</span><span class="d">Materia, propiedades que dependen de la cantidad y que no, perímetro, superficie y volumen, volumen con la probeta.</span></span>
+    </a>
+    <a class="encuentro" href="e2.html">
+      <span class="n">2</span>
+      <span><span class="t">Unidades: el mismo valor con otro nombre</span><span class="d">Escalera de prefijos, por qué la superficie salta de a 100 y el volumen de a 1000, análisis dimensional con problemas del campo.</span></span>
+    </a>
+    <a class="encuentro" href="e3.html">
+      <span class="n">3</span>
+      <span><span class="t">Densidad: ¿de qué está hecho?</span><span class="d">Balanza, probeta y gráfico masa–volumen, flotación, densidad aparente del suelo y problemas con números distintos para cada grupo.</span></span>
+    </a>
+  </div>
+  <p class="nota"><a href="../../../index.html">← Todas las clases</a> · Guía del docente y fichas en el <a href="https://github.com/silvinacprieto/CNQ/tree/main/clases/01-materia-medicion-densidad">repositorio</a>.</p>
+</main>
+</body>
+</html>
