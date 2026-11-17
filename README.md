@@ -11,7 +11,7 @@ Cada clase parte de una pregunta concreta y termina con mediciones reales en el 
 | N.º | Clase | Encuentros | Contenido |
 | --- | --- | --- | --- |
 | 01 | [Materia, medición y densidad](clases/01-materia-medicion-densidad/) | 3 × 2 h | Eje 1. TP N° 1 (¿el aire es materia?), propiedades, perímetro, área y volumen, tabla de saltos, despeje, densidad, modelo cinético-corpuscular, flotación, densidad aparente del suelo, resolución de problemas |
-| 02 | [Tabla periódica: primera aproximación](clases/02-tabla-periodica/) | Tema nuevo | Para quienes aprobaron la Evaluación N° 6. Períodos, grupos, número atómico, familias y tabla interactiva de los primeros 36 elementos, con preguntas de práctica |
+| 02 | [Tabla periódica: primera aproximación](clases/02-tabla-periodica/) | Tema nuevo | Para quienes aprobaron la Evaluación N° 6. Guía de apuntes para la carpeta, tabla interactiva de los 118 elementos, entrenador de símbolos y nombres, partículas del átomo, isótopos y comprensión lectora del capítulo 3 del libro |
 
 ## Autoevaluaciones
 

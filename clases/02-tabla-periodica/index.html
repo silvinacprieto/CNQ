@@ -9,71 +9,234 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../01-materia-medicion-densidad/simuladores/estilo.css">
 <link rel="stylesheet" href="../../recursos/practica.css">
+<style>
+.pt{grid-template-columns:24px repeat(18,minmax(40px,1fr));grid-template-rows:repeat(8,auto) 10px repeat(2,auto)}
+.lab{font:600 12px var(--font-mono);color:var(--muted);display:grid;place-items:center}
+.apun label{display:flex;gap:10px;align-items:flex-start;padding:6px 0}
+.apun input{width:20px;height:20px;accent-color:var(--accent);flex:none;margin-top:2px}
+select,input[type=text],input[type=number]{font:inherit;font-size:17px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.entr input{min-width:220px}
+.idea ul{margin:6px 0 0;padding-left:22px}
+.ley-tabla{margin:10px 0}
+</style>
 </head>
 <body>
 <header class="top">
   <div class="kicker">CIENCIAS NATURALES – QUÍMICA · 1.ER AÑO · TEMA NUEVO</div>
   <h1>Tabla periódica: primera aproximación</h1>
-  <p class="lead">Para quienes aprobaron la <a href="../../evaluaciones/06-sustancias-puras-y-mezclas/">Evaluación N° 6</a>. Ya sabes que un elemento es una sustancia pura formada por un solo tipo de átomo. La tabla periódica ordena todos los elementos conocidos. Esta página no guarda tus respuestas.</p>
+  <p class="lead">Para quienes aprobaron la <a href="../../evaluaciones/06-sustancias-puras-y-mezclas/">Evaluación N° 6</a>. La próxima evaluación es a carpeta abierta y solo podrás consultar tus apuntes escritos a mano. Esta página te muestra qué anotar y te permite practicar. Está basada en el capítulo 3 del libro («Átomos y elementos», págs. 82 a 100). No guarda tus respuestas.</p>
 </header>
 <main>
+
+<section class="bloque apun">
+  <div class="titulo"><span class="num">APUNTES</span><h2>Qué debe haber en tu carpeta</h2></div>
+  <p class="nota">Escribe cada punto con tus palabras, ordenado y claro. Los dibujos y cuadros también son apuntes. Marca lo que ya anotaste (esta marca no se guarda).</p>
+  <label><input type="checkbox"> Qué es un elemento, qué es un símbolo y la regla de mayúsculas y minúsculas (Co no es CO).</label>
+  <label><input type="checkbox"> Los 41 elementos comunes con su nombre y su símbolo (tabla 3.2 del libro), con los nombres latinos de Na, K, Fe, Cu, Au, Ag, Pb, Hg, Sn y S.</label>
+  <label><input type="checkbox"> Un esquema de la tabla dibujado por ti: períodos (filas 1 a 7), grupos (columnas 1 a 18), elementos representativos y de transición, y cantidad de elementos de cada período.</label>
+  <label><input type="checkbox"> Las cuatro familias: grupo, elementos y propiedades de cada una.</label>
+  <label><input type="checkbox"> Metales, no metales y metaloides: dónde están y qué propiedades tienen.</label>
+  <label><input type="checkbox"> Un cuadro de protón, neutrón y electrón: carga, masa y ubicación.</label>
+  <label><input type="checkbox"> Número atómico, número de masa y la fórmula de los neutrones, con dos ejemplos resueltos.</label>
+  <label><input type="checkbox"> Isótopos (ejemplo del magnesio) y qué es la masa atómica.</label>
+  <label><input type="checkbox"> Cómo se lee una casilla de la tabla (número atómico, símbolo y masa atómica).</label>
+</section>
+
 <section class="bloque">
-  <div class="titulo"><span class="num">IDEAS</span><h2>Cómo se organiza</h2></div>
+  <div class="titulo"><span class="num">LO IMPORTANTE</span><h2>Ideas para anotar</h2></div>
   <div class="ideas">
-    <div class="idea"><strong>Cada casilla es un elemento.</strong> Tiene un símbolo (O, Fe, Na), un nombre y un número atómico (Z), que identifica al elemento y es la cantidad de protones de sus átomos. Hoy se conocen 118 elementos.</div>
-    <div class="idea"><strong>Períodos y grupos.</strong> Las filas horizontales son los períodos (1 a 7). Las columnas verticales son los grupos (1 a 18). Los elementos de un mismo grupo tienen propiedades parecidas.</div>
-    <div class="idea"><strong>Un poco de historia.</strong> En 1869, Dmitri Mendeléiev ordenó los elementos por masa atómica y dejó lugares vacíos para elementos aún no descubiertos. Hoy se ordenan por número atómico creciente.</div>
-    <div class="idea"><strong>Familias.</strong> Grupo 1 (sin el hidrógeno): metales alcalinos. Grupo 2: alcalinotérreos. Grupo 17: halógenos. Grupo 18: gases nobles.</div>
+    <div class="idea"><strong>1. Elementos y símbolos.</strong> Todas las sustancias están formadas por elementos: hay 118 distintos y 88 se encuentran en la naturaleza. Un elemento es una sustancia pura que no se puede descomponer en sustancias más simples. Su símbolo tiene una o dos letras: la primera es mayúscula y la segunda, minúscula. Co es cobalto; CO son dos elementos (carbono y oxígeno). Algunos símbolos vienen del latín: Na (natrium), K (kalium), Fe (ferrum), Cu (cuprum), Au (aurum), Ag (argentum), Pb (plumbum), Hg (hidrargirum), Sn (stannum) y S (sulfurum).</div>
+    <div class="idea"><strong>2. Cómo está organizada la tabla.</strong> Los elementos están ordenados por número atómico creciente, del 1 al 118. Las filas son los <em>períodos</em> (1 a 7) y tienen 2, 8, 8, 18, 18, 32 y 32 elementos. Las columnas son los <em>grupos</em> o familias (1 a 18, o 1A a 8A y 1B a 8B): sus elementos tienen propiedades parecidas. Los grupos 1, 2 y 13 a 18 son los elementos <em>representativos</em>; el bloque central (grupos 3 a 12) son los de <em>transición</em>. Debajo de la tabla hay dos filas de 14 elementos (lantánidos y actínidos) que pertenecen a los períodos 6 y 7.</div>
+    <div class="idea"><strong>3. Familias con nombre.</strong>
+      <ul>
+        <li><strong>Metales alcalinos</strong> (grupo 1A o 1): Li, Na, K, Rb, Cs y Fr. El hidrógeno no es un metal alcalino. Son metales blandos y brillantes, buenos conductores, de bajo punto de fusión, y reaccionan con fuerza con el agua.</li>
+        <li><strong>Metales alcalinotérreos</strong> (2A o 2): Be, Mg, Ca, Sr, Ba y Ra. Son brillantes y menos reactivos que los alcalinos.</li>
+        <li><strong>Halógenos</strong> (7A o 17): F, Cl, Br, I y At. Son muy reactivos y forman compuestos con casi todos los elementos.</li>
+        <li><strong>Gases nobles</strong> (8A o 18): He, Ne, Ar, Kr, Xe y Rn. Tienen baja reactividad y casi no se combinan con otros elementos.</li>
+      </ul></div>
+    <div class="idea"><strong>4. Metales, no metales y metaloides.</strong> Una línea gruesa en zigzag separa los metales (a la izquierda, salvo el hidrógeno) de los no metales (a la derecha). Los <em>metales</em> son sólidos brillantes (menos el mercurio, que es líquido), dúctiles, maleables, buenos conductores de calor y electricidad, y con puntos de fusión altos. Los <em>no metales</em> (H, C, N, O, Cl, S) no son brillantes, suelen ser malos conductores, y tienen bajo punto de fusión y baja densidad. Los <em>metaloides</em> están a lo largo de la línea: B, Si, Ge, As, Sb, Te, Po y At (el aluminio no lo es: es un metal). Tienen propiedades de los dos grupos y son semiconductores.</div>
+    <div class="idea"><strong>5. Partículas del átomo.</strong> El átomo tiene un núcleo pequeño y denso con protones y neutrones, y los electrones se mueven a su alrededor. Casi toda la masa está en el núcleo y el átomo es sobre todo espacio vacío. Cargas iguales se repelen y cargas opuestas se atraen. El átomo es eléctricamente neutro: tiene igual cantidad de protones que de electrones.
+      <div class="tabla-wrap"><table style="margin-top:10px"><thead><tr><th>Partícula</th><th>Carga</th><th>Masa</th><th>Ubicación</th></tr></thead><tbody>
+        <tr><td>Protón</td><td>+1</td><td>1,007 uma (≈ 1 uma)</td><td>Núcleo</td></tr>
+        <tr><td>Neutrón</td><td>0</td><td>1,008 uma (≈ 1 uma)</td><td>Núcleo</td></tr>
+        <tr><td>Electrón</td><td>−1</td><td>0,00055 uma (unas 2000 veces menor)</td><td>Fuera del núcleo</td></tr>
+      </tbody></table></div>
+      <p class="nota" style="margin-top:8px">La uma (unidad de masa atómica) se usa porque las masas son muy chicas: un protón pesa 1,7 × 10⁻²⁴ g. La masa del electrón casi siempre se ignora.</p></div>
+    <div class="idea"><strong>6. Número atómico y número de masa.</strong>
+      <ul>
+        <li><strong>Número atómico (Z)</strong> = número de protones. Identifica al elemento: todos los átomos con 6 protones son carbono. Está arriba del símbolo en la tabla. En un átomo neutro, también es el número de electrones.</li>
+        <li><strong>Número de masa (A)</strong> = protones + neutrones del núcleo. No aparece en la tabla.</li>
+        <li><strong>Neutrones</strong> = A − Z.</li>
+        <li>Ejemplo: un átomo de cloro con A = 37 tiene Z = 17, es decir 17 protones, 17 electrones y 37 − 17 = 20 neutrones.</li>
+      </ul></div>
+    <div class="idea"><strong>7. Isótopos y masa atómica.</strong> Los isótopos son átomos del mismo elemento (igual Z) con distinto número de neutrones, por lo que tienen distinto número de masa; su comportamiento químico no cambia. Ejemplo: Mg-24, Mg-25 y Mg-26 tienen 12 protones y 12, 13 y 14 neutrones. Se escriben con el número de masa arriba a la izquierda del símbolo y el atómico abajo, o como «Mg-24». La <em>masa atómica</em> (el número con decimales de cada casilla) es el promedio ponderado de las masas de los isótopos naturales del elemento; por eso casi nunca es un número entero.</div>
   </div>
 </section>
+
 <section class="bloque">
-  <div class="titulo"><span class="num">EXPLORA</span><h2>Los primeros 36 elementos</h2></div>
-  <p class="nota">Toca un elemento para ver sus datos. Se muestran los períodos 1 a 4; en la tabla completa hay 118 elementos.</p>
-  <div class="tabla-wrap"><div class="pt" id="pt" role="group" aria-label="Tabla periódica, elementos 1 a 36"></div></div>
-  <div class="ley-tabla" id="ley"></div>
+  <div class="titulo"><span class="num">EXPLORA</span><h2>La tabla periódica completa</h2></div>
+  <p class="nota">Toca un elemento para ver sus datos. Arriba de la tabla están los números de grupo y a la izquierda, los de período.</p>
+  <div class="fila-botones"><button type="button" class="boton" id="mfam" aria-pressed="true">Colorear por familias</button><button type="button" class="boton" id="mtip" aria-pressed="false">Colorear por metales, no metales y metaloides</button></div>
+  <div class="tabla-wrap"><div class="pt" id="pt" role="group" aria-label="Tabla periódica de los 118 elementos"></div></div>
+  <div class="ley-tabla leyenda-i" id="ley"></div>
   <div class="detalle" id="det"><p class="nota">Elige una casilla.</p></div>
+  <p class="nota">Si el elemento no tiene isótopos estables, la masa atómica que se muestra es el número de masa de su isótopo más estable. Para los elementos 104 a 118 no se muestra masa.</p>
 </section>
+
 <section class="bloque">
-  <div class="titulo"><span class="num">PRÁCTICA</span><h2>Comprueba lo que entendiste</h2></div>
-  <div id="quiz"></div>
+  <div class="titulo"><span class="num">ENTRENA</span><h2>Practica símbolos, nombres y ubicación</h2></div>
+  <p class="nota">Cada ronda tiene 10 preguntas con los 41 elementos comunes del libro. En los símbolos respeta mayúsculas y minúsculas.</p>
+  <div class="fila-botones"><label for="modo" style="font-weight:600">Tipo de pregunta</label>
+    <select id="modo"><option value="sn">Símbolo → nombre</option><option value="ns">Nombre → símbolo</option><option value="zn">Número atómico → elemento</option><option value="p">Elemento → período</option><option value="g">Elemento → grupo (1 a 18)</option></select>
+    <button type="button" class="boton" id="nueva">Empezar una ronda</button></div>
+  <div class="entr" id="entr"></div>
 </section>
-<p class="nota">Ciencias Naturales – Química · 1.er año · Ing. Agr. Silvina C. Prieto. Masas atómicas relativas redondeadas. Esta página no guarda datos.</p>
+
+<section class="bloque">
+  <div class="titulo"><span class="num">CALCULA</span><h2>Protones, neutrones y electrones</h2></div>
+  <div class="fila-botones">
+    <label for="cz">Número atómico (Z)</label><input id="cz" type="number" min="1" max="118">
+    <label for="ca">Número de masa (A)</label><input id="ca" type="number" min="1" max="300">
+  </div>
+  <p id="cr" class="puntaje" aria-live="polite"></p>
+</section>
+
+<section class="bloque">
+  <div class="titulo"><span class="num">CONCEPTOS</span><h2>Preguntas para practicar</h2></div>
+  <p class="nota">Toca una opción para ver si es correcta y por qué.</p>
+  <div id="quizC"></div>
+</section>
+
+<section class="bloque">
+  <div class="titulo"><span class="num">LECTURA</span><h2>Comprensión lectora</h2></div>
+  <div class="idea">Lee en el libro, capítulo 3: «La química en la salud: elementos esenciales para la salud» (págs. 89 y 90), «La química en el ambiente: toxicidad del mercurio» (pág. 85), «La química en la industria: diversidad en las formas del carbono» (pág. 83) y «La química en la salud: nombres en latín de elementos de uso clínico» (pág. 83). Después responde.</div>
+  <div id="quizL"></div>
+</section>
+<p class="nota">Ciencias Naturales – Química · 1.er año · Ing. Agr. Silvina C. Prieto. Esta página no guarda datos.</p>
 </main>
 <script src="../../recursos/practica.js"></script>
 <script>
-const S = "H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr".split(" ");
-const N = "Hidrógeno,Helio,Litio,Berilio,Boro,Carbono,Nitrógeno,Oxígeno,Flúor,Neón,Sodio,Magnesio,Aluminio,Silicio,Fósforo,Azufre,Cloro,Argón,Potasio,Calcio,Escandio,Titanio,Vanadio,Cromo,Manganeso,Hierro,Cobalto,Níquel,Cobre,Cinc,Galio,Germanio,Arsénico,Selenio,Bromo,Kriptón".split(",");
-const M = "1,008 4,003 6,94 9,012 10,81 12,011 14,007 15,999 18,998 20,180 22,990 24,305 26,982 28,085 30,974 32,06 35,45 39,95 39,098 40,078 44,956 47,867 50,942 51,996 54,938 55,845 58,933 58,693 63,546 65,38 69,723 72,630 74,922 78,971 79,904 83,798".split(" ");
-const NM = ["H","C","N","O","P","S","Se"], MD = ["B","Si","Ge","As"];
-const CL = { alc: ["metal alcalino", "#f4b8a8"], ate: ["metal alcalinotérreo", "#f6d58e"], tra: ["metal de transición", "#a9cfe8"], otm: ["otro metal", "#c9d6b0"], mtd: ["metaloide", "#d8c3e6"], nm: ["no metal", "#bfe3c8"], hal: ["halógeno", "#f2e68f"], gn: ["gas noble", "#e0b5d0"] };
+const S = "H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og".split(" ");
+const N = "Hidrógeno,Helio,Litio,Berilio,Boro,Carbono,Nitrógeno,Oxígeno,Flúor,Neón,Sodio,Magnesio,Aluminio,Silicio,Fósforo,Azufre,Cloro,Argón,Potasio,Calcio,Escandio,Titanio,Vanadio,Cromo,Manganeso,Hierro,Cobalto,Níquel,Cobre,Cinc,Galio,Germanio,Arsénico,Selenio,Bromo,Kriptón,Rubidio,Estroncio,Itrio,Circonio,Niobio,Molibdeno,Tecnecio,Rutenio,Rodio,Paladio,Plata,Cadmio,Indio,Estaño,Antimonio,Telurio,Yodo,Xenón,Cesio,Bario,Lantano,Cerio,Praseodimio,Neodimio,Prometio,Samario,Europio,Gadolinio,Terbio,Disprosio,Holmio,Erbio,Tulio,Iterbio,Lutecio,Hafnio,Tántalo,Wolframio,Renio,Osmio,Iridio,Platino,Oro,Mercurio,Talio,Plomo,Bismuto,Polonio,Astato,Radón,Francio,Radio,Actinio,Torio,Protactinio,Uranio,Neptunio,Plutonio,Americio,Curio,Berkelio,Californio,Einstenio,Fermio,Mendelevio,Nobelio,Lawrencio,Rutherfordio,Dubnio,Seaborgio,Bohrio,Hassio,Meitnerio,Darmstadtio,Roentgenio,Copernicio,Nihonio,Flerovio,Moscovio,Livermorio,Teneso,Oganesón".split(",");
+const M = ("1,008 4,003 6,94 9,012 10,81 12,011 14,007 15,999 18,998 20,180 22,990 24,305 26,982 28,085 30,974 32,06 35,45 39,95 39,098 40,078 44,956 47,867 50,942 51,996 54,938 55,845 58,933 58,693 63,546 65,38 69,723 72,630 74,922 78,971 79,904 83,798 85,468 87,62 88,906 91,224 92,906 95,95 98 101,07 102,91 106,42 107,87 112,41 114,82 118,71 121,76 127,60 126,90 131,29 132,91 137,33 138,91 140,12 140,91 144,24 145 150,36 151,96 157,25 158,93 162,50 164,93 167,26 168,93 173,05 174,97 178,49 180,95 183,84 186,21 190,23 192,22 195,08 196,97 200,59 204,38 207,2 208,98 209 210 222 223 226 227 232,04 231,04 238,03 237 244 243 247 247 251 252 257 258 259 266 " + "— ".repeat(15)).trim().split(" ");
+const COMUNES = "Al Ar As Ba B Br Cd Ca C Cl Cr Co Cu F Au He H I Fe Pb Li Mg Mn Hg Ne Ni N O P Pt K Ra Si Ag Na Sr S Sn Ti U Zn".split(" ");
+const GA = ["1A","2A","3B","4B","5B","6B","7B","8B","8B","8B","1B","2B","3A","4A","5A","6A","7A","8A"];
+const MD = ["B","Si","Ge","As","Sb","Te","Po","At"], NM = ["H","C","N","O","P","S","Se","F","Cl","Br","I","Ts"];
+const FC = { alc: "#f4b8a8", ate: "#f6d58e", tra: "#a9cfe8", int: "#c7d3f0", rep: "#c9d6b0", hal: "#f2e68f", gn: "#e0b5d0" };
+const FL = { alc: "Metales alcalinos", ate: "Metales alcalinotérreos", tra: "Elementos de transición", int: "Lantánidos y actínidos", rep: "Representativos sin nombre común", hal: "Halógenos", gn: "Gases nobles" };
+const FAMN = { alc: "metal alcalino", ate: "metal alcalinotérreo", tra: "elemento de transición", rep: "sin nombre común", hal: "halógeno", gn: "gas noble" };
+const TC = { met: "#a9cfe8", mtd: "#8fcf9b", nm: "#f2e68f" }, TN = { met: "metal", mtd: "metaloide", nm: "no metal" };
 function pos(z) {
-  if (z <= 2) return [1, z === 1 ? 1 : 18];
-  if (z <= 18) { const p = z <= 10 ? 2 : 3, k = z - (p === 2 ? 2 : 10); return [p, k <= 2 ? k : k + 10]; }
-  return [4, z - 18];
+  if (z <= 2) return { p: 1, g: z === 1 ? 1 : 18 };
+  if (z <= 18) { const p = z <= 10 ? 2 : 3, k = z - (p === 2 ? 2 : 10); return { p, g: k <= 2 ? k : k + 10 }; }
+  if (z <= 36) return { p: 4, g: z - 18 };
+  if (z <= 54) return { p: 5, g: z - 36 };
+  if (z <= 57) return { p: 6, g: z <= 56 ? z - 54 : 3 };
+  if (z <= 71) return { p: 6, g: 0, r: 9, c: z - 54 };
+  if (z <= 86) return { p: 6, g: z - 68 };
+  if (z <= 89) return { p: 7, g: z <= 88 ? z - 86 : 3 };
+  if (z <= 103) return { p: 7, g: 0, r: 10, c: z - 86 };
+  return { p: 7, g: z - 100 };
 }
-function cat(s, g) {
-  if (g === 18) return "gn"; if (g === 17) return "hal"; if (MD.includes(s)) return "mtd"; if (NM.includes(s)) return "nm";
-  if (g === 1) return "alc"; if (g === 2) return "ate"; if (g <= 12) return "tra"; return "otm";
-}
-const pt = document.getElementById("pt"), det = document.getElementById("det");
+function fam(z, g) { if (z === 1) return "rep"; if (g === 18) return "gn"; if (g === 17) return "hal"; if (g === 1) return "alc"; if (g === 2) return "ate"; if (g === 0) return "int"; if (g >= 3 && g <= 12) return "tra"; return "rep"; }
+const tipo = (s, g) => MD.includes(s) ? "mtd" : (NM.includes(s) || g === 18) ? "nm" : "met";
+const pt = document.getElementById("pt"), det = document.getElementById("det"), celdas = [];
+let modo = "fam", sel = -1;
+for (let g = 1; g <= 18; g++) pt.insertAdjacentHTML("beforeend", '<span class="lab" style="grid-row:1;grid-column:' + (g + 1) + '">' + g + "</span>");
+for (let p = 1; p <= 7; p++) pt.insertAdjacentHTML("beforeend", '<span class="lab" style="grid-row:' + (p + 1) + ';grid-column:1">' + p + "</span>");
+const color = i => { const o = pos(i + 1); return modo === "fam" ? FC[fam(i + 1, o.g)] : TC[tipo(S[i], o.g)]; };
 S.forEach((s, i) => {
-  const z = i + 1, [p, g] = pos(z), c = cat(s, g);
-  const b = document.createElement("button"); b.type = "button"; b.className = "el c-" + c; b.setAttribute("aria-pressed", "false");
-  b.setAttribute("aria-label", N[i]); b.style.gridColumn = g; b.style.gridRow = p; b.innerHTML = "<small>" + z + "</small>" + s;
-  b.onclick = () => {
-    pt.querySelectorAll(".el").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true");
-    det.innerHTML = '<div class="gran c-' + c + '"><small>' + z + "</small>" + s + "</div><div><h3>" + N[i] + "</h3><dl><dt>Número atómico (Z)</dt><dd>" + z +
-      "</dd><dt>Masa atómica relativa</dt><dd>" + M[i] + "</dd><dt>Período</dt><dd>" + p + "</dd><dt>Grupo</dt><dd>" + g + "</dd><dt>Clasificación</dt><dd>" + CL[c][0] + "</dd></dl></div>";
-  };
-  pt.appendChild(b);
+  const o = pos(i + 1), b = document.createElement("button");
+  b.type = "button"; b.className = "el"; b.setAttribute("aria-pressed", "false"); b.setAttribute("aria-label", N[i] + ", " + s + ", número atómico " + (i + 1));
+  b.style.gridRow = (o.r || o.p) + 1; b.style.gridColumn = (o.c || o.g) + 1; b.innerHTML = "<small>" + (i + 1) + "</small>" + s;
+  b.onclick = () => detalle(i); pt.appendChild(b); celdas.push(b);
 });
-document.getElementById("ley").innerHTML = Object.values(CL).map(v => '<span style="--c:' + v[1] + '">' + v[0] + "</span>").join("");
-quiz(document.getElementById("quiz"), [
- { q: "¿Qué indica el número atómico (Z) de un elemento?", o: ["Su masa en gramos", "La cantidad de protones de sus átomos", "Si es sólido o líquido", "Cuántas mezclas forma"], ok: 1, e: "Z es la cantidad de protones y identifica a cada elemento; la tabla los ordena por Z creciente." },
- { q: "Las filas horizontales de la tabla se llaman:", o: ["Grupos", "Familias", "Períodos", "Compuestos"], ok: 2, e: "Las filas son los períodos (1 a 7); las columnas son los grupos (1 a 18)." },
- { q: "¿Por qué los elementos de un mismo grupo se ubican en la misma columna?", o: ["Porque tienen la misma masa", "Porque tienen propiedades parecidas", "Porque se descubrieron el mismo año", "Porque forman mezclas homogéneas"], ok: 1, e: "Los elementos de un grupo se parecen en sus propiedades." },
- { q: "El sodio (Na) está en el grupo 1. ¿A qué familia pertenece?", o: ["Halógenos", "Gases nobles", "Metales alcalinos", "Metaloides"], ok: 2, e: "El grupo 1, sin el hidrógeno, forma la familia de los metales alcalinos." },
- { q: "El helio, el neón y el argón están en el grupo 18. Esa familia es la de los:", o: ["Halógenos", "Gases nobles", "Alcalinotérreos", "Metales de transición"], ok: 1, e: "El grupo 18 son los gases nobles." }
+function detalle(i) {
+  sel = i; celdas.forEach((b, k) => b.setAttribute("aria-pressed", k === i));
+  const z = i + 1, o = pos(z), g = o.g, f = fam(z, g), t = tipo(S[i], g);
+  const fn = f === "int" ? (z <= 71 ? "lantánido" : "actínido") : z === 1 ? "sin nombre común (no es un metal alcalino)" : FAMN[f];
+  det.innerHTML = '<div class="gran" style="background:' + color(i) + '"><small>' + z + "</small>" + S[i] + "</div><div><h3>" + N[i] + "</h3><dl>" +
+    "<dt>Número atómico (Z)</dt><dd>" + z + "</dd><dt>Protones y electrones (átomo neutro)</dt><dd>" + z + " y " + z + "</dd>" +
+    "<dt>Masa atómica</dt><dd>" + (M[i] === "—" ? "—" : M[i] + " uma") + "</dd><dt>Período</dt><dd>" + o.p + "</dd>" +
+    "<dt>Grupo</dt><dd>" + (g ? GA[g - 1] + " (" + g + ")" : "— (se ubica debajo de la tabla)") + "</dd><dt>Familia</dt><dd>" + fn + "</dd>" +
+    "<dt>Clase</dt><dd>" + ((g >= 3 && g <= 12) || g === 0 ? "de transición" : "representativo") + "</dd><dt>Tipo</dt><dd>" + TN[t] + "</dd></dl></div>";
+}
+function pintar() {
+  celdas.forEach((b, i) => b.style.background = color(i));
+  const L = modo === "fam" ? Object.keys(FL).map(k => [FC[k], FL[k]]) : [[TC.met, "Metales"], [TC.mtd, "Metaloides"], [TC.nm, "No metales"]];
+  document.getElementById("ley").innerHTML = L.map(v => '<span style="--c:' + v[0] + '">' + v[1] + "</span>").join(" ");
+  document.getElementById("mfam").setAttribute("aria-pressed", modo === "fam"); document.getElementById("mtip").setAttribute("aria-pressed", modo !== "fam");
+  if (sel >= 0) detalle(sel);
+}
+document.getElementById("mfam").onclick = () => { modo = "fam"; pintar(); };
+document.getElementById("mtip").onclick = () => { modo = "tip"; pintar(); };
+pintar();
+
+/* Entrenador */
+const norm = t => t.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+function preguntas(m) {
+  let idx = COMUNES.map(s => S.indexOf(s));
+  if (m === "p" || m === "g") idx = idx.filter(i => pos(i + 1).g > 0);
+  idx.sort(() => Math.random() - .5);
+  return idx.slice(0, 10).map(i => {
+    const s = S[i], n = N[i], z = i + 1, o = pos(z), nl = n.toLowerCase();
+    if (m === "sn") return { q: "¿Qué elemento tiene el símbolo " + s + "?", r: n, ok: a => norm(a) === norm(n) };
+    if (m === "ns") return { q: "¿Cuál es el símbolo de " + nl + "?", r: s, ok: a => a.trim() === s };
+    if (m === "zn") return { q: "¿Qué elemento tiene número atómico " + z + "?", r: n, ok: a => norm(a) === norm(n) };
+    if (m === "p") return { q: "¿En qué período está el " + nl + "?", r: String(o.p), ok: a => a.trim() === String(o.p) };
+    return { q: "¿En qué grupo (1 a 18) está el " + nl + "?", r: String(o.g), ok: a => a.trim() === String(o.g) };
+  });
+}
+let ronda = [], k = 0, pts = 0;
+function mostrar() {
+  const E = document.getElementById("entr");
+  if (k >= ronda.length) { E.innerHTML = '<p class="puntaje">Terminaste: ' + pts + " de " + ronda.length + " correctas.</p>"; return; }
+  const q = ronda[k];
+  E.innerHTML = "<h3>" + (k + 1) + ". " + q.q + '</h3><div class="fila-botones"><input id="resp" type="text" autocomplete="off" aria-label="Tu respuesta"><button type="button" class="boton" id="comp">Comprobar</button></div><p class="dev" id="dv" aria-live="polite"></p>';
+  const inp = E.querySelector("#resp"), dv = E.querySelector("#dv"), b = E.querySelector("#comp"); inp.focus();
+  const check = () => {
+    if (b.dataset.h) { k++; mostrar(); return; }
+    const bien = q.ok(inp.value); if (bien) pts++;
+    dv.textContent = (bien ? "Correcto. " : "No es esa. ") + "Respuesta: " + q.r + "."; b.dataset.h = 1; inp.disabled = true;
+    b.textContent = k + 1 < ronda.length ? "Siguiente" : "Ver resultado"; b.focus();
+  };
+  b.onclick = check; inp.onkeydown = e => { if (e.key === "Enter") check(); };
+}
+document.getElementById("nueva").onclick = () => { ronda = preguntas(document.getElementById("modo").value); k = 0; pts = 0; mostrar(); };
+
+/* Calculadora de partículas */
+function calc() {
+  const z = +document.getElementById("cz").value, a = +document.getElementById("ca").value, r = document.getElementById("cr");
+  if (!z || !a) { r.textContent = ""; return; }
+  if (z < 1 || z > 118) { r.textContent = "El número atómico va de 1 a 118."; return; }
+  if (a < z) { r.textContent = "El número de masa no puede ser menor que el número atómico."; return; }
+  r.textContent = N[z - 1] + " (" + S[z - 1] + "-" + a + "): " + z + " protones, " + (a - z) + " neutrones (" + a + " − " + z + ") y " + z + " electrones en el átomo neutro.";
+}
+document.getElementById("cz").oninput = calc; document.getElementById("ca").oninput = calc;
+
+quiz(document.getElementById("quizC"), [
+ { q: "¿Qué carga eléctrica tiene un protón?", o: ["+1", "−1", "0", "Depende del elemento"], ok: 0, e: "El protón tiene carga +1 y se encuentra en el núcleo." },
+ { q: "¿Qué partícula subatómica no tiene carga?", o: ["El protón", "El neutrón", "El electrón", "Todas tienen carga"], ok: 1, e: "El neutrón es neutro (carga 0)." },
+ { q: "¿Cuál de las tres partículas tiene la masa más pequeña?", o: ["El protón", "El neutrón", "El electrón", "Las tres pesan igual"], ok: 2, e: "El electrón pesa unas 2000 veces menos que un protón o un neutrón (0,00055 uma)." },
+ { q: "¿Dónde están los protones y los neutrones?", o: ["En el núcleo", "Fuera del núcleo, alrededor de él", "Repartidos por todo el átomo", "Solo en los metales"], ok: 0, e: "Los dos están en el núcleo, que contiene casi toda la masa del átomo. Los electrones lo rodean." },
+ { q: "El litio tiene número atómico 3. ¿Cuántos protones y electrones tiene un átomo neutro de litio?", o: ["3 protones y 3 electrones", "3 protones y 4 electrones", "6 protones y 3 electrones", "3 protones y ningún electrón"], ok: 0, e: "Z es el número de protones, y en un átomo neutro hay igual cantidad de electrones." },
+ { q: "Un átomo de cloro tiene Z = 17 y número de masa 37. ¿Cuántos neutrones tiene?", o: ["17", "20", "37", "54"], ok: 1, e: "Neutrones = número de masa − número atómico = 37 − 17 = 20." },
+ { q: "¿Qué indica el número de masa?", o: ["La cantidad de protones", "La suma de protones y neutrones del núcleo", "La suma de protones y electrones", "La cantidad de electrones"], ok: 1, e: "Número de masa = protones + neutrones. La cantidad de protones es el número atómico." },
+ { q: "Dos átomos tienen el mismo número atómico y distinto número de masa. Son:", o: ["Isótopos del mismo elemento", "Átomos de elementos distintos", "Átomos con distinta cantidad de protones", "Moléculas"], ok: 0, e: "Tienen los mismos protones y distinta cantidad de neutrones: son isótopos." },
+ { q: "¿Cuántos períodos tiene la tabla y cuántos grupos (numerados del 1 al 18)?", o: ["7 períodos y 18 grupos", "18 períodos y 7 grupos", "7 períodos y 8 grupos", "8 períodos y 18 grupos"], ok: 0, e: "Los períodos son las filas (1 a 7) y los grupos, las columnas (1 a 18)." },
+ { q: "¿Cuál de estos elementos es un halógeno?", o: ["Cloro (Cl)", "Sodio (Na)", "Neón (Ne)", "Calcio (Ca)"], ok: 0, e: "Los halógenos están en el grupo 7A (17): F, Cl, Br, I y At." },
+ { q: "El silicio (Si) está sobre la línea en zigzag de la tabla. Es un:", o: ["Metal", "No metal", "Metaloide", "Gas noble"], ok: 2, e: "Los elementos de la línea (B, Si, Ge, As, Sb, Te, Po y At) son metaloides." },
+ { q: "En el símbolo de un elemento de dos letras:", o: ["La primera es mayúscula y la segunda minúscula", "Las dos son mayúsculas", "Las dos son minúsculas", "La primera es minúscula y la segunda mayúscula"], ok: 0, e: "Co es cobalto; CO son dos elementos: carbono y oxígeno." }
+]);
+quiz(document.getElementById("quizL"), [
+ { q: "Según el texto sobre elementos esenciales, ¿qué cuatro elementos forman alrededor del 96 % de la masa del cuerpo humano?", o: ["Oxígeno, carbono, hidrógeno y nitrógeno", "Calcio, fósforo, potasio y sodio", "Hierro, cinc, cobre y yodo", "Oxígeno, calcio, hierro y cloro"], ok: 0, e: "Son elementos representativos de los períodos 1 y 2. Los otros grupos de opciones son macrominerales y microminerales." },
+ { q: "¿Cuántos elementos son esenciales para el bienestar y la supervivencia del cuerpo humano?", o: ["Alrededor de 20", "Los 118", "Solo los 4 principales", "Alrededor de 88"], ok: 0, e: "De todos los elementos, solo alrededor de 20 son esenciales." },
+ { q: "Los macrominerales (Ca, P, K, Cl, S, Na y Mg) están ubicados en los períodos:", o: ["1 y 2", "3 y 4", "5 y 6", "6 y 7"], ok: 1, e: "Son elementos representativos de los períodos 3 y 4." },
+ { q: "¿Qué son los microminerales o elementos traza?", o: ["Elementos esenciales presentes en cantidades muy pequeñas, en su mayoría de transición del período 4", "Los elementos que forman el agua del cuerpo", "Elementos que no existen en el cuerpo", "Los gases nobles"], ok: 0, e: "Se necesitan en cantidades muy pequeñas; algunos, como arsénico, cromo y selenio, son tóxicos en niveles más altos." },
+ { q: "¿Qué propiedad distingue al mercurio de los demás metales?", o: ["Es líquido a temperatura ambiente", "Es el más duro", "No conduce el calor", "Es un gas"], ok: 0, e: "Todos los metales son sólidos a temperatura ambiente, excepto el mercurio." },
+ { q: "¿Cómo llega el mercurio al cuerpo de quien come pescado contaminado?", o: ["Las bacterias lo convierten en metilmercurio y los peces lo absorben", "El pescado fabrica mercurio al crecer", "Se forma al cocinarlo", "Solo llega por la piel"], ok: 0, e: "El metilmercurio es tóxico y ataca el sistema nervioso central." },
+ { q: "El diamante y el grafito son formas del mismo elemento. ¿Por qué tienen propiedades tan distintas?", o: ["Sus átomos de carbono están ordenados de manera diferente", "Tienen distinto número atómico", "El grafito no tiene carbono", "El diamante es un compuesto"], ok: 0, e: "Los dos son carbono (Z = 6), pero la disposición de sus átomos cambia sus propiedades." },
+ { q: "El símbolo Na del sodio proviene de la palabra latina:", o: ["Natrium", "Kalium", "Ferrum", "Aurum"], ok: 0, e: "Kalium es el potasio (K), ferrum el hierro (Fe) y aurum el oro (Au)." }
 ]);
 </script>
 </body>
