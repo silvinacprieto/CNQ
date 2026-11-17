@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autoevaluación N° 6 – Sustancias puras y mezclas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../clases/01-materia-medicion-densidad/simuladores/estilo.css">
+<style>
+.aviso { border: 2px solid var(--warn); background: color-mix(in srgb, var(--warn) 10%, var(--surface)); border-radius: 12px; padding: 14px 18px; }
+.aviso strong { color: var(--warn); }
+.nombre-alumno { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.nombre-alumno input { font: inherit; font-size: 20px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); min-width: 280px; }
+
+.pregunta-bloque { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 12px; }
+.pregunta-bloque:first-of-type { border-top: none; padding-top: 0; }
+.enunciado { display: flex; gap: 12px; align-items: baseline; }
+.enunciado .nro { font-family: var(--font-mono); font-size: 20px; color: var(--accent); min-width: 34px; }
+.enunciado .txt { font-size: 19px; font-weight: 600; }
+.consigna { font-size: 15px; color: var(--muted); font-style: italic; margin: 0 0 0 46px; }
+.cuerpo { margin-left: 46px; display: grid; gap: 12px; }
+@media (max-width: 700px) { .consigna, .cuerpo { margin-left: 0; } }
+
+.opciones-lista { display: grid; gap: 8px; }
+.opcion { display: flex; gap: 12px; align-items: center; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); cursor: pointer; min-height: 48px; font-size: 17px; }
+.opcion input { width: 22px; height: 22px; accent-color: var(--accent); flex: none; }
+.opcion.bien { border-color: var(--ok); box-shadow: inset 4px 0 0 var(--ok); }
+.opcion.mal { border-color: var(--bad); box-shadow: inset 4px 0 0 var(--bad); }
+.opcion.faltó { border-color: var(--warn); box-shadow: inset 4px 0 0 var(--warn); }
+.opcion .exp { display: block; font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+.imagenes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 860px; }
+@media (max-width: 600px) { .imagenes { grid-template-columns: 1fr; } }
+.opcion-img { display: grid; gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); cursor: pointer; }
+.opcion-img .pie { display: flex; gap: 10px; align-items: center; font-weight: 600; font-size: 18px; }
+.opcion-img input { width: 22px; height: 22px; accent-color: var(--accent); }
+.opcion-img.bien { border-color: var(--ok); box-shadow: 0 0 0 3px var(--ok); }
+.opcion-img.mal { border-color: var(--bad); box-shadow: 0 0 0 3px var(--bad); }
+.opcion-img .exp { font-size: 14px; color: var(--muted); }
+.escena { background: #fff; border: 2px solid #1d2320; border-radius: 4px; display: block; width: 100%; height: auto; }
+.escena-grande { max-width: 440px; }
+
+.grilla { border-collapse: collapse; width: 100%; font-size: 16px; }
+.grilla th, .grilla td { border-bottom: 1px solid var(--line); padding: 8px 6px; text-align: center; }
+.grilla th:first-child, .grilla td:first-child { text-align: left; font-weight: 600; }
+.grilla input { width: 24px; height: 24px; accent-color: var(--accent); cursor: pointer; }
+.grilla tr.bien td:first-child { box-shadow: inset 4px 0 0 var(--ok); }
+.grilla tr.mal td:first-child { box-shadow: inset 4px 0 0 var(--bad); }
+.grilla .exp { display: block; font-size: 13px; color: var(--muted); font-weight: 400; }
+.grilla td.correcta { background: color-mix(in srgb, var(--ok) 18%, transparent); }
+
+.devolucion { border-radius: 10px; padding: 12px 16px; font-size: 16px; }
+.devolucion.ok { background: color-mix(in srgb, var(--ok) 14%, var(--surface)); border: 1px solid var(--ok); }
+.devolucion.mal { background: color-mix(in srgb, var(--bad) 10%, var(--surface)); border: 1px solid var(--bad); }
+.devolucion.info { background: var(--bg); border: 1px solid var(--line); }
+
+textarea { font: inherit; font-size: 17px; width: 100%; min-height: 120px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); }
+.checklist { display: grid; gap: 6px; }
+.checklist label { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; cursor: pointer; padding: 6px 4px; }
+.checklist input { width: 20px; height: 20px; accent-color: var(--accent); flex: none; margin-top: 2px; }
+
+/* Tablero de dibujo */
+.tablero { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 14px; align-items: start; }
+@media (max-width: 800px) { .tablero { grid-template-columns: 1fr; } }
+.lienzo { background: #fff; border: 2px solid #1d2320; border-radius: 4px; touch-action: none; cursor: crosshair; display: block; width: 100%; height: auto; }
+.paleta { display: grid; gap: 10px; }
+.colores { display: flex; flex-wrap: wrap; gap: 8px; }
+.color { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #203a6b; cursor: pointer; }
+.color[aria-pressed="true"] { outline: 4px solid var(--accent); outline-offset: 2px; }
+
+.leyenda { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; align-items: center; font-size: 16px; }
+.resumen { border: 2px solid var(--accent); border-radius: 14px; padding: 18px; display: grid; gap: 10px; background: var(--surface); }
+.resumen h3 { color: var(--accent); }
+.resumen .cab { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 15px; }
+.resumen table td { padding: 5px 8px; }
+.resumen .total { font-size: 22px; font-weight: 700; }
+.marca-ok { color: var(--ok); font-weight: 700; }
+.marca-mal { color: var(--bad); font-weight: 700; }
+.marca-pend { color: var(--muted); }
+
+.lectura-texto { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; font-size: 17px; line-height: 1.6; }
+.lectura-texto h3 { margin-bottom: 8px; }
+.lectura-texto ul { padding-left: 22px; }
+.arbol { max-width: 640px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="kicker">CIENCIAS NATURALES – QUÍMICA · 1.ER AÑO · AUTOEVALUACIÓN</div>
+  <h1>Evaluación N° 6: Sustancias puras y mezclas</h1>
+  <p class="lead">Aprendizaje 05: diferenciación y caracterización de sustancias puras y mezclas. Aprendizaje 02: interpretación de la discontinuidad de la materia a partir del modelo cinético-corpuscular. Son las mismas preguntas de la evaluación. Después de responder cada una, toca <strong>Comprobar</strong> para ver si es correcta y por qué.</p>
+</header>
+
+<nav class="secciones" aria-label="Partes">
+  <div class="fila">
+    <a href="#parte1">Parte 1 · Clasificación y partículas</a>
+    <a href="#parte2">Parte 2 · Tipos de mezclas</a>
+    <a href="#parte3">Parte 3 · Comprensión lectora</a>
+    <button type="button" id="tema">Tema oscuro</button>
+  </div>
+</nav>
+
+<main>
+
+<section class="bloque">
+  <div class="aviso" role="note">
+    <strong>Importante: esta página no guarda tus respuestas.</strong> Si la recargas o la cierras, se borra todo. Al terminar cada parte aparece un <strong>recuadro de resultados</strong>: haz una <strong>captura de pantalla</strong> de ese recuadro antes de seguir.
+  </div>
+  <div class="nombre-alumno">
+    <label for="nombre" style="font-weight:600">Apellido y nombre</label>
+    <input id="nombre" type="text" autocomplete="name" placeholder="Escribe tu apellido y nombre">
+    <span class="nota">Aparece en cada recuadro de resultados, para que tus capturas queden identificadas.</span>
+  </div>
+</section>
+
+<section class="bloque" id="parte1">
+  <div class="titulo"><span class="num">PARTE 1</span><h2>Clasificación de la materia y modelo de partículas</h2></div>
+  <div class="idea">
+    <strong>Cómo leer los esquemas de partículas</strong>
+    <div class="leyenda" style="margin-top:10px" id="leyenda"></div>
+  </div>
+  <div id="preguntas1"></div>
+  <div class="resumen" id="resumen1"></div>
+</section>
+
+<section class="bloque" id="parte2">
+  <div class="titulo"><span class="num">PARTE 2</span><h2>Tipos de mezclas: soluciones, coloides y suspensiones</h2></div>
+  <div id="preguntas2"></div>
+  <div class="resumen" id="resumen2"></div>
+</section>
+
+<section class="bloque" id="parte3">
+  <div class="titulo"><span class="num">PARTE 3</span><h2>Comprensión lectora</h2></div>
+  <p class="pregunta">Lee el texto y responde.</p>
+  <article class="lectura-texto">
+    <h3>La leche: un sistema coloidal</h3>
+    <p>A simple vista, la leche parece un líquido blanco y uniforme, pero es una <strong>mezcla</strong> formada por partículas de tamaños muy distintos dispersas en agua. Como contiene partículas coloidales, se la clasifica como un <strong>sistema coloidal</strong>. Su color blanco y opaco se debe al <strong>efecto Tyndall</strong>: las partículas coloidales dispersan la luz, mientras que en una solución verdadera, como el agua con sal, las partículas son demasiado pequeñas para hacerlo.</p>
+    <p>Cerca del 87 % es <strong>agua</strong>, que actúa como medio dispersante. En ella se encuentran:</p>
+    <ul>
+      <li><strong>Lactosa y sales minerales:</strong> disueltas como moléculas e iones (1 a 10 Å). Solución verdadera.</li>
+      <li><strong>Caseína:</strong> agrupada en <strong>micelas</strong> (500 a 3000 Å). Tipo de coloide: sol.</li>
+      <li><strong>Grasa:</strong> formando <strong>glóbulos</strong> (1000 a 100 000 Å). Tipo de coloide: emulsión.</li>
+    </ul>
+    <p>Por eso la leche es un sistema coloidal con varias fases dispersas: una solución, un sol y una emulsión al mismo tiempo.</p>
+    <p>Las partículas de la leche tienen carga en su superficie. Esas cargas las hacen repelerse entre sí y además atraen moléculas de agua que las rodean, lo que ayuda a mantenerlas dispersas. Para separar sus componentes hay que romper esa estabilidad o aprovechar diferencias entre las partículas, como la densidad.</p>
+    <ul>
+      <li><strong>Crema:</strong> los glóbulos de grasa son menos densos que el agua y los más grandes superan los 10 000 Å, por eso suben a la superficie. Al batirla se obtiene <strong>manteca</strong>.</li>
+      <li><strong>Cuajada (queso):</strong> al agregar ácido, cloruro de calcio o cuajo, las micelas dejan de repelerse y se agrupan (<strong>floculación</strong>). Los flóculos más grandes se juntan y forman la <strong>cuajada</strong>, que atrapa gran parte de la grasa. Se separa por filtración del <strong>suero</strong>, el líquido que contiene agua, lactosa, sales, proteínas del suero y algunas micelas que quedaron dispersas.</li>
+      <li><strong>Ricota:</strong> al calentar el suero, sus proteínas se agrupan y se filtran.</li>
+      <li><strong>Lactosa y sales:</strong> están disueltas, por lo que pasan por el filtro; solo se obtienen <strong>evaporando el agua</strong>.</li>
+    </ul>
+    <p>Reconocer las propiedades de los coloides permite controlar su estabilidad: mantenerla, como en la leche fresca, o romperla de forma intencional para obtener productos útiles como la crema, la manteca, el queso y la ricota, o para depurar el agua.</p>
+    <p><strong>Glosario del texto</strong></p>
+    <p><strong>Caseína:</strong> proteína principal de la leche. Sus moléculas se agrupan formando micelas, que quedan dispersas en el agua.<br>
+    <strong>Floculación:</strong> proceso por el cual las partículas de un coloide dejan de repelerse, se unen entre sí y forman agregados más grandes que pueden separarse de la mezcla.<br>
+    <strong>Flóculo:</strong> agregado en forma de «copo» que se forma cuando muchas partículas coloidales se unen durante la floculación.<br>
+    <strong>Lactosa:</strong> azúcar propio de la leche. Se encuentra disuelta como moléculas individuales, por eso forma una solución verdadera con el agua.<br>
+    <strong>Micela:</strong> partícula formada por muchas moléculas de proteína agrupadas, como una pequeña pelota.</p>
+  </article>
+  <div id="preguntas3"></div>
+  <div class="resumen" id="resumen3"></div>
+</section>
+
+</main>
+<footer>Ciencias Naturales – Química · 1.er año · Ing. Agr. Silvina C. Prieto. Esta página no guarda datos: todo se borra al cerrarla.</footer>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const sinPrefijo = t => { const x = t.replace(/^Correcta: /, ""); return x.charAt(0).toUpperCase() + x.slice(1); };
+
+/* ---------- Tema claro/oscuro ---------- */
+(() => {
+  const b = $("#tema"), raiz = document.documentElement;
+  let t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  const ap = () => { raiz.dataset.theme = t; b.textContent = t === "dark" ? "Tema claro" : "Tema oscuro"; };
+  ap(); b.addEventListener("click", () => { t = t === "dark" ? "light" : "dark"; ap(); });
+})();
+
+/* ---------- Esquemas de partículas ----------
+   Convención: cada círculo es un átomo; mismo color y tamaño = mismo tipo de átomo;
+   los círculos que se tocan están unidos (forman una molécula); las partículas que no
+   están unidas se dibujan siempre separadas, sin tocarse. */
+const COL = { azul: "#3d6fc7", verde: "#86c94e", blanco: "#ffffff", gris: "#c4c4c4", rojo: "#e52b2b", negro: "#111111", oscuro: "#6b6b6b", claro: "#d9d9d9", amarillo: "#f4e08f" };
+const BORDE = "#203a6b";
+// Cada plantilla: lista de átomos [dx, dy, radio, color], dibujados en ese orden.
+const PLANTILLA = {
+  WG:  [[-13, 9, 10, "gris"], [5, -3, 16, "blanco"]],                       // compuesto blanco + gris
+  GB:  [[-10, 0, 13, "verde"], [10, 0, 13, "azul"]],                        // compuesto verde + azul
+  A:   [[0, 0, 13, "azul"]],                                                // átomo azul
+  A15: [[0, 0, 15, "azul"]],
+  RGG: [[0, 0, 12, "rojo"], [-12, 8, 7, "gris"], [12, 8, 7, "gris"]],       // compuesto rojo + 2 grises
+  VWV: [[-13, 0, 9, "verde"], [13, 0, 9, "verde"], [0, 0, 7, "blanco"]],   // compuesto verde-blanco-verde
+  DLL: [[0, 0, 12, "oscuro"], [-12, 8, 7, "claro"], [12, 8, 7, "claro"]],  // compuesto gris oscuro + 2 grises claros
+  KWK: [[-13, 0, 9, "negro"], [13, 0, 9, "negro"], [0, 0, 7, "blanco"]],   // compuesto negro-blanco-negro
+  BG:  [[0, 0, 16, "blanco"]],                                              // átomo blanco grande
+  CH:  [[0, 0, 10, "amarillo"]],                                            // átomo chico (amarillo claro)
+  V:   [[0, 0, 13, "verde"]],                                               // átomo verde
+  R:   [[0, 0, 12, "rojo"]]
+};
+const radioEnvolvente = (p, k = 1) => k * Math.max(...PLANTILLA[p].map(([dx, dy, r]) => Math.hypot(dx, dy) + r));
+function azar(semilla) { let s = semilla; return () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
+// spec: lista de grupos { p: plantilla, n: cantidad, zona: [y0, y1] }
+function escena(spec, semilla, etiqueta, k = 1) {
+  // Si con una semilla no entran todas las partículas, prueba con la siguiente: así el dibujo
+  // siempre tiene la cantidad pedida y sale igual cada vez que se abre la página.
+  let puestas = null;
+  for (let sem = semilla; !puestas && sem < semilla + 2000; sem++) puestas = ubicar(spec, sem, k);
+  return dibujarEscena(puestas || [], etiqueta, k);
+}
+function ubicar(spec, semilla, k) {
+  const W = 300, H = 220, rnd = azar(semilla), puestas = [];
+  let completo = true;
+  spec.forEach(g => {
+    const rb = radioEnvolvente(g.p, k), [y0, y1] = g.zona || [0, H];
+    for (let k = 0; k < g.n; k++) {
+      let ok = false;
+      for (let intento = 0; intento < 2500 && !ok; intento++) {
+        const x = rb + 3 + rnd() * (W - 2 * rb - 6), y = y0 + rb + 3 + rnd() * (y1 - y0 - 2 * rb - 6), ang = rnd() * Math.PI * 2;
+        if (puestas.every(q => Math.hypot(q.x - x, q.y - y) > q.rb + rb + 5)) { puestas.push({ p: g.p, x, y, ang, rb }); ok = true; }
+      }
+      if (!ok) completo = false;
+    }
+  });
+  return completo ? puestas : null;
+}
+function dibujarEscena(puestas, etiqueta, k) {
+  let s = "";
+  puestas.forEach(q => {
+    const c = Math.cos(q.ang), sn = Math.sin(q.ang);
+    PLANTILLA[q.p].forEach(([dx, dy, r, col]) => {
+      const x = q.x + k * (dx * c - dy * sn), y = q.y + k * (dx * sn + dy * c);
+      s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r * k).toFixed(1)}" fill="${COL[col]}" stroke="${BORDE}" stroke-width="1.4"/>`;
+    });
+  });
+  return `<svg class="escena" viewBox="0 0 300 220" role="img" aria-label="${etiqueta}">${s}</svg>`;
+}
+// Escenas de la evaluación (misma composición que los dibujos originales)
+const ESC = {
+  e5:  () => escena([{ p: "WG", n: 5 }, { p: "A", n: 12 }], 11, "Mezcla de moléculas blanco-gris y átomos azules", 1.35),
+  e6:  () => escena([{ p: "WG", n: 5 }, { p: "GB", n: 7 }], 23, "Mezcla de moléculas blanco-gris y moléculas verde-azul", 1.2),
+  e7A: () => escena([{ p: "A", n: 10, zona: [0, 72] }, { p: "RGG", n: 6, zona: [78, 220] }, { p: "VWV", n: 6, zona: [78, 220] }], 31, "Átomos azules arriba; abajo, dos tipos de moléculas"),
+  e7B: () => escena([{ p: "A15", n: 18 }], 41, "Solo átomos azules", 1.25),
+  e7C: () => escena([{ p: "BG", n: 6 }, { p: "CH", n: 6 }, { p: "V", n: 7 }], 53, "Átomos blancos grandes, átomos amarillos chicos y átomos verdes mezclados", 1.3),
+  e7D: () => escena([{ p: "RGG", n: 6, zona: [50, 220] }, { p: "VWV", n: 6, zona: [50, 220] }], 61, "Dos tipos de moléculas mezcladas"),
+  e8C: () => escena([{ p: "A", n: 10, zona: [0, 72] }, { p: "DLL", n: 6, zona: [78, 220] }, { p: "KWK", n: 6, zona: [78, 220] }], 71, "Átomos azules arriba; abajo, dos tipos de moléculas en grises y negro"),
+  e10C:() => escena([{ p: "V", n: 6, zona: [0, 118] }, { p: "BG", n: 4, zona: [0, 118] }, { p: "CH", n: 11, zona: [124, 220] }], 83, "Verdes y blancos arriba; amarillos chicos abajo", 1.2),
+  ej9: () => escena([{ p: "RGG", n: 5, zona: [0, 84] }, { p: "WG", n: 4, zona: [92, 220] }, { p: "GB", n: 4, zona: [92, 220] }], 97, "Ejemplo: una fase arriba con un compuesto y otra abajo con dos compuestos"),
+  ej12:() => escena([{ p: "A", n: 8 }, { p: "V", n: 8 }, { p: "R", n: 8 }], 101, "Ejemplo: átomos azules, verdes y rojos mezclados de manera uniforme", 1.2)
+};
+
+/* ---------- Leyenda ---------- */
+(() => {
+  const mini = (p, txt) => {
+    const rb = radioEnvolvente(p);
+    const at = PLANTILLA[p].map(([dx, dy, r, c]) => `<circle cx="${rb + dx + 2}" cy="${rb + dy + 2}" r="${r}" fill="${COL[c]}" stroke="${BORDE}" stroke-width="1.4"/>`).join("");
+    return `<svg width="${2 * rb + 4}" height="${2 * rb + 4}" aria-hidden="true">${at}</svg><span>${txt}</span>`;
+  };
+  $("#leyenda").innerHTML =
+    mini("A", "Un círculo suelto es un <strong>átomo</strong>. Mismo color y mismo tamaño = mismo tipo de átomo.") +
+    mini("WG", "Los círculos que se <strong>tocan</strong> están unidos: forman una <strong>molécula</strong>. Si los átomos son distintos, es un <strong>compuesto</strong>.") +
+    mini("CH", "Un círculo de otro color o de otro tamaño es <strong>otro tipo de átomo</strong>.") +
+    `<span></span><span>Las partículas que no están unidas se dibujan siempre separadas, sin tocarse.</span>`;
+})();
+
+/* ---------- Preguntas ---------- */
+// Tipos: multi (casillas), unica (una opción, texto o imagen), grilla, dibujo, abierta.
+const NSNC = { t: "Ns/Nc", ok: false, e: "Si no sabías, revisa la explicación de la respuesta correcta." };
+const PREGUNTAS = [
+  { parte: 1, n: 4, tipo: "multi", txt: "El esquema representa cómo se clasifica la materia. Marca todas las afirmaciones que sean verdaderas.", consigna: "Selecciona todas las que correspondan.",
+    figura: "arbol",
+    gen: "La materia se clasifica en sustancias puras (elementos y compuestos) y mezclas (homogéneas y heterogéneas). Un compuesto es una sustancia pura, no una mezcla.",
+    ops: [
+      { t: "Las sustancias puras y las mezclas no son materia", ok: false, e: "Falsa: el esquema parte de «Materia». Las sustancias puras y las mezclas son las dos formas en que se clasifica la materia." },
+      { t: "Las mezclas pueden ser homogéneas o heterogéneas", ok: true, e: "Verdadera: así se dividen las mezclas en el esquema." },
+      { t: "Los compuestos son mezclas homogéneas", ok: false, e: "Falsa: un compuesto es una sustancia pura. Sus elementos están combinados químicamente y siempre en la misma proporción; en una mezcla la proporción puede variar." },
+      { t: "Los compuestos y los elementos son sustancias puras", ok: true, e: "Verdadera: las sustancias puras se dividen en elementos y compuestos." }
+    ] },
+  { parte: 1, n: 5, tipo: "multi", txt: "Observa el esquema y marca todas las opciones correctas.", consigna: "Selecciona todas las que correspondan.", figura: "e5",
+    gen: "Hay dos tipos de partículas: moléculas blanco-gris (dos átomos distintos unidos: un compuesto) y átomos azules sueltos (un solo tipo de átomo: un elemento). Están repartidas de manera uniforme: es una mezcla homogénea.",
+    ops: [
+      { t: "Se trata de una mezcla homogénea", ok: true, e: "Las partículas están repartidas de manera uniforme en todo el recuadro." },
+      { t: "Se trata de una mezcla heterogénea", ok: false, e: "No hay zonas distintas: la composición es igual en todo el recuadro." },
+      { t: "Hay dos sustancias", ok: true, e: "Moléculas blanco-gris y átomos azules." },
+      { t: "Hay tres sustancias", ok: false, e: "El blanco y el gris no son dos sustancias: están unidos en la misma molécula." },
+      { t: "Hay un compuesto", ok: true, e: "La molécula blanco-gris tiene dos átomos distintos unidos." },
+      { t: "Hay un elemento", ok: true, e: "Los átomos azules: un solo tipo de átomo." }
+    ] },
+  { parte: 1, n: 6, tipo: "multi", txt: "Observa el esquema y marca todas las opciones correctas.", consigna: "Selecciona todas las que correspondan.", figura: "e6",
+    gen: "Hay dos tipos de moléculas: blanco-gris y verde-azul. Las dos están formadas por átomos distintos unidos, así que son dos compuestos. No hay átomos sueltos, así que no hay elementos. Están repartidas de manera uniforme: es una mezcla homogénea.",
+    ops: [
+      { t: "Se trata de una mezcla homogénea", ok: true, e: "Las partículas están repartidas de manera uniforme." },
+      { t: "Se trata de una mezcla heterogénea", ok: false, e: "No hay zonas distintas en el recuadro." },
+      { t: "Hay dos sustancias", ok: true, e: "Moléculas blanco-gris y moléculas verde-azul." },
+      { t: "Hay tres sustancias", ok: false, e: "Si cuentas verdes y azules por separado, mira bien: cada verde está unido a un azul. Son una sola sustancia." },
+      { t: "Hay dos compuestos", ok: true, e: "Blanco-gris y verde-azul: las dos moléculas tienen átomos distintos." },
+      { t: "Hay dos elementos", ok: false, e: "No hay átomos sueltos: los verdes y los azules están unidos entre sí." },
+      { t: "Hay dos sustancias, un elemento y un compuesto", ok: false, e: "Son dos sustancias, pero las dos son compuestos." }
+    ] },
+  { parte: 1, n: 7, tipo: "unica", txt: "¿Qué imagen corresponde a una mezcla heterogénea?", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "A", img: "e7A", ok: true, e: "Correcta: tiene dos zonas distintas. Arriba solo hay átomos azules y abajo, moléculas: son dos fases." },
+      { t: "B", img: "e7B", ok: false, e: "Un solo tipo de partícula: es una sustancia pura, no una mezcla." },
+      { t: "C", img: "e7C", ok: false, e: "Tres tipos de átomos repartidos de manera uniforme: mezcla homogénea." },
+      { t: "D", img: "e7D", ok: false, e: "Dos tipos de moléculas repartidas de manera uniforme: mezcla homogénea." }
+    ] },
+  { parte: 1, n: 8, tipo: "unica", txt: "¿Qué imagen corresponde a una mezcla homogénea?", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "A", img: "e5", ok: true, e: "Correcta: dos sustancias repartidas de manera uniforme." },
+      { t: "B", img: "e7B", ok: false, e: "Un solo tipo de partícula: es una sustancia pura." },
+      { t: "C", img: "e8C", ok: false, e: "Tiene dos zonas distintas (átomos azules arriba, moléculas abajo): es heterogénea." }
+    ] },
+  { parte: 1, n: 9, tipo: "dibujo", txt: "Dibuja una mezcla heterogénea formada por tres compuestos.",
+    consigna: "Usa el tablero: elige color y tamaño y toca el recuadro para poner un átomo. Para unir átomos y formar una molécula, ponlos tocándose.",
+    criterios: ["Dibujé tres tipos de moléculas distintas (tres sustancias).", "Cada molécula tiene al menos dos átomos distintos unidos (son compuestos).", "No dibujé átomos sueltos (no hay elementos).", "Se ven al menos dos zonas o fases distintas (es heterogénea)."],
+    ejemplo: "ej9", ejTxt: "Ejemplo de respuesta: arriba, una fase con moléculas rojo-gris-gris; abajo, otra fase con moléculas blanco-gris y verde-azul. Tres compuestos y dos fases." },
+  { parte: 1, n: 10, tipo: "unica", txt: "Mezcla heterogénea formada por tres sustancias, dos compuestos y un elemento. ¿Qué imagen cumple con los criterios?", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "A", img: "e8C", ok: true, e: "Correcta: dos fases (heterogénea). Átomos azules (elemento) y dos tipos de moléculas: gris oscuro con dos grises claros, y negro-blanco-negro (dos compuestos)." },
+      { t: "B", img: "e6", ok: false, e: "Dos compuestos y ninguna separación en fases: es homogénea y tiene dos sustancias." },
+      { t: "C", img: "e10C", ok: false, e: "Es heterogénea, pero sus tres sustancias son átomos sueltos: tres elementos, ningún compuesto." },
+      { t: "D", img: "e7D", ok: false, e: "Dos compuestos repartidos de manera uniforme: homogénea, sin elementos." }
+    ] },
+  { parte: 1, n: 11, tipo: "unica", txt: "Mezcla homogénea formada por dos sustancias, un compuesto y un elemento. ¿Qué imagen cumple con los criterios?", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "A", img: "e5", ok: true, e: "Correcta: moléculas blanco-gris (compuesto) y átomos azules (elemento), repartidos de manera uniforme." },
+      { t: "B", img: "e7D", ok: false, e: "Dos sustancias, pero las dos son compuestos." },
+      { t: "C", img: "e6", ok: false, e: "Dos sustancias, pero las dos son compuestos." },
+      { t: "D", img: "e7C", ok: false, e: "Tres tipos de átomos sueltos: tres elementos." }
+    ] },
+  { parte: 1, n: 12, tipo: "dibujo", txt: "Dibuja una mezcla homogénea formada por tres elementos.",
+    consigna: "Usa el tablero: elige color y tamaño y toca el recuadro para poner un átomo.",
+    criterios: ["Dibujé tres tipos de átomos distintos (tres colores o tamaños).", "Ningún átomo está unido a un átomo distinto (son elementos, no compuestos).", "Los tres tipos están mezclados de manera uniforme en todo el recuadro (es homogénea).", "No dibujé zonas separadas."],
+    ejemplo: "ej12", ejTxt: "Ejemplo de respuesta: átomos azules, verdes y rojos sueltos y mezclados en todo el recuadro. También vale dibujar moléculas de dos átomos iguales (como el O₂), porque siguen siendo elementos." },
+
+  { parte: 2, n: 13, tipo: "unica", txt: "Al agitar un puñado de arena en agua, las partículas se sedimentan con el tiempo. Esta mezcla es:", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "Una solución", ok: false, e: "En una solución las partículas son tan pequeñas (1 a 10 Å) que nunca se sedimentan." },
+      { t: "Una suspensión", ok: true, e: "Correcta: las partículas son grandes (más de 10 000 Å) y se sedimentan después de agitar." },
+      { t: "Un coloide", ok: false, e: "En un coloide la sedimentación es insignificante: las partículas quedan dispersas." },
+      { t: "Una sustancia pura", ok: false, e: "Arena y agua son dos sustancias distintas: es una mezcla." },
+      NSNC
+    ] },
+  { parte: 2, n: 14, tipo: "grilla", txt: "Marca según corresponda.", consigna: "Marca solo una opción por fila.",
+    columnas: ["Mezcla heterogénea", "Elemento", "Compuesto", "Mezcla homogénea"],
+    filas: [
+      { t: "Agua destilada", c: 2, e: "Solo hay moléculas de H₂O: un compuesto (sustancia pura)." },
+      { t: "Nitrato de sodio (NaNO₃)", c: 2, e: "Sodio, nitrógeno y oxígeno combinados en proporción fija: un compuesto." },
+      { t: "Oro", c: 1, e: "Un solo tipo de átomo: elemento." },
+      { t: "Oxígeno", c: 1, e: "Solo átomos de oxígeno (forman moléculas O₂ de un solo elemento): elemento." },
+      { t: "Aire", c: 3, e: "Mezcla de gases, sobre todo nitrógeno y oxígeno, con composición uniforme: homogénea." },
+      { t: "Agua potable", c: 3, e: "Agua con sales disueltas: homogénea." },
+      { t: "Conjunto de monedas de 50 y 25 centavos", c: 0, e: "Se distinguen a simple vista y se separan por tamaño: heterogénea." },
+      { t: "Café con leche y azúcar", c: 0, e: "La leche es un coloide: tiene micelas y glóbulos de grasa dispersos, aunque a simple vista parezca uniforme. Es heterogénea." },
+      { t: "Alambre de cobre", c: 1, e: "Un solo tipo de átomo: elemento." },
+      { t: "Galletita con chips de chocolate", c: 0, e: "Los chips se ven y no están repartidos de manera uniforme: heterogénea." },
+      { t: "Nitrox (mezcla de oxígeno y nitrógeno para buzos)", c: 3, e: "Dos gases con composición uniforme: homogénea." },
+      { t: "Sopa de verduras", c: 0, e: "Los trozos de verdura se ven: heterogénea." },
+      { t: "Agua de mar", c: 3, e: "Sales y gases disueltos en agua: homogénea." }
+    ] },
+  { parte: 2, n: 15, tipo: "abierta", txt: "Define solución.",
+    modelo: "Una solución es una mezcla homogénea de dos o más sustancias, en la que no se separan las fases. Está formada por un solvente (el medio en el que se disuelven las otras sustancias, por lo general el que está en mayor cantidad) y uno o más solutos, que quedan disueltos como moléculas o iones muy pequeños, de 1 a 10 Å. Por ejemplo, el agua con sal: el agua es el solvente y la sal, el soluto.",
+    criterios: ["Dije que es una mezcla homogénea.", "Dije que tiene dos o más sustancias o componentes.", "Nombré el solvente y el soluto.", "Mencioné que no se separan las fases o que las partículas son muy pequeñas.", "Di un ejemplo."] },
+  { parte: 2, n: 16, tipo: "unica", txt: "Según el tamaño aproximado de sus partículas, ¿cuál opción ordena correctamente de menor a mayor las mezclas?", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "Suspensión, coloide, solución", ok: false, e: "Está al revés: es el orden de mayor a menor." },
+      { t: "Coloide, solución, suspensión", ok: false, e: "La solución tiene las partículas más pequeñas (1 a 10 Å), menores que las del coloide." },
+      { t: "Solución, suspensión, coloide", ok: false, e: "La suspensión tiene las partículas más grandes (más de 10 000 Å)." },
+      { t: "Solución, coloide, suspensión", ok: true, e: "Correcta: solución, de 1 a 10 Å; coloide, de 10 a 10 000 Å; suspensión, más de 10 000 Å." },
+      NSNC
+    ] },
+
+  { parte: 3, n: 17, tipo: "unica", txt: "¿Por qué la leche se clasifica como un sistema coloidal con varias fases dispersas?", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "Porque es una sustancia pura formada por un solo componente", ok: false, e: "El texto dice que la leche es una mezcla de muchos componentes." },
+      { t: "Porque contiene una solución verdadera, un sol y una emulsión al mismo tiempo", ok: true, e: "Correcta: lactosa y sales en solución, caseína como sol y grasa como emulsión." },
+      { t: "Porque todos sus componentes están disueltos como moléculas individuales", ok: false, e: "Solo la lactosa y las sales están disueltas así; la caseína y la grasa forman partículas mucho más grandes." },
+      { t: "Porque todas sus partículas se sedimentan con rapidez", ok: false, e: "En la leche fresca las partículas se mantienen dispersas durante horas." },
+      NSNC
+    ] },
+  { parte: 3, n: 18, tipo: "unica", txt: "¿Qué diferencia a una micela de un flóculo?", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "Son del mismo tamaño; solo cambia el nombre", ok: false, e: "El flóculo se forma cuando muchas micelas se unen: es más grande." },
+      { t: "La micela es más grande, porque está formada por muchos flóculos", ok: false, e: "Es al revés: el flóculo está formado por muchas micelas." },
+      { t: "El flóculo es más grande, porque es un agregado de muchas partículas coloidales, como las micelas, que se unen", ok: true, e: "Correcta: así lo define el glosario." },
+      { t: "La micela es más grande, porque se forma al calentar la leche", ok: false, e: "Las micelas ya están en la leche fresca; al calentar el suero se agrupan las proteínas del suero (ricota)." }
+    ] },
+  { parte: 3, n: 19, tipo: "unica", txt: "¿Por qué los componentes de la leche fresca no se separan solos durante horas?", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "Porque sus partículas tienen carga en su superficie, se repelen y atraen moléculas de agua que las rodean", ok: true, e: "Correcta: las cargas las mantienen dispersas. Para separarlas hay que romper esa estabilidad." },
+      { t: "Porque todas sus partículas tienen exactamente la misma densidad que el agua", ok: false, e: "La grasa es menos densa que el agua: por eso, con el tiempo, la crema sube." },
+      { t: "Porque la leche es una solución verdadera", ok: false, e: "La leche es un sistema coloidal, no una solución verdadera." },
+      { t: "Porque las partículas reaccionan químicamente con el agua", ok: false, e: "El texto no habla de reacciones: las partículas se mantienen dispersas por sus cargas." },
+      NSNC
+    ] },
+  { parte: 3, n: 20, tipo: "unica", txt: "¿Por qué la crema se separa de la leche por reposo?", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "Porque los glóbulos de grasa son más densos que el agua y se hunden", ok: false, e: "Al revés: la grasa es menos densa y por eso sube." },
+      { t: "Porque los glóbulos de grasa son menos densos que el agua y los más grandes superan los 10 000 Å, por lo que suben a la superficie", ok: true, e: "Correcta: menor densidad y tamaño de suspensión." },
+      { t: "Porque la lactosa se evapora y deja la grasa en la superficie", ok: false, e: "La lactosa solo se separa evaporando el agua; no tiene relación con la crema." },
+      { t: "Porque el ácido neutraliza la carga de los glóbulos de grasa", ok: false, e: "El ácido se usa para hacer la cuajada; la crema se separa sola por reposo." },
+      NSNC
+    ] },
+  { parte: 3, n: 21, tipo: "unica", txt: "¿Por qué la lactosa no puede separarse de la leche usando un filtro?", consigna: "Marca solo una opción.",
+    ops: [
+      { t: "Porque está disuelta como moléculas individuales y pasa a través del papel filtro junto con el agua", ok: true, e: "Correcta: forma una solución verdadera; solo se obtiene evaporando el agua." },
+      { t: "Porque forma parte de las micelas de caseína", ok: false, e: "Las micelas son de caseína; la lactosa está disuelta en el agua." },
+      { t: "Porque es una sustancia pura insoluble en agua", ok: false, e: "La lactosa es soluble: está disuelta en el agua de la leche." },
+      { t: "Porque se agrupa al calentarla a 85 °C", ok: false, e: "Las que se agrupan al calentar son las proteínas del suero (ricota)." },
+      NSNC
+    ] }
+];
+
+/* ---------- Árbol de clasificación (pregunta 4) ---------- */
+function arbol() {
+  const caja = (x, y, t) => `<rect x="${x - 62}" y="${y - 16}" width="124" height="32" rx="3" fill="#d9ead0"/><text x="${x}" y="${y + 5}" text-anchor="middle" font-size="15" font-family="Georgia, serif" fill="#2f5d1f">${t}</text>`;
+  const flecha = (x1, y1, x2, y2) => `<path d="M${x1} ${y1} V${(y1 + y2) / 2} H${x2} V${y2 - 6}" fill="none" stroke="#9cc88a" stroke-width="6"/><path d="M${x2 - 8} ${y2 - 8} L${x2} ${y2} L${x2 + 8} ${y2 - 8}" fill="#9cc88a"/>`;
+  let s = flecha(320, 36, 140, 104) + flecha(320, 36, 500, 104) + flecha(140, 120, 70, 188) + flecha(140, 120, 220, 188) + flecha(500, 120, 420, 188) + flecha(500, 120, 580, 188);
+  s += caja(320, 20, "Materia") + caja(140, 120, "Sustancias puras") + caja(500, 120, "Mezclas") + caja(70, 204, "Elementos") + caja(220, 204, "Compuestos") + caja(420, 204, "Homogénea") + caja(580, 204, "Heterogénea");
+  return `<svg class="arbol" viewBox="0 -2 650 228" role="img" aria-label="Materia: sustancias puras (elementos y compuestos) y mezclas (homogéneas y heterogéneas)">${s}</svg>`;
+}
+
+/* ---------- Estado y armado ---------- */
+const estado = {}; // n -> { tipo, correcta: bool|null, filasOk, filasTot, criterios, criteriosTot }
+function bloquePregunta(q) {
+  const div = document.createElement("div");
+  div.className = "pregunta-bloque"; div.id = `p${q.n}`;
+  div.innerHTML = `<div class="enunciado"><span class="nro">${q.n}.</span><span class="txt">${q.txt}</span></div>${q.consigna ? `<p class="consigna">${q.consigna}</p>` : ""}<div class="cuerpo"></div>`;
+  const cuerpo = $(".cuerpo", div);
+  estado[q.n] = { tipo: q.tipo, correcta: null };
+  if (q.figura) cuerpo.insertAdjacentHTML("beforeend", q.figura === "arbol" ? arbol() : `<div class="escena-grande">${ESC[q.figura]()}</div>`);
+  if (q.tipo === "multi" || (q.tipo === "unica" && !q.ops[0].img)) armarLista(q, cuerpo);
+  else if (q.tipo === "unica") armarImagenes(q, cuerpo);
+  else if (q.tipo === "grilla") armarGrilla(q, cuerpo);
+  else if (q.tipo === "dibujo") armarDibujo(q, cuerpo);
+  else if (q.tipo === "abierta") armarAbierta(q, cuerpo);
+  return div;
+}
+function botones(cuerpo, alComprobar, alReiniciar) {
+  const f = document.createElement("div"); f.className = "fila-botones";
+  f.innerHTML = `<button type="button" class="boton">Comprobar</button><button type="button" class="boton sec">Intentar de nuevo</button>`;
+  const dev = document.createElement("div"); dev.className = "devolucion oculto"; dev.setAttribute("aria-live", "polite");
+  cuerpo.append(f, dev);
+  const [bC, bR] = $$("button", f);
+  bR.disabled = true;
+  bC.addEventListener("click", () => { if (alComprobar(dev) !== false) { bC.disabled = true; bR.disabled = false; } });
+  bR.addEventListener("click", () => { alReiniciar(); dev.className = "devolucion oculto"; bC.disabled = false; bR.disabled = true; });
+  return dev;
+}
+function armarLista(q, cuerpo) {
+  const multi = q.tipo === "multi", nombre = `q${q.n}`;
+  const lista = document.createElement("div"); lista.className = "opciones-lista";
+  q.ops.forEach((o, i) => {
+    const l = document.createElement("label"); l.className = "opcion";
+    l.innerHTML = `<input type="${multi ? "checkbox" : "radio"}" name="${nombre}" value="${i}"><span>${o.t}<span class="exp oculto">${o.e}</span></span>`;
+    lista.appendChild(l);
+  });
+  cuerpo.appendChild(lista);
+  botones(cuerpo, dev => {
+    const marcadas = $$("input", lista).map(x => x.checked);
+    if (!marcadas.some(Boolean)) { mostrar(dev, "info", "Marca al menos una opción antes de comprobar."); return false; }
+    let bien = true;
+    $$(".opcion", lista).forEach((l, i) => {
+      const o = q.ops[i], m = marcadas[i];
+      l.classList.remove("bien", "mal", "faltó");
+      if (m && o.ok) l.classList.add("bien");
+      else if (m && !o.ok) { l.classList.add("mal"); bien = false; }
+      else if (!m && o.ok) { l.classList.add("faltó"); bien = false; }
+      if (m || o.ok) $(".exp", l).classList.remove("oculto");
+      $("input", l).disabled = true;
+    });
+    estado[q.n].correcta = bien;
+    const faltan = q.ops.filter((o, i) => o.ok && !marcadas[i]).length;
+    const sobran = q.ops.filter((o, i) => !o.ok && marcadas[i]).length;
+    let txt = bien ? "<strong>¡Correcta!</strong> " : "<strong>Revisa.</strong> ";
+    if (sobran) txt += `Marcaste ${sobran} opci${sobran > 1 ? "ones incorrectas" : "ón incorrecta"} (en rojo). `;
+    if (faltan) txt += `Te faltó marcar ${faltan} opci${faltan > 1 ? "ones correctas" : "ón correcta"} (en naranja). `;
+    mostrar(dev, bien ? "ok" : "mal", txt + (q.gen || ""));
+    actualizarResumen(q.parte);
+  }, () => {
+    $$(".opcion", lista).forEach(l => { l.classList.remove("bien", "mal", "faltó"); $(".exp", l).classList.add("oculto"); const i = $("input", l); i.disabled = false; i.checked = false; });
+    estado[q.n].correcta = null; actualizarResumen(q.parte);
+  });
+}
+function armarImagenes(q, cuerpo) {
+  const g = document.createElement("div"); g.className = "imagenes";
+  q.ops.forEach((o, i) => {
+    const l = document.createElement("label"); l.className = "opcion-img";
+    l.innerHTML = `${ESC[o.img]()}<span class="pie"><input type="radio" name="q${q.n}" value="${i}"> ${o.t}</span><span class="exp oculto">${o.e}</span>`;
+    g.appendChild(l);
+  });
+  cuerpo.appendChild(g);
+  botones(cuerpo, dev => {
+    const sel = $$("input", g).findIndex(x => x.checked);
+    if (sel < 0) { mostrar(dev, "info", "Elige una imagen antes de comprobar."); return false; }
+    $$(".opcion-img", g).forEach((l, i) => {
+      if (i === sel) { l.classList.add(q.ops[i].ok ? "bien" : "mal"); $(".exp", l).classList.remove("oculto"); }
+      if (q.ops[i].ok) { l.classList.add("bien"); $(".exp", l).classList.remove("oculto"); }
+      $("input", l).disabled = true;
+    });
+    const ok = q.ops[sel].ok;
+    estado[q.n].correcta = ok;
+    mostrar(dev, ok ? "ok" : "mal", ok ? "<strong>¡Correcta!</strong> " + sinPrefijo(q.ops[sel].e) : `<strong>Revisa.</strong> ${q.ops[sel].e} La correcta está marcada en verde.`);
+    actualizarResumen(q.parte);
+  }, () => {
+    $$(".opcion-img", g).forEach(l => { l.classList.remove("bien", "mal"); $(".exp", l).classList.add("oculto"); const i = $("input", l); i.disabled = false; i.checked = false; });
+    estado[q.n].correcta = null; actualizarResumen(q.parte);
+  });
+}
+// Lista de opciones de una sola respuesta con texto
+const _armarLista = armarLista;
+armarLista = function (q, cuerpo) {
+  if (q.tipo === "multi") return _armarLista(q, cuerpo);
+  const lista = document.createElement("div"); lista.className = "opciones-lista";
+  q.ops.forEach((o, i) => {
+    const l = document.createElement("label"); l.className = "opcion";
+    l.innerHTML = `<input type="radio" name="q${q.n}" value="${i}"><span>${o.t}<span class="exp oculto">${o.e}</span></span>`;
+    lista.appendChild(l);
+  });
+  cuerpo.appendChild(lista);
+  botones(cuerpo, dev => {
+    const sel = $$("input", lista).findIndex(x => x.checked);
+    if (sel < 0) { mostrar(dev, "info", "Elige una opción antes de comprobar."); return false; }
+    $$(".opcion", lista).forEach((l, i) => {
+      if (i === sel) { l.classList.add(q.ops[i].ok ? "bien" : "mal"); $(".exp", l).classList.remove("oculto"); }
+      if (q.ops[i].ok) { l.classList.add("bien"); $(".exp", l).classList.remove("oculto"); }
+      $("input", l).disabled = true;
+    });
+    const ok = q.ops[sel].ok;
+    estado[q.n].correcta = ok;
+    const correcta = q.ops.find(o => o.ok);
+    mostrar(dev, ok ? "ok" : "mal", ok ? `<strong>¡Correcta!</strong> ${sinPrefijo(correcta.e)}` : `<strong>Revisa.</strong> La respuesta correcta es: «${correcta.t}». ${sinPrefijo(correcta.e)}`);
+    actualizarResumen(q.parte);
+  }, () => {
+    $$(".opcion", lista).forEach(l => { l.classList.remove("bien", "mal"); $(".exp", l).classList.add("oculto"); const i = $("input", l); i.disabled = false; i.checked = false; });
+    estado[q.n].correcta = null; actualizarResumen(q.parte);
+  });
+};
+function armarGrilla(q, cuerpo) {
+  const t = document.createElement("div"); t.className = "tabla-wrap";
+  t.innerHTML = `<table class="grilla"><thead><tr><th></th>${q.columnas.map(c => `<th>${c}</th>`).join("")}</tr></thead><tbody>${q.filas.map((f, i) =>
+    `<tr><td>${f.t}<span class="exp oculto">${f.e}</span></td>${q.columnas.map((c, j) => `<td><input type="radio" name="q${q.n}f${i}" value="${j}" aria-label="${f.t}: ${c}"></td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  cuerpo.appendChild(t);
+  estado[q.n].filasTot = q.filas.length;
+  botones(cuerpo, dev => {
+    const filas = $$("tbody tr", t);
+    const resp = filas.map(tr => $$("input", tr).findIndex(x => x.checked));
+    if (resp.some(r => r < 0)) { mostrar(dev, "info", `Te falta${resp.filter(r => r < 0).length > 1 ? "n" : ""} ${resp.filter(r => r < 0).length} fila${resp.filter(r => r < 0).length > 1 ? "s" : ""} por marcar.`); return false; }
+    let ok = 0;
+    filas.forEach((tr, i) => {
+      const bien = resp[i] === q.filas[i].c;
+      if (bien) ok++;
+      tr.classList.add(bien ? "bien" : "mal");
+      $$("td", tr)[q.filas[i].c + 1].classList.add("correcta");
+      $(".exp", tr).classList.remove("oculto");
+      $$("input", tr).forEach(x => x.disabled = true);
+    });
+    estado[q.n].correcta = ok === q.filas.length; estado[q.n].filasOk = ok;
+    mostrar(dev, ok === q.filas.length ? "ok" : "mal", `<strong>${ok} de ${q.filas.length} filas correctas.</strong> La respuesta correcta de cada fila está sombreada en verde, con su explicación.`);
+    actualizarResumen(q.parte);
+  }, () => {
+    $$("tbody tr", t).forEach(tr => { tr.classList.remove("bien", "mal"); $$("td", tr).forEach(td => td.classList.remove("correcta")); $(".exp", tr).classList.add("oculto"); $$("input", tr).forEach(x => { x.disabled = false; x.checked = false; }); });
+    estado[q.n].correcta = null; estado[q.n].filasOk = undefined; actualizarResumen(q.parte);
+  });
+}
+function checklist(q, cuerpo, titulo) {
+  const c = document.createElement("div"); c.className = "checklist oculto";
+  c.innerHTML = `<strong>${titulo}</strong>` + q.criterios.map((k, i) => `<label><input type="checkbox" data-i="${i}"> ${k}</label>`).join("");
+  cuerpo.appendChild(c);
+  estado[q.n].criteriosTot = q.criterios.length;
+  $$("input", c).forEach(x => x.addEventListener("change", () => { estado[q.n].criterios = $$("input:checked", c).length; actualizarResumen(q.parte); }));
+  return c;
+}
+function armarAbierta(q, cuerpo) {
+  const ta = document.createElement("textarea"); ta.placeholder = "Escribe tu definición aquí";
+  ta.setAttribute("aria-label", "Tu respuesta");
+  cuerpo.appendChild(ta);
+  const f = document.createElement("div"); f.className = "fila-botones";
+  f.innerHTML = `<button type="button" class="boton">Ver una respuesta modelo y autoevaluarme</button>`;
+  cuerpo.appendChild(f);
+  const mod = document.createElement("div"); mod.className = "devolucion info oculto"; mod.innerHTML = `<strong>Respuesta modelo:</strong> ${q.modelo}`;
+  cuerpo.appendChild(mod);
+  const c = checklist(q, cuerpo, "Compara con tu respuesta y marca lo que incluiste:");
+  $("button", f).addEventListener("click", () => {
+    if (!ta.value.trim()) { mod.className = "devolucion info"; mod.textContent = "Escribe primero tu definición."; return; }
+    mod.className = "devolucion info"; mod.innerHTML = `<strong>Respuesta modelo:</strong> ${q.modelo}`; c.classList.remove("oculto");
+    estado[q.n].criterios = estado[q.n].criterios || 0; actualizarResumen(q.parte);
+  });
+}
+
+/* ---------- Tablero de dibujo (preguntas 9 y 12) ---------- */
+function armarDibujo(q, cuerpo) {
+  const colores = ["azul", "verde", "rojo", "blanco", "gris", "negro", "amarillo"];
+  const tam = { "Grande": 16, "Mediano": 12, "Chico": 8 };
+  let color = "azul", radio = 12, modo = "poner", circulos = [];
+  const w = document.createElement("div"); w.className = "tablero";
+  w.innerHTML = `<svg class="lienzo" viewBox="0 0 300 220" role="img" aria-label="Tablero de dibujo"></svg>
+    <div class="paleta">
+      <div><div class="nota">Color</div><div class="colores">${colores.map(c => `<button type="button" class="color" data-c="${c}" style="background:${COL[c]}" aria-label="${c}" aria-pressed="${c === color}"></button>`).join("")}</div></div>
+      <div><div class="nota">Tamaño</div><div class="chips">${Object.entries(tam).map(([k, r]) => `<button type="button" class="chip" data-r="${r}" aria-pressed="${r === radio}">${k}</button>`).join("")}</div></div>
+      <div><div class="nota">Herramienta</div><div class="chips"><button type="button" class="chip" data-m="poner" aria-pressed="true">Poner átomo</button><button type="button" class="chip" data-m="borrar" aria-pressed="false">Borrar átomo</button></div></div>
+      <div class="fila-botones"><button type="button" class="boton sec" data-a="deshacer">Deshacer</button><button type="button" class="boton sec" data-a="limpiar">Borrar todo</button></div>
+    </div>`;
+  cuerpo.appendChild(w);
+  const svg = $("svg", w);
+  const dibujar = () => { svg.innerHTML = circulos.map(c => `<circle cx="${c.x}" cy="${c.y}" r="${c.r}" fill="${COL[c.c]}" stroke="${BORDE}" stroke-width="1.4"/>`).join(""); };
+  const marcar = (sel, btn) => { $$(sel, w).forEach(b => b.setAttribute("aria-pressed", "false")); btn.setAttribute("aria-pressed", "true"); };
+  $$(".color", w).forEach(b => b.addEventListener("click", () => { color = b.dataset.c; marcar(".color", b); }));
+  $$("[data-r]", w).forEach(b => b.addEventListener("click", () => { radio = Number(b.dataset.r); marcar("[data-r]", b); }));
+  $$("[data-m]", w).forEach(b => b.addEventListener("click", () => { modo = b.dataset.m; marcar("[data-m]", b); }));
+  $("[data-a=deshacer]", w).addEventListener("click", () => { circulos.pop(); dibujar(); });
+  $("[data-a=limpiar]", w).addEventListener("click", () => { circulos = []; dibujar(); });
+  svg.addEventListener("pointerdown", ev => {
+    ev.preventDefault();
+    const p = svg.createSVGPoint(); p.x = ev.clientX; p.y = ev.clientY;
+    const loc = p.matrixTransform(svg.getScreenCTM().inverse());
+    if (modo === "poner") circulos.push({ x: +loc.x.toFixed(1), y: +loc.y.toFixed(1), r: radio, c: color });
+    else { for (let i = circulos.length - 1; i >= 0; i--) if (Math.hypot(circulos[i].x - loc.x, circulos[i].y - loc.y) <= circulos[i].r) { circulos.splice(i, 1); break; } }
+    dibujar();
+  });
+  const f = document.createElement("div"); f.className = "fila-botones";
+  f.innerHTML = `<button type="button" class="boton">Terminé: ver un ejemplo y autoevaluarme</button>`;
+  cuerpo.appendChild(f);
+  const ej = document.createElement("div"); ej.className = "devolucion info oculto";
+  ej.innerHTML = `<div class="escena-grande">${ESC[q.ejemplo]()}</div><p style="margin:8px 0 0">${q.ejTxt}</p>`;
+  cuerpo.appendChild(ej);
+  const c = checklist(q, cuerpo, "Revisa tu dibujo y marca lo que cumple:");
+  $("button", f).addEventListener("click", () => {
+    if (circulos.length < 3) { ej.className = "devolucion info"; ej.textContent = "Dibuja primero tu mezcla en el tablero."; return; }
+    ej.className = "devolucion info"; ej.innerHTML = `<div class="escena-grande">${ESC[q.ejemplo]()}</div><p style="margin:8px 0 0">${q.ejTxt}</p>`;
+    c.classList.remove("oculto"); estado[q.n].criterios = estado[q.n].criterios || 0; actualizarResumen(q.parte);
+  });
+}
+
+function mostrar(dev, tipo, html) { dev.className = `devolucion ${tipo}`; dev.innerHTML = html; }
+
+/* ---------- Resúmenes por parte (para la captura de pantalla) ---------- */
+const TITULOS = { 1: "Parte 1 · Clasificación de la materia y modelo de partículas", 2: "Parte 2 · Tipos de mezclas", 3: "Parte 3 · Comprensión lectora" };
+function actualizarResumen(parte) {
+  const qs = PREGUNTAS.filter(q => q.parte === parte);
+  let bien = 0, corregibles = 0, respondidas = 0;
+  const filas = qs.map(q => {
+    const e = estado[q.n];
+    let marca, detalle;
+    if (q.tipo === "dibujo" || q.tipo === "abierta") {
+      marca = e.criterios === undefined ? `<span class="marca-pend">pendiente</span>` : `<span>autoevaluada</span>`;
+      detalle = e.criterios === undefined ? "" : `${e.criterios} de ${e.criteriosTot} criterios`;
+    } else {
+      corregibles++;
+      if (e.correcta === null) { marca = `<span class="marca-pend">sin responder</span>`; detalle = ""; }
+      else { respondidas++; if (e.correcta) bien++; marca = e.correcta ? `<span class="marca-ok">✓ correcta</span>` : `<span class="marca-mal">✗ revisar</span>`; detalle = q.tipo === "grilla" ? `${e.filasOk} de ${e.filasTot} filas` : ""; }
+    }
+    return `<tr><td>Pregunta ${q.n}</td><td>${marca}</td><td>${detalle}</td></tr>`;
+  }).join("");
+  const nombre = $("#nombre").value.trim() || "(escribe tu nombre arriba)";
+  const fecha = new Date().toLocaleDateString("es-AR", { day: "2-digit", month: "2-digit", year: "numeric" });
+  $(`#resumen${parte}`).innerHTML = `<h3>Resultados · ${TITULOS[parte]}</h3>
+    <div class="cab"><span>${nombre}</span><span>${fecha} · Autoevaluación N° 6</span></div>
+    <div class="total">${bien} de ${corregibles} preguntas correctas${respondidas < corregibles ? ` · faltan ${corregibles - respondidas} por comprobar` : ""}</div>
+    <table><tbody>${filas}</tbody></table>
+    <p class="nota" style="margin:0">📸 Haz una captura de pantalla de este recuadro: esta página no guarda tus respuestas.</p>`;
+}
+[1, 2, 3].forEach(p => {
+  const cont = $(`#preguntas${p}`);
+  PREGUNTAS.filter(q => q.parte === p).forEach(q => cont.appendChild(bloquePregunta(q)));
+  actualizarResumen(p);
+});
+$("#nombre").addEventListener("input", () => [1, 2, 3].forEach(actualizarResumen));
+</script>
+</body>
+</html>

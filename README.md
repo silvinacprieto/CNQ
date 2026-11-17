@@ -12,6 +12,12 @@ Cada clase parte de una pregunta concreta y termina con mediciones reales en el 
 | --- | --- | --- | --- |
 | 01 | [Materia, medición y densidad](clases/01-materia-medicion-densidad/) | 3 × 2 h | Eje 1. TP N° 1 (¿el aire es materia?), propiedades, perímetro, área y volumen, tabla de saltos, despeje, densidad, modelo cinético-corpuscular, flotación, densidad aparente del suelo, resolución de problemas |
 
+## Autoevaluaciones
+
+| N.º | Evaluación | Contenido |
+| --- | --- | --- |
+| 6 | [Sustancias puras y mezclas](evaluaciones/06-sustancias-puras-y-mezclas/) | Clasificación de la materia, esquemas de partículas, tablero para dibujar mezclas, soluciones, coloides y suspensiones, comprensión lectora (la leche como sistema coloidal). La página no guarda datos: los alumnos capturan el resultado de cada parte. |
+
 ## Laboratorio
 
 Balanza analítica y de precisión, probetas de 100 mL a 1 L, vasos de precipitado de 50 a 500 mL, reglas, calibres y cinta métrica, netbooks y proyector con pantalla táctil.
@@ -22,6 +28,8 @@ Balanza analítica y de precisión, probetas de 100 mL a 1 L, vasos de precipita
 CNQ/
 ├── index.html                       Portada de los simuladores (GitHub Pages)
 ├── README.md
+├── evaluaciones/
+│   └── 06-sustancias-puras-y-mezclas/   Autoevaluación de la Evaluación N° 6
 └── clases/
     └── 01-materia-medicion-densidad/
         ├── README.md                Resumen de la clase
