@@ -91,10 +91,10 @@ textarea { font: inherit; font-size: 17px; width: 100%; min-height: 120px; paddi
 <header class="top">
   <div class="kicker">CIENCIAS NATURALES – QUÍMICA · 1.ER AÑO · RECUPERATORIO</div>
   <h1>Prepárate para el recuperatorio: sustancias puras y mezclas</h1>
-  <p class="lead">Repasa las ideas centrales, practica con preguntas rápidas y resuelve consignas con esquemas de partículas (identificar y dibujar). Cada respuesta te dice al instante si acertaste y por qué. Esta página no guarda tus respuestas: si la cierras, se borra todo. Para repasar con las preguntas originales, usa la <a href="../06-sustancias-puras-y-mezclas/">Autoevaluación N° 6</a>.</p>
+  <p class="lead">Repasa las ideas centrales, practica con preguntas rápidas y resuelve consignas con esquemas de partículas (identificar y dibujar) y responde preguntas de comprensión lectora sobre el libro. Cada respuesta te dice al instante si acertaste y por qué. Esta página no guarda tus respuestas: si la cierras, se borra todo. Para repasar con las preguntas originales, usa la <a href="../06-sustancias-puras-y-mezclas/">Autoevaluación N° 6</a>.</p>
 </header>
 <nav class="secciones" aria-label="Partes"><div class="fila">
-  <a href="#repaso">Repaso</a><a href="#rapidas">Parte 1 · Preguntas rápidas</a><a href="#esquemas">Parte 2 · Esquemas de partículas</a>
+  <a href="#repaso">Repaso</a><a href="#rapidas">Parte 1 · Preguntas rápidas</a><a href="#esquemas">Parte 2 · Esquemas de partículas</a><a href="#lectura">Parte 3 · Comprensión lectora</a>
   <button type="button" id="tema">Tema oscuro</button>
 </div></nav>
 <main>
@@ -124,6 +124,12 @@ textarea { font: inherit; font-size: 17px; width: 100%; min-height: 120px; paddi
   <div class="idea"><strong>Cómo leer los esquemas de partículas</strong><div class="leyenda" style="margin-top:10px" id="leyenda"></div></div>
   <div id="preguntas1"></div>
   <div class="resumen" id="resumen1"></div>
+</section>
+<section class="bloque" id="lectura">
+  <div class="titulo"><span class="num">PARTE 3</span><h2>Comprensión lectora: clasificación de la materia</h2></div>
+  <div class="idea"><strong>Antes de responder, lee en el libro</strong> el capítulo 2 («Energía y materia»), sección 2.3 «Clasificación de la materia», págs. 55 a 58, de Timberlake: los apartados «Sustancias puras» (págs. 55 y 56), «Mezclas» y «Tipos de mezclas» (págs. 56 y 57) y el recuadro «La química en la salud: mezclas de gases para buceo» (pág. 58). Cada pregunta indica en qué apartado está la respuesta. En las preguntas abiertas escribe primero tu respuesta y después compárala con el modelo.</div>
+  <div id="preguntas2"></div>
+  <div class="resumen" id="resumen2"></div>
 </section>
 <p class="nota">Ciencias Naturales – Química · 1.er año · Ing. Agr. Silvina C. Prieto. Esta página no guarda datos.</p>
 </main>
@@ -294,7 +300,60 @@ const PREGUNTAS = [
   { parte: 1, n: 10, tipo: "dibujo", txt: "Dibuja una mezcla heterogénea formada por dos elementos.",
     consigna: "Usa el tablero: elige color y tamaño y toca el recuadro para poner un átomo.",
     criterios: ["Dibujé dos tipos de átomos distintos.", "Ningún átomo está unido a un átomo distinto (son elementos, no compuestos).", "Se ven al menos dos zonas o fases distintas (es heterogénea)."],
-    ejemplo: "ej10", ejTxt: "Ejemplo de respuesta: arriba, una fase con átomos azules; abajo, otra fase con átomos verdes. Dos elementos y dos fases." }
+    ejemplo: "ej10", ejTxt: "Ejemplo de respuesta: arriba, una fase con átomos azules; abajo, otra fase con átomos verdes. Dos elementos y dos fases." },
+  { parte: 2, n: 11, tipo: "unica", txt: "Según el texto, ¿qué es una sustancia pura?", consigna: "Sustancias puras · págs. 55 y 56. Marca solo una opción.",
+    ops: [
+      { t: "Materia que tiene una composición fija o constante", ok: true, e: "Correcta: así la define el texto. Hay dos tipos: elementos y compuestos." },
+      { t: "Materia formada por dos o más sustancias mezcladas físicamente", ok: false, e: "Eso describe a una mezcla." },
+      { t: "Materia que siempre está formada por un solo tipo de átomo", ok: false, e: "Eso describe a un elemento, pero los compuestos también son sustancias puras." },
+      { t: "Materia cuya composición puede variar", ok: false, e: "La composición puede variar en una mezcla, no en una sustancia pura." },
+      NSNC
+    ] },
+  { parte: 2, n: 12, tipo: "multi", txt: "Marca las afirmaciones verdaderas sobre el cloruro de sodio (NaCl), la sal de mesa.", consigna: "Sustancias puras · pág. 55 y figura 2.3. Selecciona todas las que correspondan.",
+    gen: "El NaCl es un compuesto: solo puede separarse en sus elementos, sodio y cloro, mediante un proceso químico llamado descomposición. Los métodos físicos, como la ebullición o el cribado, no lo descomponen.",
+    ops: [
+      { t: "Es un compuesto", ok: true, e: "Está formado por sodio y cloro combinados químicamente." },
+      { t: "Se descompone en sodio y cloro mediante un proceso químico", ok: true, e: "Es el proceso de descomposición de la figura 2.3." },
+      { t: "Puede descomponerse en sus elementos por ebullición o cribado", ok: false, e: "Los métodos físicos no descomponen a los compuestos." },
+      { t: "El sodio y el cloro pueden descomponerse en sustancias aún más simples", ok: false, e: "El texto aclara que los elementos no pueden descomponerse más." }
+    ] },
+  { parte: 2, n: 13, tipo: "abierta", txt: "¿Cómo difieren los elementos y los compuestos?", consigna: "Sustancias puras · págs. 55 y 56 y figura 2.3.",
+    modelo: "Un elemento está formado por una sola clase de átomos (como plata, hierro o aluminio) y no puede descomponerse más. Un compuesto está formado por dos o más elementos combinados químicamente en proporción fija, y solo puede descomponerse en sus elementos mediante procesos químicos. Los dos son sustancias puras.",
+    criterios: ["Dije que un elemento está formado por una sola clase de átomos.", "Dije que un compuesto tiene dos o más elementos combinados químicamente en proporción fija.", "Mencioné que los compuestos solo se descomponen por procesos químicos y los elementos no se descomponen más."] },
+  { parte: 2, n: 14, tipo: "unica", txt: "El texto explica que el bronce contiene entre 20 y 50 % de cinc y que cada tipo tiene propiedades distintas. ¿Qué muestra esto?", consigna: "Mezclas · pág. 56. Marca solo una opción.",
+    ops: [
+      { t: "Que el bronce es una mezcla, porque su composición puede variar", ok: true, e: "Correcta: a diferencia de un compuesto, la proporción de cobre y cinc no es fija." },
+      { t: "Que el bronce es un compuesto, porque tiene cobre y cinc", ok: false, e: "Un compuesto tiene siempre la misma proporción de sus elementos; el bronce admite distintas proporciones." },
+      { t: "Que el bronce es un elemento", ok: false, e: "Está formado por cobre y cinc, que son dos elementos." },
+      { t: "Que el cinc es un compuesto", ok: false, e: "El cinc (Zn) es un elemento." },
+      NSNC
+    ] },
+  { parte: 2, n: 15, tipo: "abierta", txt: "¿Por qué pueden usarse métodos físicos para separar mezclas, pero no compuestos?", consigna: "Mezclas · págs. 56 y 57 y figura 2.5.",
+    modelo: "Porque en una mezcla las sustancias están mezcladas físicamente y no hay interacciones químicas entre ellas: pueden separarse por tamaño, con un imán, con un colador, por filtración o por cromatografía. En un compuesto, en cambio, los elementos están combinados químicamente, y solo se separan mediante un proceso químico.",
+    criterios: ["Dije que en las mezclas los componentes no están combinados químicamente.", "Dije que los elementos de un compuesto están unidos químicamente y solo se separan por procesos químicos.", "Nombré un método físico de separación (filtración, imán, colador, separación por tamaño o cromatografía)."] },
+  { parte: 2, n: 16, tipo: "grilla", txt: "Clasifica cada material, según lo que explica el texto.", consigna: "Sustancias puras y mezclas · págs. 55 a 57. Marca solo una opción por fila.",
+    columnas: ["Mezcla heterogénea", "Elemento", "Compuesto", "Mezcla homogénea"],
+    filas: [
+      { t: "Clavo de hierro (Fe)", c: 1, e: "Un solo tipo de átomo: elemento." },
+      { t: "Hielo (H₂O)", c: 2, e: "Solo moléculas de H₂O: compuesto." },
+      { t: "Bronce (cobre y cinc)", c: 3, e: "El texto lo presenta como una mezcla homogénea de átomos de cobre y de cinc." },
+      { t: "Aceite y agua", c: 0, e: "El aceite flota sobre el agua: no hay composición uniforme, es heterogénea." },
+      { t: "Jugo de naranja con pulpa", c: 0, e: "La pulpa no está repartida de manera uniforme: heterogénea." },
+      { t: "Peróxido de hidrógeno (H₂O₂)", c: 2, e: "Hidrógeno y oxígeno combinados en proporción fija, distinta de la del agua: compuesto." },
+      { t: "Cinc (Zn)", c: 1, e: "Un solo tipo de átomo: elemento." }
+    ] },
+  { parte: 2, n: 17, tipo: "multi", txt: "Marca las afirmaciones correctas sobre las mezclas de gases para buceo.", consigna: "La química en la salud · pág. 58. Selecciona todas las que correspondan.",
+    gen: "El aire es una mezcla de gases, sobre todo oxígeno y nitrógeno. El Nitrox tiene más oxígeno y menos nitrógeno que el aire; el Heliox reemplaza el nitrógeno por helio; el Trimix lleva oxígeno, helio y algo de nitrógeno. Todas son mezclas homogéneas.",
+    ops: [
+      { t: "El Nitrox contiene más oxígeno y menos nitrógeno que el aire", ok: true, e: "Hasta 32 % de oxígeno, frente al 21 % del aire." },
+      { t: "El Heliox contiene oxígeno y helio", ok: true, e: "Reemplaza el nitrógeno por helio." },
+      { t: "El Trimix contiene solo oxígeno y helio", ok: false, e: "También contiene algo de nitrógeno." },
+      { t: "Las mezclas para buceo son mezclas homogéneas", ok: true, e: "Sus gases tienen composición uniforme." },
+      { t: "El Nitrox es un compuesto", ok: false, e: "Es una mezcla: el oxígeno y el nitrógeno están mezclados físicamente, no combinados químicamente." }
+    ] },
+  { parte: 2, n: 18, tipo: "abierta", txt: "¿Para qué se agrega algo de nitrógeno al Trimix?", consigna: "La química en la salud · pág. 58.",
+    modelo: "El Trimix se usa en inmersiones de más de 400 pies. Respirar niveles altos de helio puede producir convulsiones, y el nitrógeno agregado disminuye ese problema.",
+    criterios: ["Dije que los niveles altos de helio pueden producir convulsiones.", "Dije que el nitrógeno agregado disminuye ese problema."] }
 ];
 
 /* ---------- Árbol de clasificación (pregunta 4) ---------- */
@@ -458,7 +517,7 @@ function checklist(q, cuerpo, titulo) {
   return c;
 }
 function armarAbierta(q, cuerpo) {
-  const ta = document.createElement("textarea"); ta.placeholder = "Escribe tu definición aquí";
+  const ta = document.createElement("textarea"); ta.placeholder = "Escribe tu respuesta aquí";
   ta.setAttribute("aria-label", "Tu respuesta");
   cuerpo.appendChild(ta);
   const f = document.createElement("div"); f.className = "fila-botones";
@@ -468,7 +527,7 @@ function armarAbierta(q, cuerpo) {
   cuerpo.appendChild(mod);
   const c = checklist(q, cuerpo, "Compara con tu respuesta y marca lo que incluiste:");
   $("button", f).addEventListener("click", () => {
-    if (!ta.value.trim()) { mod.className = "devolucion info"; mod.textContent = "Escribe primero tu definición."; return; }
+    if (!ta.value.trim()) { mod.className = "devolucion info"; mod.textContent = "Escribe primero tu respuesta."; return; }
     mod.className = "devolucion info"; mod.innerHTML = `<strong>Respuesta modelo:</strong> ${q.modelo}`; c.classList.remove("oculto");
     estado[q.n].criterios = estado[q.n].criterios || 0; actualizarResumen(q.parte);
   });
@@ -521,7 +580,7 @@ function armarDibujo(q, cuerpo) {
 function mostrar(dev, tipo, html) { dev.className = `devolucion ${tipo}`; dev.innerHTML = html; }
 
 /* ---------- Resúmenes por parte (para la captura de pantalla) ---------- */
-const TITULOS = { 1: "Parte 2 · Esquemas de partículas" };
+const TITULOS = { 1: "Parte 2 · Esquemas de partículas", 2: "Parte 3 · Comprensión lectora" };
 function actualizarResumen(parte) {
   const qs = PREGUNTAS.filter(q => q.parte === parte);
   let bien = 0, corregibles = 0, respondidas = 0;
@@ -546,12 +605,12 @@ function actualizarResumen(parte) {
     <table><tbody>${filas}</tbody></table>
     <p class="nota" style="margin:0">📸 Haz una captura de pantalla de este recuadro: esta página no guarda tus respuestas.</p>`;
 }
-[1].forEach(p => {
+[1, 2].forEach(p => {
   const cont = $(`#preguntas${p}`);
   PREGUNTAS.filter(q => q.parte === p).forEach(q => cont.appendChild(bloquePregunta(q)));
   actualizarResumen(p);
 });
-$("#nombre").addEventListener("input", () => [1].forEach(actualizarResumen));
+$("#nombre").addEventListener("input", () => [1, 2].forEach(actualizarResumen));
 
 </script>
 <script>
