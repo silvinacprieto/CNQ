@@ -14,8 +14,8 @@
 .el[aria-pressed=true]{outline:3px solid var(--ink);outline-offset:1px}
 .c-alc{background:#f4b8a8}.c-ate{background:#f6d58e}.c-tra{background:#a9cfe8}.c-otm{background:#c9d6b0}
 .c-mtd{background:#d8c3e6}.c-nm{background:#bfe3c8}.c-hal{background:#f2e68f}.c-gn{background:#e0b5d0}
-.leyenda{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:14px}
-.leyenda span::before{content:"";display:inline-block;width:14px;height:14px;border-radius:3px;margin-right:6px;vertical-align:-2px;background:var(--c);border:1px solid rgba(0,0,0,.25)}
+.ley-tabla{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:14px}
+.ley-tabla span::before{content:"";display:inline-block;width:14px;height:14px;border-radius:3px;margin-right:6px;vertical-align:-2px;background:var(--c);border:1px solid rgba(0,0,0,.25)}
 .detalle{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 .gran{width:104px;height:104px;border-radius:12px;display:grid;place-items:center;font:700 44px var(--font-mono);color:#1d2320;position:relative;border:1px solid rgba(0,0,0,.25)}
 .gran small{position:absolute;top:6px;left:9px;font-size:14px;font-weight:400}

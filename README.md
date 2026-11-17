@@ -18,7 +18,7 @@ Cada clase parte de una pregunta concreta y termina con mediciones reales en el 
 | N.º | Evaluación | Contenido |
 | --- | --- | --- |
 | 6 | [Sustancias puras y mezclas](evaluaciones/06-sustancias-puras-y-mezclas/) | Clasificación de la materia, esquemas de partículas, tablero para dibujar mezclas, soluciones, coloides y suspensiones, comprensión lectora (la leche como sistema coloidal). La página no guarda datos: los alumnos capturan el resultado de cada parte. |
-| 6 (recuperatorio) | [Preparación para el recuperatorio](evaluaciones/06-recuperatorio-preparacion/) | Repaso de las ideas centrales y 10 preguntas nuevas con devolución inmediata. La página no guarda datos. |
+| 6 (recuperatorio) | [Preparación para el recuperatorio](evaluaciones/06-recuperatorio-preparacion/) | Repaso de las ideas centrales, 10 preguntas rápidas y 10 consignas con esquemas de partículas (identificar y dibujar elementos, compuestos y mezclas). La página no guarda datos. |
 
 ## Laboratorio
 
