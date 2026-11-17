@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../clases/01-materia-medicion-densidad/simuladores/estilo.css">
+<link rel="stylesheet" href="../../recursos/practica.css">
+<title>Preparación para el recuperatorio – Sustancias puras y mezclas</title>
+</head>
+<body>
+<header class="top">
+  <div class="kicker">CIENCIAS NATURALES – QUÍMICA · 1.ER AÑO · RECUPERATORIO</div>
+  <h1>Prepárate para el recuperatorio: sustancias puras y mezclas</h1>
+  <p class="lead">Repasa las ideas centrales y practica con preguntas nuevas. Cada respuesta te dice al instante si acertaste y por qué. Esta página no guarda tus respuestas: si la cierras, se borra todo. Para repasar con las preguntas originales, usa la <a href="../06-sustancias-puras-y-mezclas/">Autoevaluación N° 6</a>.</p>
+</header>
+<main>
+<section class="bloque">
+  <div class="titulo"><span class="num">REPASO</span><h2>Ideas que debes dominar</h2></div>
+  <div class="ideas">
+    <div class="idea"><strong>Clasificación de la materia.</strong> La materia se clasifica en sustancias puras y mezclas. Una sustancia pura tiene composición fija; una mezcla tiene dos o más sustancias y su composición puede variar.</div>
+    <div class="idea"><strong>Elementos y compuestos.</strong> Un elemento está formado por un solo tipo de átomo (oro, oxígeno, cobre). Un compuesto está formado por átomos de distintos elementos combinados en proporción fija (agua, H₂O; nitrato de sodio, NaNO₃).</div>
+    <div class="idea"><strong>Mezclas homogéneas y heterogéneas.</strong> En una homogénea hay una sola fase y no se distinguen los componentes. En una heterogénea hay dos o más fases. Algo que parece uniforme puede ser heterogéneo, como la leche.</div>
+    <div class="idea"><strong>Solución.</strong> Es una mezcla homogénea a nivel molecular, sin separación de fases. Tiene un solvente (el medio en el que se disuelven las otras sustancias, por lo general el que está en mayor cantidad) y uno o más solutos. Sus partículas miden de 1 a 10 Å.</div>
+    <div class="idea"><strong>Coloides y suspensiones.</strong> Un coloide tiene partículas de 10 a 10 000 Å, dispersa la luz (efecto Tyndall) y no se sedimenta. Una suspensión tiene partículas de más de 10 000 Å y se sedimenta en reposo. De menor a mayor tamaño: solución, coloide, suspensión.</div>
+    <div class="idea"><strong>La leche.</strong> Es un sistema coloidal con varias fases dispersas: una solución (lactosa y sales), un sol (caseína en micelas) y una emulsión (grasa en glóbulos).</div>
+  </div>
+</section>
+<section class="bloque">
+  <div class="titulo"><span class="num">PRÁCTICA</span><h2>Preguntas para practicar</h2></div>
+  <p class="nota">Toca una opción para ver si es correcta. Cuando termines, usa «Volver a empezar» para repetir.</p>
+  <div id="quiz"></div>
+</section>
+<p class="nota">Ciencias Naturales – Química · 1.er año · Ing. Agr. Silvina C. Prieto. Esta página no guarda datos.</p>
+</main>
+<script src="../../recursos/practica.js"></script>
+<script>
+quiz(document.getElementById('quiz'), [
+ { q: 'El oxígeno (O₂) es:', o: ['Un compuesto', 'Un elemento', 'Una mezcla homogénea', 'Una mezcla heterogénea'], ok: 1, e: 'Solo tiene átomos de oxígeno: es un elemento, es decir, una sustancia pura.' },
+ { q: '¿Cuál de estos materiales NO es una sustancia pura?', o: ['Dióxido de carbono', 'Hierro', 'Agua de mar', 'Cloruro de sodio'], ok: 2, e: 'El agua de mar tiene agua, sales y gases disueltos: es una mezcla.' },
+ { q: 'Un compuesto se diferencia de una mezcla porque:', o: ['Sus átomos de distintos elementos están combinados en proporción fija', 'Se distinguen sus componentes a simple vista', 'Tiene un solo tipo de átomo', 'Siempre es líquido'], ok: 0, e: 'En un compuesto la proporción de los elementos es fija; en una mezcla puede variar.' },
+ { q: 'Se disuelve azúcar en agua hasta que no se ven cristales. La mezcla es:', o: ['Heterogénea', 'Un compuesto', 'Homogénea: una solución', 'Una suspensión'], ok: 2, e: 'Una sola fase y partículas muy pequeñas (1 a 10 Å): es una solución.' },
+ { q: 'En el agua con sal, ¿cuál es el soluto?', o: ['El agua', 'La sal', 'Los dos', 'Ninguno'], ok: 1, e: 'El soluto es lo que se disuelve (la sal); el solvente es el medio donde se disuelve (el agua).' },
+ { q: 'Una partícula de 5 Å de tamaño corresponde a:', o: ['Una suspensión', 'Un coloide', 'Una solución', 'Una sustancia pura'], ok: 2, e: '5 Å está dentro del rango de 1 a 10 Å, que es el de las soluciones.' },
+ { q: 'Un haz de luz atraviesa un líquido y se ve su camino dentro de él. Es un:', o: ['Coloide', 'Compuesto', 'Elemento', 'Solución verdadera'], ok: 0, e: 'Las partículas coloidales dispersan la luz (efecto Tyndall); en una solución verdadera son demasiado pequeñas para hacerlo.' },
+ { q: 'Tierra agitada en agua que se asienta en pocos minutos es:', o: ['Una solución', 'Un coloide', 'Un elemento', 'Una suspensión'], ok: 3, e: 'Sus partículas superan los 10 000 Å y se sedimentan en reposo.' },
+ { q: 'Ordena de menor a mayor tamaño de partícula:', o: ['Coloide, solución, suspensión', 'Solución, coloide, suspensión', 'Suspensión, coloide, solución', 'Solución, suspensión, coloide'], ok: 1, e: 'Solución (1 a 10 Å), coloide (10 a 10 000 Å) y suspensión (más de 10 000 Å).' },
+ { q: 'La leche parece uniforme, pero es una mezcla heterogénea porque:', o: ['Es una sustancia pura', 'Todo está disuelto como moléculas', 'Tiene micelas y glóbulos de grasa dispersos', 'Sus partículas se sedimentan en segundos'], ok: 2, e: 'Contiene partículas coloidales (micelas de caseína y glóbulos de grasa) que no se ven a simple vista.' }
+]);
+</script>
+</body>
+</html>

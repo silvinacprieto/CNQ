@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tabla periódica: primera aproximación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../01-materia-medicion-densidad/simuladores/estilo.css">
+<link rel="stylesheet" href="../../recursos/practica.css">
+</head>
+<body>
+<header class="top">
+  <div class="kicker">CIENCIAS NATURALES – QUÍMICA · 1.ER AÑO · TEMA NUEVO</div>
+  <h1>Tabla periódica: primera aproximación</h1>
+  <p class="lead">Para quienes aprobaron la <a href="../../evaluaciones/06-sustancias-puras-y-mezclas/">Evaluación N° 6</a>. Ya sabes que un elemento es una sustancia pura formada por un solo tipo de átomo. La tabla periódica ordena todos los elementos conocidos. Esta página no guarda tus respuestas.</p>
+</header>
+<main>
+<section class="bloque">
+  <div class="titulo"><span class="num">IDEAS</span><h2>Cómo se organiza</h2></div>
+  <div class="ideas">
+    <div class="idea"><strong>Cada casilla es un elemento.</strong> Tiene un símbolo (O, Fe, Na), un nombre y un número atómico (Z), que identifica al elemento y es la cantidad de protones de sus átomos. Hoy se conocen 118 elementos.</div>
+    <div class="idea"><strong>Períodos y grupos.</strong> Las filas horizontales son los períodos (1 a 7). Las columnas verticales son los grupos (1 a 18). Los elementos de un mismo grupo tienen propiedades parecidas.</div>
+    <div class="idea"><strong>Un poco de historia.</strong> En 1869, Dmitri Mendeléiev ordenó los elementos por masa atómica y dejó lugares vacíos para elementos aún no descubiertos. Hoy se ordenan por número atómico creciente.</div>
+    <div class="idea"><strong>Familias.</strong> Grupo 1 (sin el hidrógeno): metales alcalinos. Grupo 2: alcalinotérreos. Grupo 17: halógenos. Grupo 18: gases nobles.</div>
+  </div>
+</section>
+<section class="bloque">
+  <div class="titulo"><span class="num">EXPLORA</span><h2>Los primeros 36 elementos</h2></div>
+  <p class="nota">Toca un elemento para ver sus datos. Se muestran los períodos 1 a 4; en la tabla completa hay 118 elementos.</p>
+  <div class="tabla-wrap"><div class="pt" id="pt" role="group" aria-label="Tabla periódica, elementos 1 a 36"></div></div>
+  <div class="leyenda" id="ley"></div>
+  <div class="detalle" id="det"><p class="nota">Elige una casilla.</p></div>
+</section>
+<section class="bloque">
+  <div class="titulo"><span class="num">PRÁCTICA</span><h2>Comprueba lo que entendiste</h2></div>
+  <div id="quiz"></div>
+</section>
+<p class="nota">Ciencias Naturales – Química · 1.er año · Ing. Agr. Silvina C. Prieto. Masas atómicas relativas redondeadas. Esta página no guarda datos.</p>
+</main>
+<script src="../../recursos/practica.js"></script>
+<script>
+const S = "H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr".split(" ");
+const N = "Hidrógeno,Helio,Litio,Berilio,Boro,Carbono,Nitrógeno,Oxígeno,Flúor,Neón,Sodio,Magnesio,Aluminio,Silicio,Fósforo,Azufre,Cloro,Argón,Potasio,Calcio,Escandio,Titanio,Vanadio,Cromo,Manganeso,Hierro,Cobalto,Níquel,Cobre,Cinc,Galio,Germanio,Arsénico,Selenio,Bromo,Kriptón".split(",");
+const M = "1,008 4,003 6,94 9,012 10,81 12,011 14,007 15,999 18,998 20,180 22,990 24,305 26,982 28,085 30,974 32,06 35,45 39,95 39,098 40,078 44,956 47,867 50,942 51,996 54,938 55,845 58,933 58,693 63,546 65,38 69,723 72,630 74,922 78,971 79,904 83,798".split(" ");
+const NM = ["H","C","N","O","P","S","Se"], MD = ["B","Si","Ge","As"];
+const CL = { alc: ["metal alcalino", "#f4b8a8"], ate: ["metal alcalinotérreo", "#f6d58e"], tra: ["metal de transición", "#a9cfe8"], otm: ["otro metal", "#c9d6b0"], mtd: ["metaloide", "#d8c3e6"], nm: ["no metal", "#bfe3c8"], hal: ["halógeno", "#f2e68f"], gn: ["gas noble", "#e0b5d0"] };
+function pos(z) {
+  if (z <= 2) return [1, z === 1 ? 1 : 18];
+  if (z <= 18) { const p = z <= 10 ? 2 : 3, k = z - (p === 2 ? 2 : 10); return [p, k <= 2 ? k : k + 10]; }
+  return [4, z - 18];
+}
+function cat(s, g) {
+  if (g === 18) return "gn"; if (g === 17) return "hal"; if (MD.includes(s)) return "mtd"; if (NM.includes(s)) return "nm";
+  if (g === 1) return "alc"; if (g === 2) return "ate"; if (g <= 12) return "tra"; return "otm";
+}
+const pt = document.getElementById("pt"), det = document.getElementById("det");
+S.forEach((s, i) => {
+  const z = i + 1, [p, g] = pos(z), c = cat(s, g);
+  const b = document.createElement("button"); b.type = "button"; b.className = "el c-" + c; b.setAttribute("aria-pressed", "false");
+  b.setAttribute("aria-label", N[i]); b.style.gridColumn = g; b.style.gridRow = p; b.innerHTML = "<small>" + z + "</small>" + s;
+  b.onclick = () => {
+    pt.querySelectorAll(".el").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true");
+    det.innerHTML = '<div class="gran c-' + c + '"><small>' + z + "</small>" + s + "</div><div><h3>" + N[i] + "</h3><dl><dt>Número atómico (Z)</dt><dd>" + z +
+      "</dd><dt>Masa atómica relativa</dt><dd>" + M[i] + "</dd><dt>Período</dt><dd>" + p + "</dd><dt>Grupo</dt><dd>" + g + "</dd><dt>Clasificación</dt><dd>" + CL[c][0] + "</dd></dl></div>";
+  };
+  pt.appendChild(b);
+});
+document.getElementById("ley").innerHTML = Object.values(CL).map(v => '<span style="--c:' + v[1] + '">' + v[0] + "</span>").join("");
+quiz(document.getElementById("quiz"), [
+ { q: "¿Qué indica el número atómico (Z) de un elemento?", o: ["Su masa en gramos", "La cantidad de protones de sus átomos", "Si es sólido o líquido", "Cuántas mezclas forma"], ok: 1, e: "Z es la cantidad de protones y identifica a cada elemento; la tabla los ordena por Z creciente." },
+ { q: "Las filas horizontales de la tabla se llaman:", o: ["Grupos", "Familias", "Períodos", "Compuestos"], ok: 2, e: "Las filas son los períodos (1 a 7); las columnas son los grupos (1 a 18)." },
+ { q: "¿Por qué los elementos de un mismo grupo se ubican en la misma columna?", o: ["Porque tienen la misma masa", "Porque tienen propiedades parecidas", "Porque se descubrieron el mismo año", "Porque forman mezclas homogéneas"], ok: 1, e: "Los elementos de un grupo se parecen en sus propiedades." },
+ { q: "El sodio (Na) está en el grupo 1. ¿A qué familia pertenece?", o: ["Halógenos", "Gases nobles", "Metales alcalinos", "Metaloides"], ok: 2, e: "El grupo 1, sin el hidrógeno, forma la familia de los metales alcalinos." },
+ { q: "El helio, el neón y el argón están en el grupo 18. Esa familia es la de los:", o: ["Halógenos", "Gases nobles", "Alcalinotérreos", "Metales de transición"], ok: 1, e: "El grupo 18 son los gases nobles." }
+]);
+</script>
+</body>
+</html>

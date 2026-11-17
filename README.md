@@ -11,12 +11,14 @@ Cada clase parte de una pregunta concreta y termina con mediciones reales en el 
 | N.º | Clase | Encuentros | Contenido |
 | --- | --- | --- | --- |
 | 01 | [Materia, medición y densidad](clases/01-materia-medicion-densidad/) | 3 × 2 h | Eje 1. TP N° 1 (¿el aire es materia?), propiedades, perímetro, área y volumen, tabla de saltos, despeje, densidad, modelo cinético-corpuscular, flotación, densidad aparente del suelo, resolución de problemas |
+| 02 | [Tabla periódica: primera aproximación](clases/02-tabla-periodica/) | Tema nuevo | Para quienes aprobaron la Evaluación N° 6. Períodos, grupos, número atómico, familias y tabla interactiva de los primeros 36 elementos, con preguntas de práctica |
 
 ## Autoevaluaciones
 
 | N.º | Evaluación | Contenido |
 | --- | --- | --- |
 | 6 | [Sustancias puras y mezclas](evaluaciones/06-sustancias-puras-y-mezclas/) | Clasificación de la materia, esquemas de partículas, tablero para dibujar mezclas, soluciones, coloides y suspensiones, comprensión lectora (la leche como sistema coloidal). La página no guarda datos: los alumnos capturan el resultado de cada parte. |
+| 6 (recuperatorio) | [Preparación para el recuperatorio](evaluaciones/06-recuperatorio-preparacion/) | Repaso de las ideas centrales y 10 preguntas nuevas con devolución inmediata. La página no guarda datos. |
 
 ## Laboratorio
 
