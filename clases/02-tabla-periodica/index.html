@@ -14,6 +14,7 @@
 .brk{font:600 10px var(--font-mono);text-align:center;border-bottom:2px solid var(--muted);color:var(--muted);padding-bottom:2px;line-height:1.15;align-self:end}
 .simat{display:inline-flex;align-items:center;font:600 44px var(--font-mono)}
 .simat .nums{display:flex;flex-direction:column;font-size:18px;line-height:1.15;margin-right:4px;text-align:right}
+.ref{display:inline-block;font:600 13px var(--font-mono);color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 10px;margin-left:4px;white-space:nowrap}
 .casilla{display:flex;flex-direction:column;align-items:center;justify-content:center;width:110px;height:110px;border:2px solid var(--ink);border-radius:8px;background:#f2e68f;color:#1d2320;font-family:var(--font-mono)}
 .casilla b{font-size:34px;line-height:1}.casilla small,.casilla span{font-size:14px}
 .boton[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:2px}
@@ -34,6 +35,60 @@ select,input[type=text],input[type=number]{font:inherit;font-size:17px;padding:8
 </header>
 <main>
 
+<section class="bloque">
+  <div class="titulo"><span class="num">LO IMPORTANTE</span><h2>Ideas para anotar</h2></div>
+  <p class="nota">Cada idea indica en qué páginas del libro debes estudiarla. Estos resúmenes son solo una guía: lo que se estudia es el capítulo 3 del libro.</p>
+  <div class="ideas">
+    <div class="idea"><strong>1. Elementos y símbolos.</strong> <span class="ref">Libro: págs. 82 a 84</span> Todas las sustancias están formadas por elementos: hay 118 distintos y 88 se encuentran en la naturaleza. Un elemento es una sustancia pura que no se puede descomponer en sustancias más simples. Su símbolo tiene una o dos letras: la primera es mayúscula y la segunda, minúscula. Co es cobalto; CO son dos elementos (carbono y oxígeno). Algunos símbolos vienen del latín: Na (natrium), K (kalium), Fe (ferrum), Cu (cuprum), Au (aurum), Ag (argentum), Pb (plumbum), Hg (hidrargirum), Sn (stannum) y S (sulfurum).</div>
+    <div class="idea"><strong>2. Cómo está organizada la tabla.</strong> <span class="ref">Libro: págs. 85 a 87 y pág. 95</span> Los elementos están ordenados por número atómico creciente, del 1 al 118. Las filas son los <em>períodos</em> (1 a 7) y tienen 2, 8, 8, 18, 18, 32 y 32 elementos. Las columnas son los <em>grupos</em> o familias (1 a 18, o 1A a 8A y 1B a 8B): sus elementos tienen propiedades parecidas. Los elementos de los grupos 1, 2 y 13 a 18 son los <em>representativos</em> (incluyen a los alcalinos, alcalinotérreos, halógenos y gases nobles); los del bloque central, grupos 3 a 12, son los de <em>transición</em>. Debajo de la tabla hay dos filas de 14 elementos (lantánidos y actínidos) que pertenecen a los períodos 6 y 7.</div>
+    <div class="idea"><strong>3. Familias con nombre especial.</strong> <span class="ref">Libro: pág. 87</span> Cuatro grupos de la tabla tienen un nombre propio (figura 3.3 del libro):
+      <ul>
+        <li><strong>Metales alcalinos</strong> (grupo 1A o 1): Li, Na, K, Rb, Cs y Fr. El hidrógeno no es un metal alcalino. Son metales blandos y brillantes, buenos conductores, de bajo punto de fusión, y reaccionan con fuerza con el agua.</li>
+        <li><strong>Metales alcalinotérreos</strong> (2A o 2): Be, Mg, Ca, Sr, Ba y Ra. Son brillantes y menos reactivos que los alcalinos.</li>
+        <li><strong>Halógenos</strong> (7A o 17): F, Cl, Br, I y At. Son muy reactivos y forman compuestos con casi todos los elementos.</li>
+        <li><strong>Gases nobles</strong> (8A o 18): He, Ne, Ar, Kr, Xe y Rn. Tienen baja reactividad y casi no se combinan con otros elementos.</li>
+      </ul></div>
+    <div class="idea"><strong>4. Metales, no metales y metaloides.</strong> <span class="ref">Libro: págs. 88 y 89</span> Una línea gruesa en zigzag separa los metales (a la izquierda, salvo el hidrógeno) de los no metales (a la derecha). Los <em>metales</em> son sólidos brillantes (menos el mercurio, que es líquido), dúctiles, maleables, buenos conductores de calor y electricidad, y con puntos de fusión altos. Los <em>no metales</em> (H, C, N, O, Cl, S) no son brillantes, suelen ser malos conductores, y tienen bajo punto de fusión y baja densidad. Los <em>metaloides</em> están a lo largo de la línea: B, Si, Ge, As, Sb, Te, Po y At (el aluminio no lo es: es un metal). Tienen propiedades de los dos grupos y son semiconductores.</div>
+    <div class="idea"><strong>5. Partículas del átomo.</strong> <span class="ref">Libro: págs. 91 a 94</span> El átomo tiene un núcleo pequeño y denso con protones y neutrones, y los electrones se mueven a su alrededor. Casi toda la masa está en el núcleo y el átomo es sobre todo espacio vacío. Cargas iguales se repelen y cargas opuestas se atraen. El átomo es eléctricamente neutro: tiene igual cantidad de protones que de electrones.
+      <div class="tabla-wrap"><table style="margin-top:10px"><thead><tr><th>Partícula</th><th>Carga</th><th>Masa</th><th>Ubicación</th></tr></thead><tbody>
+        <tr><td>Protón</td><td>+1</td><td>1,007 uma (≈ 1 uma)</td><td>Núcleo</td></tr>
+        <tr><td>Neutrón</td><td>0</td><td>1,008 uma (≈ 1 uma)</td><td>Núcleo</td></tr>
+        <tr><td>Electrón</td><td>−1</td><td>0,00055 uma (unas 2000 veces menor)</td><td>Fuera del núcleo</td></tr>
+      </tbody></table></div>
+      <p class="nota" style="margin-top:8px">La uma (unidad de masa atómica) se usa porque las masas son muy chicas: un protón pesa 1,7 × 10⁻²⁴ g. La masa del electrón casi siempre se ignora.</p></div>
+    <div class="idea"><strong>6. Número atómico y número de masa.</strong> <span class="ref">Libro: págs. 95 a 97</span>
+      <ul>
+        <li><strong>Número atómico (Z)</strong> = número de protones. Identifica al elemento: todos los átomos con 6 protones son carbono. Está arriba del símbolo en la tabla. En un átomo neutro, también es el número de electrones.</li>
+        <li><strong>Número de masa (A)</strong> = protones + neutrones del núcleo. No aparece en la tabla.</li>
+        <li><strong>Neutrones</strong> = A − Z.</li>
+        <li>Ejemplo: un átomo de cloro con A = 37 tiene Z = 17, es decir 17 protones, 17 electrones y 37 − 17 = 20 neutrones.</li>
+      </ul></div>
+    <div class="idea"><strong>7. Símbolo atómico.</strong> <span class="ref">Libro: pág. 98</span> Un átomo de un isótopo se escribe con el símbolo del elemento (X) y dos números a su izquierda: el <strong>número de masa (A)</strong> arriba y el <strong>número atómico (Z)</strong> abajo.
+      <div style="display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin:10px 0">
+        <span class="simat"><span class="nums"><span>A</span><span>Z</span></span>X</span>
+        <span class="simat"><span class="nums"><span>24</span><span>12</span></span>Mg</span>
+        <span class="simat"><span class="nums"><span>37</span><span>17</span></span>Cl</span>
+      </div>
+      Ejemplo: en el magnesio-24, A = 24 y Z = 12; tiene 12 protones, 12 electrones (átomo neutro) y 24 − 12 = 12 neutrones. Se lee «magnesio-24» y también se escribe «Mg-24». En el cloro-37, A = 37 y Z = 17: 17 protones, 17 electrones y 20 neutrones.</div>
+    <div class="idea"><strong>8. Isótopos y masa atómica.</strong> <span class="ref">Libro: págs. 97 a 100</span> Los isótopos son átomos del mismo elemento (igual Z) con distinto número de neutrones, por lo que tienen distinto número de masa; su comportamiento químico no cambia. Ejemplo: Mg-24, Mg-25 y Mg-26 tienen 12 protones y 12, 13 y 14 neutrones. Se escriben con el símbolo atómico o como «Mg-24». La <em>masa atómica</em> (el número con decimales de cada casilla) es el promedio ponderado de las masas de los isótopos naturales del elemento; por eso casi nunca es un número entero.
+      <p style="margin:10px 0 0"><em>Ejemplos que complementan el libro.</em> El <strong>hidrógeno</strong> es el único elemento cuyos isótopos tienen nombre especial: hidrógeno (H-1), deuterio (H-2) y tritio (H-3). El <strong>carbono-12</strong> (6 protones y 6 neutrones) es el átomo que se usa como referencia para definir la uma. Otros ejemplos: carbono-14 y uranio-235 y uranio-238.</p>
+      <div class="tabla-wrap"><table style="margin-top:10px"><thead><tr><th>Isótopo</th><th>Protones</th><th>Neutrones</th><th>Número de masa</th></tr></thead><tbody>
+        <tr><td>Hidrógeno (H-1)</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>Deuterio (H-2)</td><td>1</td><td>1</td><td>2</td></tr>
+        <tr><td>Tritio (H-3)</td><td>1</td><td>2</td><td>3</td></tr>
+        <tr><td>Carbono-12</td><td>6</td><td>6</td><td>12</td></tr>
+        <tr><td>Carbono-14</td><td>6</td><td>8</td><td>14</td></tr>
+        <tr><td>Uranio-235</td><td>92</td><td>143</td><td>235</td></tr>
+        <tr><td>Uranio-238</td><td>92</td><td>146</td><td>238</td></tr>
+      </tbody></table></div></div>
+    <div class="idea"><strong>9. Cómo se lee una casilla de la tabla.</strong> <span class="ref">Libro: págs. 95 y 99</span> Cada casilla resume un elemento. Ejemplo: el cloro.
+      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:8px">
+        <div class="casilla"><small>17</small><b>Cl</b><span>35,45</span></div>
+        <ul style="margin:0;padding-left:20px"><li>El número de arriba es el <strong>número atómico</strong> (Z): 17 protones.</li><li>Las letras del centro son el <strong>símbolo</strong>: Cl, cloro.</li><li>El número con decimales de abajo es la <strong>masa atómica</strong>: 35,45 uma.</li></ul>
+      </div></div>
+  </div>
+</section>
+
 <section class="bloque apun">
   <div class="titulo"><span class="num">APUNTES</span><h2>Qué debe haber en tu carpeta</h2></div>
   <p class="nota">Escribe cada punto con tus palabras, ordenado y claro. Los dibujos y cuadros también son apuntes. Marca lo que ya anotaste (esta marca no se guarda).</p>
@@ -46,59 +101,6 @@ select,input[type=text],input[type=number]{font:inherit;font-size:17px;padding:8
   <label><input type="checkbox"> El símbolo atómico (número de masa arriba y número atómico abajo, a la izquierda del símbolo del elemento), con ejemplos.</label>
   <label><input type="checkbox"> Isótopos: qué son, los del hidrógeno (hidrógeno, deuterio y tritio), carbono-12 y carbono-14, uranio-235 y uranio-238, y qué es la masa atómica.</label>
   <label><input type="checkbox"> Un dibujo de la casilla de un elemento (por ejemplo, el cloro) con rótulos: número atómico, símbolo y masa atómica.</label>
-</section>
-
-<section class="bloque">
-  <div class="titulo"><span class="num">LO IMPORTANTE</span><h2>Ideas para anotar</h2></div>
-  <div class="ideas">
-    <div class="idea"><strong>1. Elementos y símbolos.</strong> Todas las sustancias están formadas por elementos: hay 118 distintos y 88 se encuentran en la naturaleza. Un elemento es una sustancia pura que no se puede descomponer en sustancias más simples. Su símbolo tiene una o dos letras: la primera es mayúscula y la segunda, minúscula. Co es cobalto; CO son dos elementos (carbono y oxígeno). Algunos símbolos vienen del latín: Na (natrium), K (kalium), Fe (ferrum), Cu (cuprum), Au (aurum), Ag (argentum), Pb (plumbum), Hg (hidrargirum), Sn (stannum) y S (sulfurum).</div>
-    <div class="idea"><strong>2. Cómo está organizada la tabla.</strong> Los elementos están ordenados por número atómico creciente, del 1 al 118. Las filas son los <em>períodos</em> (1 a 7) y tienen 2, 8, 8, 18, 18, 32 y 32 elementos. Las columnas son los <em>grupos</em> o familias (1 a 18, o 1A a 8A y 1B a 8B): sus elementos tienen propiedades parecidas. Los elementos de los grupos 1, 2 y 13 a 18 son los <em>representativos</em> (incluyen a los alcalinos, alcalinotérreos, halógenos y gases nobles); los del bloque central, grupos 3 a 12, son los de <em>transición</em>. Debajo de la tabla hay dos filas de 14 elementos (lantánidos y actínidos) que pertenecen a los períodos 6 y 7.</div>
-    <div class="idea"><strong>3. Familias con nombre especial.</strong> Cuatro grupos de la tabla tienen un nombre propio (figura 3.3 del libro):
-      <ul>
-        <li><strong>Metales alcalinos</strong> (grupo 1A o 1): Li, Na, K, Rb, Cs y Fr. El hidrógeno no es un metal alcalino. Son metales blandos y brillantes, buenos conductores, de bajo punto de fusión, y reaccionan con fuerza con el agua.</li>
-        <li><strong>Metales alcalinotérreos</strong> (2A o 2): Be, Mg, Ca, Sr, Ba y Ra. Son brillantes y menos reactivos que los alcalinos.</li>
-        <li><strong>Halógenos</strong> (7A o 17): F, Cl, Br, I y At. Son muy reactivos y forman compuestos con casi todos los elementos.</li>
-        <li><strong>Gases nobles</strong> (8A o 18): He, Ne, Ar, Kr, Xe y Rn. Tienen baja reactividad y casi no se combinan con otros elementos.</li>
-      </ul></div>
-    <div class="idea"><strong>4. Metales, no metales y metaloides.</strong> Una línea gruesa en zigzag separa los metales (a la izquierda, salvo el hidrógeno) de los no metales (a la derecha). Los <em>metales</em> son sólidos brillantes (menos el mercurio, que es líquido), dúctiles, maleables, buenos conductores de calor y electricidad, y con puntos de fusión altos. Los <em>no metales</em> (H, C, N, O, Cl, S) no son brillantes, suelen ser malos conductores, y tienen bajo punto de fusión y baja densidad. Los <em>metaloides</em> están a lo largo de la línea: B, Si, Ge, As, Sb, Te, Po y At (el aluminio no lo es: es un metal). Tienen propiedades de los dos grupos y son semiconductores.</div>
-    <div class="idea"><strong>5. Partículas del átomo.</strong> El átomo tiene un núcleo pequeño y denso con protones y neutrones, y los electrones se mueven a su alrededor. Casi toda la masa está en el núcleo y el átomo es sobre todo espacio vacío. Cargas iguales se repelen y cargas opuestas se atraen. El átomo es eléctricamente neutro: tiene igual cantidad de protones que de electrones.
-      <div class="tabla-wrap"><table style="margin-top:10px"><thead><tr><th>Partícula</th><th>Carga</th><th>Masa</th><th>Ubicación</th></tr></thead><tbody>
-        <tr><td>Protón</td><td>+1</td><td>1,007 uma (≈ 1 uma)</td><td>Núcleo</td></tr>
-        <tr><td>Neutrón</td><td>0</td><td>1,008 uma (≈ 1 uma)</td><td>Núcleo</td></tr>
-        <tr><td>Electrón</td><td>−1</td><td>0,00055 uma (unas 2000 veces menor)</td><td>Fuera del núcleo</td></tr>
-      </tbody></table></div>
-      <p class="nota" style="margin-top:8px">La uma (unidad de masa atómica) se usa porque las masas son muy chicas: un protón pesa 1,7 × 10⁻²⁴ g. La masa del electrón casi siempre se ignora.</p></div>
-    <div class="idea"><strong>6. Número atómico y número de masa.</strong>
-      <ul>
-        <li><strong>Número atómico (Z)</strong> = número de protones. Identifica al elemento: todos los átomos con 6 protones son carbono. Está arriba del símbolo en la tabla. En un átomo neutro, también es el número de electrones.</li>
-        <li><strong>Número de masa (A)</strong> = protones + neutrones del núcleo. No aparece en la tabla.</li>
-        <li><strong>Neutrones</strong> = A − Z.</li>
-        <li>Ejemplo: un átomo de cloro con A = 37 tiene Z = 17, es decir 17 protones, 17 electrones y 37 − 17 = 20 neutrones.</li>
-      </ul></div>
-    <div class="idea"><strong>7. Símbolo atómico.</strong> Un átomo de un isótopo se escribe con el símbolo del elemento (X) y dos números a su izquierda: el <strong>número de masa (A)</strong> arriba y el <strong>número atómico (Z)</strong> abajo.
-      <div style="display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin:10px 0">
-        <span class="simat"><span class="nums"><span>A</span><span>Z</span></span>X</span>
-        <span class="simat"><span class="nums"><span>24</span><span>12</span></span>Mg</span>
-        <span class="simat"><span class="nums"><span>37</span><span>17</span></span>Cl</span>
-      </div>
-      Ejemplo: en el magnesio-24, A = 24 y Z = 12; tiene 12 protones, 12 electrones (átomo neutro) y 24 − 12 = 12 neutrones. Se lee «magnesio-24» y también se escribe «Mg-24». En el cloro-37, A = 37 y Z = 17: 17 protones, 17 electrones y 20 neutrones.</div>
-    <div class="idea"><strong>8. Isótopos y masa atómica.</strong> Los isótopos son átomos del mismo elemento (igual Z) con distinto número de neutrones, por lo que tienen distinto número de masa; su comportamiento químico no cambia. Ejemplo: Mg-24, Mg-25 y Mg-26 tienen 12 protones y 12, 13 y 14 neutrones. Se escriben con el símbolo atómico o como «Mg-24». La <em>masa atómica</em> (el número con decimales de cada casilla) es el promedio ponderado de las masas de los isótopos naturales del elemento; por eso casi nunca es un número entero.
-      <p style="margin:10px 0 0">El <strong>hidrógeno</strong> es el único elemento cuyos isótopos tienen nombre especial: hidrógeno (H-1), deuterio (H-2) y tritio (H-3). El <strong>carbono-12</strong> (6 protones y 6 neutrones) es el átomo que se usa como referencia para definir la uma. Otros ejemplos: carbono-14 y uranio-235 y uranio-238.</p>
-      <div class="tabla-wrap"><table style="margin-top:10px"><thead><tr><th>Isótopo</th><th>Protones</th><th>Neutrones</th><th>Número de masa</th></tr></thead><tbody>
-        <tr><td>Hidrógeno (H-1)</td><td>1</td><td>0</td><td>1</td></tr>
-        <tr><td>Deuterio (H-2)</td><td>1</td><td>1</td><td>2</td></tr>
-        <tr><td>Tritio (H-3)</td><td>1</td><td>2</td><td>3</td></tr>
-        <tr><td>Carbono-12</td><td>6</td><td>6</td><td>12</td></tr>
-        <tr><td>Carbono-14</td><td>6</td><td>8</td><td>14</td></tr>
-        <tr><td>Uranio-235</td><td>92</td><td>143</td><td>235</td></tr>
-        <tr><td>Uranio-238</td><td>92</td><td>146</td><td>238</td></tr>
-      </tbody></table></div></div>
-    <div class="idea"><strong>9. Cómo se lee una casilla de la tabla.</strong> Cada casilla resume un elemento. Ejemplo: el cloro.
-      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:8px">
-        <div class="casilla"><small>17</small><b>Cl</b><span>35,45</span></div>
-        <ul style="margin:0;padding-left:20px"><li>El número de arriba es el <strong>número atómico</strong> (Z): 17 protones.</li><li>Las letras del centro son el <strong>símbolo</strong>: Cl, cloro.</li><li>El número con decimales de abajo es la <strong>masa atómica</strong>: 35,45 uma.</li></ul>
-      </div></div>
-  </div>
 </section>
 
 <section class="bloque">
