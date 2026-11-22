@@ -12,6 +12,8 @@
 <style>
 .pt{grid-template-columns:24px repeat(18,minmax(40px,1fr));grid-template-rows:auto auto repeat(7,auto) 10px repeat(2,auto)}
 .brk{font:600 10px var(--font-mono);text-align:center;border-bottom:2px solid var(--muted);color:var(--muted);padding-bottom:2px;line-height:1.15;align-self:end}
+.simat{display:inline-flex;align-items:center;font:600 44px var(--font-mono)}
+.simat .nums{display:flex;flex-direction:column;font-size:18px;line-height:1.15;margin-right:4px;text-align:right}
 .casilla{display:flex;flex-direction:column;align-items:center;justify-content:center;width:110px;height:110px;border:2px solid var(--ink);border-radius:8px;background:#f2e68f;color:#1d2320;font-family:var(--font-mono)}
 .casilla b{font-size:34px;line-height:1}.casilla small,.casilla span{font-size:14px}
 .boton[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:2px}
@@ -41,7 +43,8 @@ select,input[type=text],input[type=number]{font:inherit;font-size:17px;padding:8
   <label><input type="checkbox"> Metales, no metales y metaloides: dónde están y qué propiedades tienen.</label>
   <label><input type="checkbox"> Un cuadro de protón, neutrón y electrón: carga, masa y ubicación.</label>
   <label><input type="checkbox"> Número atómico, número de masa y la fórmula de los neutrones, con dos ejemplos resueltos.</label>
-  <label><input type="checkbox"> Isótopos: qué son, los del hidrógeno (protio, deuterio y tritio), carbono-12 y carbono-14, uranio-235 y uranio-238, y qué es la masa atómica.</label>
+  <label><input type="checkbox"> El símbolo atómico (número de masa arriba y número atómico abajo, a la izquierda del símbolo del elemento), con ejemplos.</label>
+  <label><input type="checkbox"> Isótopos: qué son, los del hidrógeno (hidrógeno, deuterio y tritio), carbono-12 y carbono-14, uranio-235 y uranio-238, y qué es la masa atómica.</label>
   <label><input type="checkbox"> Un dibujo de la casilla de un elemento (por ejemplo, el cloro) con rótulos: número atómico, símbolo y masa atómica.</label>
 </section>
 
@@ -72,10 +75,17 @@ select,input[type=text],input[type=number]{font:inherit;font-size:17px;padding:8
         <li><strong>Neutrones</strong> = A − Z.</li>
         <li>Ejemplo: un átomo de cloro con A = 37 tiene Z = 17, es decir 17 protones, 17 electrones y 37 − 17 = 20 neutrones.</li>
       </ul></div>
-    <div class="idea"><strong>7. Isótopos y masa atómica.</strong> Los isótopos son átomos del mismo elemento (igual Z) con distinto número de neutrones, por lo que tienen distinto número de masa; su comportamiento químico no cambia. Ejemplo: Mg-24, Mg-25 y Mg-26 tienen 12 protones y 12, 13 y 14 neutrones. Se escriben con el número de masa arriba a la izquierda del símbolo y el atómico abajo, o como «Mg-24». La <em>masa atómica</em> (el número con decimales de cada casilla) es el promedio ponderado de las masas de los isótopos naturales del elemento; por eso casi nunca es un número entero.
-      <p style="margin:10px 0 0">El <strong>hidrógeno</strong> es el único elemento cuyos isótopos tienen nombre propio. El <strong>carbono-12</strong> (6 protones y 6 neutrones) es el átomo que se usa como referencia para definir la uma. Otros ejemplos: carbono-14 y uranio-235 y uranio-238.</p>
+    <div class="idea"><strong>7. Símbolo atómico.</strong> Un átomo de un isótopo se escribe con el símbolo del elemento (X) y dos números a su izquierda: el <strong>número de masa (A)</strong> arriba y el <strong>número atómico (Z)</strong> abajo.
+      <div style="display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin:10px 0">
+        <span class="simat"><span class="nums"><span>A</span><span>Z</span></span>X</span>
+        <span class="simat"><span class="nums"><span>24</span><span>12</span></span>Mg</span>
+        <span class="simat"><span class="nums"><span>37</span><span>17</span></span>Cl</span>
+      </div>
+      Ejemplo: en el magnesio-24, A = 24 y Z = 12; tiene 12 protones, 12 electrones (átomo neutro) y 24 − 12 = 12 neutrones. Se lee «magnesio-24» y también se escribe «Mg-24». En el cloro-37, A = 37 y Z = 17: 17 protones, 17 electrones y 20 neutrones.</div>
+    <div class="idea"><strong>8. Isótopos y masa atómica.</strong> Los isótopos son átomos del mismo elemento (igual Z) con distinto número de neutrones, por lo que tienen distinto número de masa; su comportamiento químico no cambia. Ejemplo: Mg-24, Mg-25 y Mg-26 tienen 12 protones y 12, 13 y 14 neutrones. Se escriben con el símbolo atómico o como «Mg-24». La <em>masa atómica</em> (el número con decimales de cada casilla) es el promedio ponderado de las masas de los isótopos naturales del elemento; por eso casi nunca es un número entero.
+      <p style="margin:10px 0 0">El <strong>hidrógeno</strong> es el único elemento cuyos isótopos tienen nombre especial: hidrógeno (H-1), deuterio (H-2) y tritio (H-3). El <strong>carbono-12</strong> (6 protones y 6 neutrones) es el átomo que se usa como referencia para definir la uma. Otros ejemplos: carbono-14 y uranio-235 y uranio-238.</p>
       <div class="tabla-wrap"><table style="margin-top:10px"><thead><tr><th>Isótopo</th><th>Protones</th><th>Neutrones</th><th>Número de masa</th></tr></thead><tbody>
-        <tr><td>Protio (H-1)</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>Hidrógeno (H-1)</td><td>1</td><td>0</td><td>1</td></tr>
         <tr><td>Deuterio (H-2)</td><td>1</td><td>1</td><td>2</td></tr>
         <tr><td>Tritio (H-3)</td><td>1</td><td>2</td><td>3</td></tr>
         <tr><td>Carbono-12</td><td>6</td><td>6</td><td>12</td></tr>
@@ -83,7 +93,7 @@ select,input[type=text],input[type=number]{font:inherit;font-size:17px;padding:8
         <tr><td>Uranio-235</td><td>92</td><td>143</td><td>235</td></tr>
         <tr><td>Uranio-238</td><td>92</td><td>146</td><td>238</td></tr>
       </tbody></table></div></div>
-    <div class="idea"><strong>8. Cómo se lee una casilla de la tabla.</strong> Cada casilla resume un elemento. Ejemplo: el cloro.
+    <div class="idea"><strong>9. Cómo se lee una casilla de la tabla.</strong> Cada casilla resume un elemento. Ejemplo: el cloro.
       <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:8px">
         <div class="casilla"><small>17</small><b>Cl</b><span>35,45</span></div>
         <ul style="margin:0;padding-left:20px"><li>El número de arriba es el <strong>número atómico</strong> (Z): 17 protones.</li><li>Las letras del centro son el <strong>símbolo</strong>: Cl, cloro.</li><li>El número con decimales de abajo es la <strong>masa atómica</strong>: 35,45 uma.</li></ul>
@@ -252,8 +262,10 @@ quiz(document.getElementById("quizC"), [
  { q: "El silicio (Si) está sobre la línea en zigzag de la tabla. Es un:", o: ["Metal", "No metal", "Metaloide", "Gas noble"], ok: 2, e: "Los elementos de la línea (B, Si, Ge, As, Sb, Te, Po y At) son metaloides." },
  { q: "En el símbolo de un elemento de dos letras:", o: ["La primera es mayúscula y la segunda minúscula", "Las dos son mayúsculas", "Las dos son minúsculas", "La primera es minúscula y la segunda mayúscula"], ok: 0, e: "Co es cobalto; CO son dos elementos: carbono y oxígeno." },
  { q: "¿Cuántos neutrones tiene un átomo de carbono-14?", o: ["6", "8", "14", "20"], ok: 1, e: "Neutrones = número de masa − número atómico = 14 − 6 = 8." },
- { q: "¿Cómo se llama el isótopo del hidrógeno que tiene 1 protón y 1 neutrón?", o: ["Protio", "Deuterio", "Tritio", "Helio"], ok: 1, e: "Protio: 1 protón y 0 neutrones. Deuterio: 1 y 1. Tritio: 1 y 2. El hidrógeno es el único elemento cuyos isótopos tienen nombre propio." },
- { q: "El uranio-235 y el uranio-238 se diferencian en que:", o: ["Tienen distinta cantidad de neutrones", "Tienen distinto número atómico", "Son elementos distintos", "Tienen distinta cantidad de protones"], ok: 0, e: "Los dos tienen 92 protones: son isótopos del mismo elemento. El uranio-235 tiene 143 neutrones y el uranio-238, 146." }
+ { q: "¿Cómo se llama el isótopo del hidrógeno que tiene 1 protón y 1 neutrón?", o: ["Hidrógeno (H-1)", "Deuterio", "Tritio", "Helio"], ok: 1, e: "Hidrógeno (H-1): 1 protón y 0 neutrones. Deuterio (H-2): 1 y 1. Tritio (H-3): 1 y 2. El hidrógeno es el único elemento cuyos isótopos tienen nombre especial." },
+ { q: "El uranio-235 y el uranio-238 se diferencian en que:", o: ["Tienen distinta cantidad de neutrones", "Tienen distinto número atómico", "Son elementos distintos", "Tienen distinta cantidad de protones"], ok: 0, e: "Los dos tienen 92 protones: son isótopos del mismo elemento. El uranio-235 tiene 143 neutrones y el uranio-238, 146." },
+ { q: "En el símbolo atómico del cloro-37, ³⁷₁₇Cl, ¿qué indica el número 17 que está abajo?", o: ["El número atómico", "El número de masa", "La cantidad de neutrones", "La masa atómica"], ok: 0, e: "Abajo va el número atómico (Z) y arriba el número de masa (A): 37 es el número de masa." },
+ { q: "¿Cuántos protones, neutrones y electrones tiene un átomo neutro de ²⁷₁₃Al?", o: ["13 protones, 14 neutrones y 13 electrones", "13 protones, 27 neutrones y 13 electrones", "27 protones, 13 neutrones y 27 electrones", "14 protones, 13 neutrones y 14 electrones"], ok: 0, e: "Z = 13 es el número de protones y de electrones; neutrones = 27 − 13 = 14." }
 ]);
 quiz(document.getElementById("quizL"), [
  { q: "Según el texto sobre elementos esenciales, ¿qué cuatro elementos forman alrededor del 96 % de la masa del cuerpo humano?", o: ["Oxígeno, carbono, hidrógeno y nitrógeno", "Calcio, fósforo, potasio y sodio", "Hierro, cinc, cobre y yodo", "Oxígeno, calcio, hierro y cloro"], ok: 0, e: "Son elementos representativos de los períodos 1 y 2. Los otros grupos de opciones son macrominerales y microminerales." },
